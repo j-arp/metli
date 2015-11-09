@@ -1,0 +1,30 @@
+<%= form_for([:manage, @story]) do |f| %>
+  <% if @story.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@story.errors.count, "error") %> prohibited this story from being saved:</h2>
+
+      <ul>
+      <% @story.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :active %><br>
+    <%= f.check_box :active %>
+  </div>
+  <div class="field">
+    <%= f.label :taxonomy %><br>
+    <%= f.text_area :taxonomy %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+    <%= link_to 'Back', manage_stories_path %>
+  </div>
+<% end %>

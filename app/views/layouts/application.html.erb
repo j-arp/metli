@@ -7,8 +7,25 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<header>
+  <h1>Adventurs</h1>
+</header>
 
+<main>
+<% if flash[:message] %>
+  <p><%= flash[:message] %></p>
+<% end %>
 <%= yield %>
+</main>
 
+<footer>
+  <p>
+    <% if session[:user_id] %>
+      <%= link_to 'Logout', logout_path %>
+    <% else %>
+      <%= link_to 'Login', login_path %>
+    <% end %>
+  </p>
+</footer>
 </body>
 </html>

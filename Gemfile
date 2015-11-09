@@ -16,12 +16,25 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'foundation-rails'
+# Use jquery as the JavaScript library
+gem 'jquery-ui-rails'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+
+
+gem 'draper'
+gem 'carrierwave'
+gem 'mini_magick'
+
+gem 'ckeditor', :git => 'https://github.com/galetahub/ckeditor.git'
+gem "font-awesome-rails"
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -31,6 +44,30 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+group :development do
+  gem 'better_errors'
+  gem 'quiet_assets'
+  gem 'oppsie', :git => 'git://github.com/mcob/oppsie.git', :branch => 'edge'
+  gem 'spring'
+  gem 'meta_request'
+end
+
+group :test do
+  gem 'sqlite3'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'guard-rspec'
+  gem 'growl'
+  gem 'ruby-prof'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'resque_spec'
+  gem 'rspec-activemodel-mocks'
+  gem "factory_girl_rails", "~> 4.0"
+  gem 'faker'
+  gem 'rspec-rails'
+  gem 'simplecov'
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

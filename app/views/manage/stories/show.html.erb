@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @story.name %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @story.active %>
+</p>
+
+<p>
+  <strong>Taxonomy:</strong>
+  <%= @story.taxonomy %>
+</p>
+
+<%= link_to 'Edit', edit_manage_story_path(@story) %> |
+<%= link_to 'Back', manage_stories_path %>

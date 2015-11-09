@@ -1,4 +1,19 @@
 Rails.application.routes.draw do
+
+  get '/account' => 'account#index', as: :account
+  get '/login' => 'account#login', as: :login
+  post '/login' => 'account#process_login', as: :process_login
+  get '/logout' => 'account#logout', as: :logout
+
+  namespace :manage do
+    resources :chapters
+    resources :users
+    resources :users
+    resources :stories
+  end
+
+  get '/about' => 'home#index'
+  root 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
