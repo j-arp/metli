@@ -14,4 +14,12 @@ class ApplicationController < ActionController::Base
       @active_user || @active_user = User.find(session[:user_id])
     end
   end
+
+  def find_story
+    @story || @story = Story.find(params[:story_id]) if params[:story_id]
+  end
+
+  def require_login
+    redirect_to login_path unless session[:user_id]
+  end
 end

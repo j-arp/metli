@@ -11,20 +11,53 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
+  <div class="row">
+    <div class="small-12 medium-2 medium-text-right columns">
+      <%= f.label :name %>
+    </div>
+    <div class="small-12 medium-10 columns">
     <%= f.text_field :name %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :active %><br>
+
+  <div class="row">
+    <div class="small-12 medium-2 medium-text-right columns">
+
+
+    </div>
+    <div class="small-12 medium-10 columns">
     <%= f.check_box :active %>
+    <%= f.label :active, "this story is currently active" %>
+
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :taxonomy %><br>
-    <%= f.text_area :taxonomy %>
+  <div class="row">
+    <div class="small-12 medium-2 medium-text-right columns">
+      <%= f.label :taxonomy %>
+    </div>
+    <div class="small-12 medium-10 columns">
+      <%= f.text_area :taxonomy %>
+    </div>
   </div>
-  <div class="actions">
+
+  <% if @active_user.super_user? %>
+    <div class="row">
+      <div class="small-12 medium-2 medium-text-right columns">
+        <%= label_tag :author %>
+      </div>
+      <div class="small-12 medium-10 columns">
+        <%= collection_select :author, :author_id, @users, :id, :to_s, prompt: "Select a user to be author" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="small-12 medium-2 medium-text-right columns"></div>
+    <div class="small-12 medium-10 columns">
     <%= f.submit %>
     <%= link_to 'Back', manage_stories_path %>
+
+    </div>
   </div>
+
 <% end %>

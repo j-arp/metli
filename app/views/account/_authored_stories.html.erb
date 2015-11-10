@@ -1,0 +1,12 @@
+<% if @authored_stories.empty? %>
+  <p>You have not authored any stories</p>
+<% else %>
+  <ul class="no-bullets">
+    <% @authored_stories.each do  | story | %>
+      <li>
+      <%= story %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+

@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :story do
-    name "MyString"
-active false
-taxonomy "MyText"
+    name { Faker::Lorem.sentence }
+    active true
+    taxonomy "MyText"
   end
 
 end

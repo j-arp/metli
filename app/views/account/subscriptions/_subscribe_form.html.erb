@@ -1,0 +1,23 @@
+<div class="subscription_form">
+<%= form_tag account_add_subscription_path do %>
+  <%= hidden_field_tag :story_id, story.id %>
+  <div class="row  ">
+    <div class="small-12 columns">
+    <p class="story-title"><%= story %></p>
+    </div>
+    </div>
+
+    <div class="row action-panel">
+    <div class="small-4 columns text-right inline">
+      Join using
+    </div>
+    <div class="small-4 columns">
+     <%= text_field_tag :username, "", placeholder: 'username' %>
+
+    </div>
+    <div class="small-2 columns end">
+      <button class="button tiny radius"><%= fa_icon('check') %></button>
+    </div>
+  </div>
+<% end %>
+</div>

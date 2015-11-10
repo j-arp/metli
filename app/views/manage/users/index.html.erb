@@ -7,12 +7,8 @@
     <tr>
       <th>First name</th>
       <th>Last name</th>
-      <th>Username</th>
       <th>Email</th>
-      <th>Active</th>
-      <th>Author</th>
-      <th>Privileged</th>
-      <th>Story</th>
+      <th>Super User</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -22,12 +18,8 @@
       <tr>
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
-        <td><%= user.username %></td>
         <td><%= user.email %></td>
-        <td><%= user.active %></td>
-        <td><%= user.author %></td>
-        <td><%= user.privileged %></td>
-        <td><%= user.story %></td>
+        <td><%= user.super_user %></td>
         <td><%= link_to 'Show', manage_user_path(user) %></td>
         <td><%= link_to 'Edit', edit_manage_user_path(user) %></td>
         <td><%= link_to 'Destroy', manage_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>

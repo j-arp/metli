@@ -1,3 +1,32 @@
-<h1>Your Account</h1>
+<div class="row">
+  <div class="small-12 columns">
+      <h1>Your Account</h1>
+  </div>
+</div>
 
-<h3>Your Stories</h3>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+      <h3>Your Stories</h3>
+      <%= render 'authored_stories' %>
+
+      <h3>Create a Story</h3>
+      <%= render 'manage/stories/form' %>
+  </div>
+
+  <div class="small-12 medium-6 columns">
+    <h3>Subscribed Stories</h3>
+   <%= render 'subscribed_stories' %>
+
+    <h3>Available Stories</h3>
+    <ul class="no-bullets">
+      <% @available_stories.each do  | story | %>
+        <li>
+          <%= render partial: 'account/subscriptions/subscribe_form', locals: {story: story} %>
+        </li>
+      <% end %>
+    </ul>
+
+  </div>
+</div>`
+
+

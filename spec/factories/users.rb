@@ -1,13 +1,8 @@
 FactoryGirl.define do
   factory :user do
-    first_name "MyString"
-last_name "MyString"
-username "MyString"
-email "MyString"
-active false
-author false
-privileged false
-story nil
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    email { Faker::Internet.safe_email }
   end
 
 end

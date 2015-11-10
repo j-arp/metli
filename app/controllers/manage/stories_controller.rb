@@ -1,11 +1,16 @@
 module Manage
   class StoriesController < ApplicationController
     before_action :set_story, only: [:show, :edit, :update, :destroy]
+    before_action :get_users, only: [:new, :edit, :create, :update]
 
     # GET /stories
     # GET /stories.json
     def index
-      @stories = Story.all
+      if active_user.super_user?
+        @stories = Story.all
+      else
+        @stories = active_user.authored_stories
+      end
     end
 
     # GET /stories/1
@@ -29,6 +34,7 @@ module Manage
 
       respond_to do |format|
         if @story.save
+          assign_author
           format.html { redirect_to manage_story_path(@story), notice: 'Story was successfully created.' }
           format.json { render :show, status: :created, location: @story }
         else
@@ -63,9 +69,24 @@ module Manage
     end
 
     private
+
+      def assign_author
+        if active_user.super_user? && params[:author_id]
+          user = User.find(params[:author_id])
+          user.subscribe_to(@story, user.full_name, {author: true})
+        else
+          active_user.subscribe_to(@story, 'Author', {author: true})
+        end
+      end
+
       # Use callbacks to share common setup or constraints between actions.
       def set_story
         @story = Story.find(params[:id])
+      end
+
+      def get_users
+        @active_user = active_user
+        @users || @users = User.all
       end
 
       # Never trust parameters from the scary internet, only allow the white list through.
