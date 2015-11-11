@@ -18,7 +18,13 @@
           <li><a href="/">Go to site</a></li>
         </ul>
       </li>
-      <li><a href="/login">Login</a></li>
+      <li>
+        <% if session[:user_id] %>
+            <%= link_to 'Logout', logout_path %>
+          <% else %>
+            <%= link_to 'Login', login_path %>
+          <% end %>
+      </li>
     </ul>
 
     <!-- Left Nav Section -->

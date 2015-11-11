@@ -1,23 +1,38 @@
 <div class="row">
   <div class="small-12 columns">
-      <h1>Your Account</h1>
+      <h2>Your Account</h2>
   </div>
 </div>
 
+
 <div class="row">
   <div class="small-12 medium-6 columns">
-      <h3>Your Stories</h3>
-      <%= render 'authored_stories' %>
 
-      <h3>Create a Story</h3>
-      <%= render 'manage/stories/form' %>
+      <div class="row">
+        <div class="small-12 columns">
+          <h3>Your Stories</h3>
+          <%= render 'authored_stories' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 columns text-center">
+          <%= link_to raw("#{fa_icon('pencil 3x')}Create a new story"), new_manage_story_path, class: 'button success large radius' %>
+        </div>
+      </div>
+
+
   </div>
 
   <div class="small-12 medium-6 columns">
-    <h3>Subscribed Stories</h3>
+
+
+
+  <h3>Subscribed Stories</h3>
    <%= render 'subscribed_stories' %>
 
-    <h3>Available Stories</h3>
+  <h3>Available Stories</h3>
+
     <ul class="no-bullets">
       <% @available_stories.each do  | story | %>
         <li>
@@ -27,6 +42,7 @@
     </ul>
 
   </div>
-</div>`
+
+</div>
 
 

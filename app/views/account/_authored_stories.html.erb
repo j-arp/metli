@@ -4,7 +4,7 @@
   <ul class="no-bullets">
     <% @authored_stories.each do  | story | %>
       <li>
-      <%= story %>
+      <%= render partial: 'manage/stories/story', locals: {story: story, tools: true} %>
       </li>
     <% end %>
   </ul>

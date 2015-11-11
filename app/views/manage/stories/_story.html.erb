@@ -5,19 +5,19 @@
       <h3><%= story.name %></h3>
     </div>
   </div>
-  <div class="row actions collapse">
-    <div class="small-8 medium-4 columns">
-      <%= link_to "Write a chapter", new_manage_story_chapters_path(story) %>
-      <%= link_to "View Current Chapter", manage_story_chapters_path(story) %>
-    </div>
 
-    <div class="small-4 medium-2 columns text-right">
-      <ul class="inline-list">
-        <li><%= link_to fa_icon('edit 2x'), edit_manage_story_path(story) %></li>
-        <li><%= link_to fa_icon('trash 2x'), edit_manage_story_path(story) %></li>
+  <% if defined? :tools %>
+  <div class="row actions collapse">
+    <div class="small-12 columns text-right">
+      <ul class="inline-list right">
+        <li><%= link_to raw("#{fa_icon('pencil')} Write"), new_manage_story_chapter_path(story) %></li>
+        <li><%= link_to raw("#{fa_icon('clone')} View"), manage_story_chapters_path(story) %></li>
+        <li><%= link_to raw("#{fa_icon('edit 1x')} Edit"), edit_manage_story_path(story) %></li>
+        <li><%= link_to raw("#{fa_icon('trash 1x')} Delete"), edit_manage_story_path(story) %></li>
       </ul>
     </div>
   </div>
+  <% end %>
 
   <div class="row">
     <div class="small-6 columns">
@@ -36,4 +36,3 @@
   </div>
 
 </div>
-
