@@ -1,0 +1,27 @@
+
+<div class="row">
+  <div class="small-12 columns">
+    <%= user.first_name %> <%= user.last_name %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    Email: <%= user.email %>
+  </div>
+</div>
+
+<% if defined? :tools %>
+  <div class="row actions collapse">
+    <div class="small-12 columns text-right">
+      <ul class="inline-list right">
+        <li><%= link_to raw("#{fa_icon('pencil 1x')} Make Author"), '#' %></li>
+        <li><%= link_to raw("#{fa_icon('pencil 1x')} Make Privileged"), '#' %></li>
+        <li><%= link_to raw("#{fa_icon('trash 1x')} Ban"), '#' %></li>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+
+<%= debug :tools %>

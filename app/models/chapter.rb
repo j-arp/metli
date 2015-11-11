@@ -1,7 +1,8 @@
 class Chapter < ActiveRecord::Base
   belongs_to :author, class_name: 'User'
-  belongs_to :story
+  belongs_to :story, touch: true
   before_create :auto_increment_chapter_number
+
   validates :title, :content, :story, :author, presence: true
 
   def to_s

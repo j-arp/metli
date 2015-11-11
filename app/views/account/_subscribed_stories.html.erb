@@ -1,12 +1,8 @@
 <% if @subscriptions.empty? %>
   <p>You have not subscribed to any stories</p>
 <% else %>
-  <ul class="no-bullets">
     <% @subscriptions.each do  | sub | %>
-      <li>
       <%= render partial: 'account/subscriptions/unsubscribe_form', locals: {subscription: sub} %>
-      </li>
     <% end %>
-  </ul>
 <% end %>
 

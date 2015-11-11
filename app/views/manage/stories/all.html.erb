@@ -1,31 +1,36 @@
-<p id="notice"><%= notice %></p>
+<h1>All Stories</h1>
 
-<h1>Listing Stories</h1>
-
-<table>
+<table class="display full">
   <thead>
     <tr>
       <th>Name</th>
       <th>Active</th>
-      <th>Taxonomy</th>
-      <th colspan="3"></th>
+      <th>Created On</th>
+      <th>Authors</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @stories.each do |story| %>
       <tr>
-        <td><%= story.name %></td>
-        <td><%= story.active %></td>
-        <td><%= story.taxonomy %></td>
-        <td><%= link_to 'Show', manage_story_path(story) %></td>
-        <td><%= link_to 'Edit', edit_manage_story_path(story) %></td>
-        <td><%= link_to 'Destroy', manage_story_path(story), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+        <%= link_to story.name, manage_story_path(story) %></td>
+        <td><%= fa_icon('check', class: 'green') if story.active? %></td>
+        <td><%= story.created_at.strftime('%D') %></td>
+        <td>
+          <% if story.users.authors.count == 1 %>
+            <%= story.users.authors.first %>
+          <% else %>
+            <%= story.users.authors.count %> authors
+          <% end %>
+        </td>
+        <td>
+          <%= link_to raw("#{fa_icon('edit')} Edit"), edit_manage_story_path(story) %>
+          <%= link_to raw("#{fa_icon('trash')} Delete"), manage_story_path(story), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Story', new_manage_story_path %>

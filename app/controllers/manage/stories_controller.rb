@@ -1,6 +1,6 @@
 module Manage
   class StoriesController < ApplicationController
-    before_action :set_story, only: [:show, :edit, :update, :destroy]
+    before_action :set_story, only: [:show, :edit, :subscribers, :update, :destroy]
     before_action :get_users, only: [:new, :edit, :create, :update]
 
     # GET /stories
@@ -9,10 +9,13 @@ module Manage
         @stories = active_user.authored_stories
     end
 
+    def subscribers
+
+    end
+
     def all
-      if active_user.super_user?
-        @stories = Story.all
-      end
+      require_super_user_login
+      @stories = Story.all
     end
 
     # GET /stories/1
@@ -73,12 +76,7 @@ module Manage
     private
 
       def assign_author
-        if active_user.super_user? && params[:author_id]
-          user = User.find(params[:author_id])
-          user.subscribe_to(@story, user.full_name, {author: true})
-        else
-          active_user.subscribe_to(@story, 'Author', {author: true})
-        end
+        active_user.subscribe_to(@story, 'Author', {author: true})
       end
 
       # Use callbacks to share common setup or constraints between actions.

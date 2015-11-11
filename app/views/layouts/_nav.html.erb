@@ -15,6 +15,11 @@
         <a href="/account">Account</a>
         <ul class="dropdown">
           <li><a href="/manage/stories">Manage Stories</a></li>
+
+          <% if @active_user && @active_user.super_user? %>
+            <li><a href="/manage/stories/all">All Stories</a></li>
+          <% end %>
+
           <li><a href="/">Go to site</a></li>
         </ul>
       </li>

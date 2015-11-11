@@ -2,12 +2,12 @@
 
   <%= form_tag account_remove_subscription_path, method: :delete do %>
     <%= hidden_field_tag :subscription_id, subscription.id %>
-    <div class="row">
+    <div class="row collapse">
       <div class="small-10 columns">
         <p class="story-title"><%= subscription.story %></p>
       </div>
       <div class="small-2 columns">
-        <button class="button tiny radius"><%= fa_icon('close') %></button>
+        <button class="button tiny alert radius"><%= fa_icon('close') %></button>
       </div>
     </div>
   <% end %>

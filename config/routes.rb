@@ -14,7 +14,17 @@ Rails.application.routes.draw do
   namespace :manage do
     resources :users
     resources :stories do
+
+      collection do
+        get :all
+      end
+
+      member do
+        get :subscribers
+      end
+
       resources :chapters
+
     end
   end
 

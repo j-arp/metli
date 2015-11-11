@@ -1,4 +1,4 @@
-<h2>Chapters for <%= @story.title %></h2>
+<h2>Chapters for <%= @story.name %></h2>
 
     <% @chapters.each do |chapter| %>
       <%= render partial: 'excerpt', locals: {chapter: chapter} %>

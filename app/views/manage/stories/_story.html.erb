@@ -24,13 +24,15 @@
       <ul class="no-bullets" >
         <li>Active? <%= story.active %></li>
         <li>Subscribers: <%= story.users.count %></li>
-        <li>Chapters: <%= story.chapters.count %></li>
+        <li>Chapter Count: <%= link_to story.chapters.count,  manage_story_chapters_path(story) %></li>
       </ul>
     </div>
 
     <div class="small-6 columns">
-      <strong>Taxonomy:</strong>
-      <%= story.taxonomy %>
+      <% unless story.taxonomy.blank? %>
+        <strong>Taxonomy:</strong>
+        <%= story.taxonomy %>
+      <% end %>
     </div>
 
   </div>

@@ -1,23 +1,28 @@
 <div class="subscription_form">
+
 <%= form_tag account_add_subscription_path do %>
   <%= hidden_field_tag :story_id, story.id %>
-  <div class="row  ">
-    <div class="small-12 columns">
-    <p class="story-title"><%= story %></p>
-    </div>
-    </div>
 
-    <div class="row action-panel">
-    <div class="small-4 columns text-right inline">
-      Join using
+  <div class="row collapse">
+    <div class="small-10 columns">
+      <p class="story-title"><%= story %></p>
     </div>
-    <div class="small-4 columns">
-     <%= text_field_tag :username, "", placeholder: 'username' %>
-
-    </div>
-    <div class="small-2 columns end">
-      <button class="button tiny radius"><%= fa_icon('check') %></button>
+    <div class="small-2 columns">
+      <span class="show-subscribe button tiny success radius"><%= fa_icon('angle-double-down') %></span>
     </div>
   </div>
+
+
+    <div class="row action-panel collapse">
+
+      <div class="small-8 columns ">
+        <%= text_field_tag :username, "", placeholder: 'Join story with username', class: 'postfix' %>
+      </div>
+      <div class="small-2 columns end">
+        <button class="button postfix"><%= fa_icon('check') %> Join</button>
+      </div>
+    </div>
+
 <% end %>
+
 </div>
