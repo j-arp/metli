@@ -12,10 +12,10 @@ Rails.application.routes.draw do
   get '/logout' => 'account#logout', as: :logout
 
   namespace :manage do
-    resources :chapters
     resources :users
-    resources :users
-    resources :stories
+    resources :stories do
+      resources :chapters
+    end
   end
 
   get '/about' => 'home#index'

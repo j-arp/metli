@@ -6,10 +6,12 @@ module Manage
     # GET /stories
     # GET /stories.json
     def index
+        @stories = active_user.authored_stories
+    end
+
+    def all
       if active_user.super_user?
         @stories = Story.all
-      else
-        @stories = active_user.authored_stories
       end
     end
 

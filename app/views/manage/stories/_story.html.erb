@@ -1,0 +1,39 @@
+<div class="story">
+
+  <div class="row title collapse">
+    <div class="small-12 medium-12 columns">
+      <h3><%= story.name %></h3>
+    </div>
+  </div>
+  <div class="row actions collapse">
+    <div class="small-8 medium-4 columns">
+      <%= link_to "Write a chapter", new_manage_story_chapters_path(story) %>
+      <%= link_to "View Current Chapter", manage_story_chapters_path(story) %>
+    </div>
+
+    <div class="small-4 medium-2 columns text-right">
+      <ul class="inline-list">
+        <li><%= link_to fa_icon('edit 2x'), edit_manage_story_path(story) %></li>
+        <li><%= link_to fa_icon('trash 2x'), edit_manage_story_path(story) %></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-6 columns">
+      <ul class="no-bullets" >
+        <li>Active? <%= story.active %></li>
+        <li>Subscribers: <%= story.users.count %></li>
+        <li>Chapters: <%= story.chapters.count %></li>
+      </ul>
+    </div>
+
+    <div class="small-6 columns">
+      <strong>Taxonomy:</strong>
+      <%= story.taxonomy %>
+    </div>
+
+  </div>
+
+</div>
+

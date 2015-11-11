@@ -25,18 +25,30 @@
 
 
     </div>
-    <div class="small-12 medium-10 columns">
-    <%= f.check_box :active %>
-    <%= f.label :active, "this story is currently active" %>
+    <% if @story.persisted? %>
+        <div class="small-12 medium-10 columns">
+        <%= f.check_box :active %>
+        <%= f.label :active, "this story is currently active" %>
+        </div>
 
-    </div>
+    <% end %>>
   </div>
   <div class="row">
     <div class="small-12 medium-2 medium-text-right columns">
       <%= f.label :taxonomy %>
     </div>
-    <div class="small-12 medium-10 columns">
-      <%= f.text_area :taxonomy %>
+    <div class="small-8 medium-4 columns">
+      <%= f.text_area :taxonomy, cols: 30, rows: 10 %>
+    </div>
+
+    <div class="small-4 medium-6 columns end">
+    <p class="hint">You can name certain ascpects of your story your own specific names. You can add them, one pair per each line. You can change the second
+    term to reflect what you are wanting to appear.</p>
+    <pre>
+      user:citizen
+      story:tail
+      chapter:episode
+    </pre>
     </div>
   </div>
 
@@ -45,18 +57,16 @@
       <div class="small-12 medium-2 medium-text-right columns">
         <%= label_tag :author %>
       </div>
-      <div class="small-12 medium-10 columns">
+      <div class="small-12 medium-4 columns end">
         <%= collection_select :author, :author_id, @users, :id, :to_s, prompt: "Select a user to be author" %>
       </div>
     </div>
   <% end %>
 
   <div class="row">
-    <div class="small-12 medium-2 medium-text-right columns"></div>
-    <div class="small-12 medium-10 columns">
-    <%= f.submit %>
-    <%= link_to 'Back', manage_stories_path %>
-
+    <div class="small-12 medium-10 medium-offset-2 columns">
+    <%= f.submit class: "button" %>
+    <%= link_to 'Back', manage_stories_path, class: "button secondary" %>
     </div>
   </div>
 

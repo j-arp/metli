@@ -1,4 +1,4 @@
-<%= form_for([:manage, @chapter]) do |f| %>
+<%= form_for([:manage, @story, @chapter]) do |f| %>
   <% if @chapter.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@chapter.errors.count, "error") %> prohibited this chapter from being saved:</h2>
@@ -11,32 +11,50 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :number %><br>
-    <%= f.number_field :number %>
-  </div>
-  <div class="field">
-    <%= f.label :title %><br>
+  <div class="row">
+    <div class="small-12 medium-2 columns medium-text-right">
+    <%= f.label :title %>
+    </div>
+    <div class="small-12 medium-10 columns">
     <%= f.text_field :title %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
+
+
+  <div class="row">
+    <div class="small-12 medium-2 columns medium-text-right">
+    <%= f.label :content %>
+    </div>
+    <div class="small-12 medium-10 columns">
+    <%= f.text_area :content, rows: 30  %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :published_on %><br>
-    <%= f.date_select :published_on %>
+
+
+  <div class="row">
+    <div class="small-12 medium-2 columns medium-text-right">
+    <%= f.label :published_on, "Publish On" %>
+    </div>
+    <div class="small-12 medium-10 columns">
+    <%= f.date_select :published_on, with_css_classes: true %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :author_id %><br>
-    <%= f.text_field :author_id %>
+
+
+  <div class="row">
+    <div class="small-12 medium-2 columns medium-text-right">
+    </div>
+    <div class="small-12 medium-10 columns">
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :story_id %><br>
-    <%= f.text_field :story_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-    <%= link_to 'Back', chapters_path %>
+
+
+  <div class="row">
+
+
+    <div class="small-12 medium-10 medium-offset-2 columns">
+    <%= f.submit class: 'button' %>
+    <%= link_to 'Back', manage_story_chapters_path, class: 'button secondary' %>
+    </div>
   </div>
 <% end %>
