@@ -1,3 +1,24 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h2>Subscribers to "<%= @story.name %>"</h2>
+
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="small-12 columns">
 <% @story.users.each do | user | %>
   <%= render user %>
 <% end %>
+
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="small-12 columns medium-text-right">
+    <%= link_to 'Back to Story', manage_story_path(@story), class: 'button secondary radius' %>
+  </div>
+</div>
+
