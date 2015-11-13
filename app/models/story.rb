@@ -8,6 +8,8 @@ class Story < ActiveRecord::Base
 
   scope :available_for, -> (user) { where.not(id: user.stories.map(&:id)) }
 
+  has_permalink :name
+
   def to_s
     name
   end

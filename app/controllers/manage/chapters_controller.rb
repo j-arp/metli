@@ -32,7 +32,7 @@ module Manage
 
       respond_to do |format|
         if @chapter.save
-          format.html { redirect_to manage_story_chapters_path(@story, @chapter), notice: 'Chapter was successfully created.' }
+          format.html { redirect_to manage_story_chapter_path(@chapter.story, @chapter), notice: 'Chapter was successfully created.' }
           format.json { render :show, status: :created, location: @chapter }
         else
           format.html { render :new }
@@ -46,7 +46,7 @@ module Manage
     def update
       respond_to do |format|
         if @chapter.update(chapter_params)
-          format.html { redirect_to manage_story_chapters_path(@story, @chapter), notice: 'Chapter was successfully updated.' }
+          format.html { redirect_to manage_story_chapter_path(@story, @chapter), notice: 'Chapter was successfully updated.' }
           format.json { render :show, status: :ok, location: @chapter }
         else
           format.html { render :edit }
@@ -72,7 +72,7 @@ module Manage
       end
 
       def set_story
-        @story = Story.find(params[:story_id])
+        @story = Story.find_by_permalink(params[:story_id])
       end
 
       # Never trust parameters from the scary internet, only allow the white list through.

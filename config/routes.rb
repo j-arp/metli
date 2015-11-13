@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  mount Ckeditor::Engine => '/ckeditor'
   namespace :account do
     get 'subscriptions' => 'subscriptions#index', as: :subscriptions
     post 'subscriptions' => 'subscriptions#add', as: :add_subscription

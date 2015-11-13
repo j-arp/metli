@@ -81,7 +81,7 @@ module Manage
 
       # Use callbacks to share common setup or constraints between actions.
       def set_story
-        @story = Story.find(params[:id])
+        @story = Story.find_by_permalink(params[:id])
       end
 
       def get_users

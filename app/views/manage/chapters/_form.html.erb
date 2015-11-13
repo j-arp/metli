@@ -1,3 +1,18 @@
+<style type="text/css" media="screen">
+    body {
+        overflow: hidden;
+    }
+    #editor {
+        margin: 0;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 400px;
+        right: 0;
+    }
+  </style>
+
 <%= form_for([:manage, @story, @chapter]) do |f| %>
   <% if @chapter.errors.any? %>
     <div id="error_explanation">
@@ -25,18 +40,21 @@
     <div class="small-12 medium-2 columns medium-text-right">
     <%= f.label :content %>
     </div>
+
+
     <div class="small-12 medium-10 columns">
-    <%= f.text_area :content, rows: 30  %>
+      <%= f.cktext_area :content, :ckeditor => {:toolbar => 'mini'} %>
     </div>
-  </div>
+
+    </div>
 
 
   <div class="row">
     <div class="small-12 medium-2 columns medium-text-right">
     <%= f.label :published_on, "Publish On" %>
     </div>
-    <div class="small-12 medium-10 columns">
-    <%= f.date_select :published_on, with_css_classes: true %>
+    <div class="small-12 medium-3 columns end">
+    <%= f.text_field :published_on, with_css_classes: true, type: 'date' %>
     </div>
   </div>
 

@@ -7,14 +7,31 @@
     <span class="chapter-number"><%= @chapter.number %>: </span>
     <%= @chapter.title %>
   </h3>
-
-  by <%= @chapter.author.full_name %>
   </div>
 </div>
 
+
+
+
+  <div class="row actions collapse" >
+    <div class="small-12 columns text-right">
+      <%= link_to raw(" #{fa_icon('edit')} Edit"), edit_manage_story_chapter_path(@chapter.story, @chapter), class: 'button no-pad tiny radius' %>
+      <%= link_to raw(" #{fa_icon('mail-reply')} Back"), manage_story_chapters_path(@chapter.story), class: 'button no-pad secondary tiny radius' %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="small-12 columns">
+      by <%= @chapter.author.full_name %>
+    </div>
+  </div>
+
+
+
 <div class="row">
   <div class="small-12 columns">
-    <%= @chapter.content %>
+    <%=raw @chapter.content %>
   </div>
 </div>
 
@@ -32,5 +49,3 @@
 Story: <%= @chapter.story %>
 </p>
 
-<%= link_to 'Edit', edit_manage_chapter_path(@chapter) %> |
-<%= link_to 'Back', manage_chapters_path %>

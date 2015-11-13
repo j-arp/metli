@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110001015) do
+ActiveRecord::Schema.define(version: 20151113193521) do
+
+  create_table "actions", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "call_to_action_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "actions", ["call_to_action_id"], name: "index_actions_on_call_to_action_id"
+
+  create_table "call_to_actions", force: :cascade do |t|
+    t.string   "call"
+    t.integer  "chapter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "call_to_actions", ["chapter_id"], name: "index_call_to_actions_on_chapter_id"
 
   create_table "chapters", force: :cascade do |t|
     t.integer  "number"
@@ -27,13 +45,33 @@ ActiveRecord::Schema.define(version: 20151110001015) do
   add_index "chapters", ["author_id"], name: "index_chapters_on_author_id"
   add_index "chapters", ["story_id"], name: "index_chapters_on_story_id"
 
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable"
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type"
+
   create_table "stories", force: :cascade do |t|
     t.string   "name"
     t.boolean  "active"
     t.text     "taxonomy"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "slug"
+    t.string   "permalink"
   end
+
+  add_index "stories", ["permalink"], name: "index_stories_on_permalink"
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "story_id"
