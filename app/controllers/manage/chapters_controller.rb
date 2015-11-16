@@ -17,10 +17,12 @@ module Manage
     # GET /chapters/new
     def new
       @chapter = Chapter.new
+      @cal_to_action = CallToAction.new
     end
 
     # GET /chapters/1/edit
     def edit
+      @call_to_action = @chapter.call_to_action
     end
 
     # POST /chapters
@@ -44,15 +46,16 @@ module Manage
     # PATCH/PUT /chapters/1
     # PATCH/PUT /chapters/1.json
     def update
-      respond_to do |format|
-        if @chapter.update(chapter_params)
-          format.html { redirect_to manage_story_chapter_path(@story, @chapter), notice: 'Chapter was successfully updated.' }
-          format.json { render :show, status: :ok, location: @chapter }
-        else
-          format.html { render :edit }
-          format.json { render json: @chapter.errors, status: :unprocessable_entity }
-        end
-      end
+      render json: params[:calls_to_action]
+      # respond_to do |format|
+      #   if @chapter.update(chapter_params)
+      #     format.html { redirect_to manage_story_chapter_path(@story, @chapter), notice: 'Chapter was successfully updated.' }
+      #     format.json { render :show, status: :ok, location: @chapter }
+      #   else
+      #     format.html { render :edit }
+      #     format.json { render json: @chapter.errors, status: :unprocessable_entity }
+      #   end
+      # end
     end
 
     # DELETE /chapters/1

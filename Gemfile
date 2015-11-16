@@ -54,7 +54,6 @@ group :development do
 end
 
 group :test do
-  gem 'sqlite3'
   gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-rspec'
   gem 'growl'
