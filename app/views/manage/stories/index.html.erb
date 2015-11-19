@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="small-12 columns">
-    <%= render @stories, locals: {tools: true} unless @stories.empty? %>
+    <%= render partial: @stories, locals: {tools: true} unless @stories.empty? %>
 
     <% if @stories.empty? %>
       <p><%= link_to 'Create your first story', new_manage_story_path %> and invite people to join!</p>
