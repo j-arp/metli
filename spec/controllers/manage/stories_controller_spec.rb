@@ -50,6 +50,12 @@ RSpec.describe Manage::StoriesController, type: :controller do
         }.to change(Story, :count).by(1)
       end
 
+      it "sets it as active" do
+        post :create, {:story => valid_attributes}, valid_session
+        expect(assigns(:story)).to be_active
+
+      end
+
       it "assigns a newly created story as @story" do
         post :create, {:story => valid_attributes}, valid_session
         expect(assigns(:story)).to be_a(Story)

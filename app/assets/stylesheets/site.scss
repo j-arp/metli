@@ -6,10 +6,6 @@ nav { border-radius: 8px}
 .no-bullets {list-style-type: none}
 
 
-
-label {font-weight: bold; font-size: 1.3em}
-select.year, select.month, select.day {width: 30%}
-
 .icon-link {margin-right: 10px}
 
 table.display { border-spacing: 0px }
@@ -18,7 +14,8 @@ table.full {  width:100% }
 .green {color:#43AC6A}
 
 
-
+.profile-image {width:45px}
+.profile-image.large {width:296px}
 
 .no-pad {margin:0px}
 

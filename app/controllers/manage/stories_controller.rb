@@ -36,6 +36,7 @@ module Manage
     # POST /stories.json
     def create
       @story = Story.new(story_params)
+      @story.active = true
 
       respond_to do |format|
         if @story.save

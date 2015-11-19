@@ -4,6 +4,72 @@ require 'support/user_with_supscriptions_context'
 RSpec.describe AccountController, type: :controller do
   include_context "user_with_supscriptions"
 
+
+
+
+  describe 'GET #callback' do
+
+    before(:each) do
+      request.env["omniauth.auth"] = {}
+      request.env["omniauth.auth"][:info] = {
+        email: 'jesse@arp.net',
+        first_name: 'Jesse',
+        last_name: 'Arpo',
+        image: 'http://images.com/jesse.png'
+      }
+    end
+
+    it "finds user based on email address" do
+      user = FactoryGirl.create(:user, {email: 'jesse@arpcentral.net'})
+      request.env["omniauth.auth"][:info][:email] = user.email
+      get :callback, {provider: 'google'}, {}
+      expect(assigns(:user)).to eq user
+    end
+
+
+    it "finds user based on email address and updates name" do
+      user = FactoryGirl.create(:user, {email: 'jesse@arpcentral.net'})
+      request.env["omniauth.auth"][:info][:email] = user.email
+      request.env["omniauth.auth"][:info][:first_name] = "Pooper"
+      request.env["omniauth.auth"][:info][:last_name] = "Scooper"
+      get :callback, {provider: 'google'}, {}
+      expect(assigns(:user).first_name).to eq "Pooper"
+      expect(assigns(:user).last_name).to eq "Scooper"
+    end
+
+    it "finds user based on email address and does not add them to system" do
+      user = FactoryGirl.create(:user, {email: 'jesse@arpcentral.net'})
+      request.env["omniauth.auth"][:info][:email] = user.email
+      get :callback, {provider: 'google'}, {}
+      expect {
+          get :callback, {provider: 'google'}, {}
+       }.to change{Vote.count}.by(0)
+    end
+
+
+    it "adds user to system if user is not yet added" do
+      request.env["omniauth.auth"][:info][:email] = 'jonathan@arpcentral.net'
+
+      expect {
+          get :callback, {provider: 'google'}, {}
+       }.to change{User.count}.by(1)
+    end
+
+    it "adds user to system if user updates name" do
+      request.env["omniauth.auth"][:info][:email] = 'jonathan@arpcentral.net'
+      request.env["omniauth.auth"][:info][:first_name] = "Randy"
+      request.env["omniauth.auth"][:info][:last_name] = "McNasty"
+
+      get :callback, {provider: 'google'}, {}
+
+      expect(assigns(:user).first_name).to eq "Randy"
+      expect(assigns(:user).last_name).to eq "McNasty"
+    end
+
+
+  end
+
+
   describe "GET #index" do
     it "assigns a list of stories to both subscribed and available" do
       @user.subscribe_to(@story, 'jesse')
@@ -48,7 +114,8 @@ RSpec.describe AccountController, type: :controller do
     end
 
     it "redirect to account" do
-      user = FactoryGirl.create(:user, {email: 'jesse@arp.com', author: true, story_id: @story.id})
+      user = FactoryGirl.create(:user, {email: 'jesse@arp.com'})
+      user.subscribe_to(@story, 'jesse', author:true)
       post :process_login, {email: 'jesse@arp.com'}
       expect(response).to redirect_to account_path
     end
@@ -70,5 +137,6 @@ RSpec.describe AccountController, type: :controller do
       expect(response).to redirect_to login_path
     end
   end
+
 
 end

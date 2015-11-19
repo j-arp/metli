@@ -22,7 +22,7 @@
   <div class="row">
     <div class="small-6 columns">
       <ul class="no-bullets" >
-        <li>Active? <%= story.active %></li>
+        <li>Active? <%= story.active? %></li>
         <li>Subscribers: <%= link_to story.users.count,  subscribers_manage_story_path(story) %></li>
         <li>Chapter Count: <%= link_to story.chapters.count,  manage_story_chapters_path(story) %></li>
       </ul>
