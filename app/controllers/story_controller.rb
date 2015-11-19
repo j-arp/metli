@@ -19,7 +19,8 @@ class StoryController < ActiveUsersController
   end
 
   def set_current_story_id
-    session[:current_story_id] = params[:id]
+    session[:current_story_id] = params[:id] if params[:id]
+    session[:current_story_id] = Story.find_by_permalink(params[:story]).id if params[:story]
     redirect_to story_path
   end
 

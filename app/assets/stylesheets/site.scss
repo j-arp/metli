@@ -14,8 +14,9 @@ table.full {  width:100% }
 .green {color:#43AC6A}
 
 
-.profile-image {width:45px}
-.profile-image.large {width:296px}
+.profile-image, img.profile {width:45px}
+img.profile.medium {width:296px}
+img.profile.large {width:148px}
 
 .no-pad {margin:0px}
 

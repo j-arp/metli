@@ -2,11 +2,16 @@
 
   <%= form_tag account_remove_subscription_path, method: :delete do %>
     <%= hidden_field_tag :subscription_id, subscription.id %>
-    <div class="row collapse">
-      <div class="small-10 columns">
-        <p class="story-title"><%= subscription.story %></p>
+    <div class="row collapse story">
+      <div class="small-8 medium-12 columns">
+        <p class="title">"<%= subscription.story %>"</p>
+        <p class="subscription"><i>subscribed to as <%= subscription.username %></i></p>
+        <p class="subscription"></p>
       </div>
-      <div class="small-2 columns">
+      <div class="small-2 medium-3 columns large-2 right">
+        <%= link_to fa_icon('arrow-circle-right'), read_current_story_path(subscription.story), class: 'button tiny success radius' %>
+      </div>
+      <div class="small-2 medium-3 large-2 columns right">
         <button class="button tiny alert radius"><%= fa_icon('close') %></button>
       </div>
     </div>

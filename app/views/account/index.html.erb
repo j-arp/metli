@@ -1,15 +1,15 @@
 <div class="row">
   <div class="small-12 columns">
-      <h2>Your Account</h2>
+      <h2>Welcome <%= @user.first_name %>!</h2>
   </div>
 </div>
 
 
 <div class="row">
-  <div class="small-12 medium-6 columns">
+  <div class="small-12 medium-8 columns">
+
       <div class="row">
           <div class="small-12 columns">
-
             <%= render 'profile' %>
           </div>
         </div>
@@ -27,20 +27,17 @@
         </div>
       </div>
 
-
   </div>
 
-  <div class="small-12 medium-6 columns">
+  <div class="small-12 medium-4 columns">
 
+    <h3>Subscribed Stories</h3>
+      <%= render 'subscribed_stories' %>
 
-
-  <h3>Subscribed Stories</h3>
-    <%= render 'subscribed_stories' %>
-
-  <h3>Available Stories</h3>
-      <% @available_stories.each do  | story | %>
-          <%= render partial: 'account/subscriptions/subscribe_form', locals: {story: story} %>
-      <% end %>
+    <h3>Available Stories</h3>
+        <% @available_stories.each do  | story | %>
+            <%= render partial: 'account/subscriptions/subscribe_form', locals: {story: story} %>
+        <% end %>
 
   </div>
 

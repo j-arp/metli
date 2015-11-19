@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get 'story' => 'story#index', as: :story
   post 'story/choose' => 'story#set_current_story_id', as: :set_current_story
+  get 'story/read/:story'=> 'story#set_current_story_id', as: :read_current_story
   get 'story/choose' => 'story#choose', as: :choose_story
   get 'story/chapter/:number'  => 'story#chapter', as: :read_chapter
 

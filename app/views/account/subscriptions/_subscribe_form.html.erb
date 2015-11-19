@@ -13,15 +13,14 @@
   </div>
 
 
-    <div class="row hidden toggable collapse">
-
-      <div class="small-8 columns ">
-        <%= text_field_tag :username, "", placeholder: 'Join story with username', class: 'postfix' %>
-      </div>
-      <div class="small-2 columns end">
-        <button class="button postfix"><%= fa_icon('check') %> Join</button>
-      </div>
+  <div class="row hidden toggable collapse">
+    <div class="small-9 columns ">
+      <%= text_field_tag :username, "", placeholder: 'Join story with username', class: 'postfix' %>
     </div>
+    <div class="small-3 columns end">
+      <button class="button postfix"><%= fa_icon('check') %> Join</button>
+    </div>
+  </div>
 
 <% end %>
 
