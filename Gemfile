@@ -53,7 +53,6 @@ gem "omniauth-google-oauth2"
 group :development do
   gem 'better_errors'
   gem 'quiet_assets'
-  gem 'oppsie', :git => 'git://github.com/mcob/oppsie.git', :branch => 'edge'
   gem 'spring'
   gem 'meta_request'
   gem 'web-console', '~> 2.0'
