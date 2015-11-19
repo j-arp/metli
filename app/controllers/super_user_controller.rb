@@ -1,4 +1,4 @@
-class ActiveUserController < ActiveUserController
+class ActiveUserController < ActiveUsersController
   before_action :require_super_user_login
 
 end

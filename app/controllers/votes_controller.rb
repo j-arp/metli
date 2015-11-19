@@ -1,4 +1,4 @@
-class VotesController < ActiveUserController
+class VotesController < ActiveUsersController
   before_action :set_story
   before_action :set_chapter
 
