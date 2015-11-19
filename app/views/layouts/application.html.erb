@@ -11,10 +11,6 @@
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
 
-    <style type="text/css">
-      .frame {border:thin solid #ccc; background-color: #fff}
-      body {background-color: #000}
-    </style>
   </head>
 
   <body>
@@ -28,13 +24,13 @@
   <%= render 'layouts/nav' %>
 
   <main>
+
   <div class="row">
     <div class="small-12 columns">
       <% if flash[:message] %>
         <p id="message-box"><%= flash[:message] %></p>
       <% end %>
       <%= yield %>
-
     </div>
   </div>
   </main>

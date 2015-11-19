@@ -1,5 +1,20 @@
 <h2>Login</h2>
 
+<div class="row">
+  <div class="small-12 columns text-center">
+    <p>Join in the fun by login in using one of the following providers!</p>
+    <p>By loging in, you will be able to start following stories and joining in the voting process that
+    determines how the story will unfold. So much power!</p>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="small-12 columns text-center">
+    <%= link_to image_tag('login-google.png'), "/auth/google" %>
+  </div>
+</div>
+<!--
 <%= form_tag process_login_path  do %>
   <div class="row collapse">
     <div class="small-11 small-offset-1 medium-2 columns medium-text-right inline">
@@ -13,7 +28,4 @@
     </div>
   </div>
 <% end %>
-
-<%= link_to "login with google", "/auth/google" %>
-
-<%= ENV["ADVENTUR_CLIENT_ID"].inspect %>
+-->

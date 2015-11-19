@@ -3,6 +3,4 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     :name => 'google',
     :scope => 'userinfo.email'
   }
-
-  puts ENV["ADVENTUR_CLIENT_ID"]
 end
