@@ -59,8 +59,11 @@ group :development do
   gem 'web-console', '~> 2.0'
 end
 
+group :test, :darwin do
+  gem 'rb-fsevent'
+end
+
 group :test do
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-rspec'
   gem 'growl'
   gem 'ruby-prof'
