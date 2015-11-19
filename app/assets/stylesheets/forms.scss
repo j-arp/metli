@@ -1,0 +1,17 @@
+form.custom .custom.radio {
+    -webkit-border-radius: 1000px;
+    border-radius: 1000px;
+    padding: 3px;
+}
+form.custom .custom {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+    border: solid 1px #cccccc;
+    background: white;
+}
+
+.cke_contents {height:400px}

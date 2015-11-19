@@ -3,7 +3,6 @@ nav { border-radius: 8px}
 .no-bullets {list-style-type: none}
 
 
-.action-panel {font-size: .8em}
 
 label {font-weight: bold; font-size: 1.3em}
 select.year, select.month, select.day {width: 30%}
@@ -16,7 +15,30 @@ table.full {  width:100% }
 .green {color:#43AC6A}
 
 
-.row.actions {background-color: #ececec; padding:4px}
 
 
 .no-pad {margin:0px}
+
+.clipart {width: 225px; float: left; padding:10px}
+
+
+#message-box {
+    background-color: rgb(230, 233, 255);
+    padding: 10px;
+    text-align: center;
+    margin: 0px 20px 0px 20px;
+    border-radius: 0px 0px 6px 6px;
+}
+
+.row.bottom-seperator, .columns.bottom-seperator {
+  border-bottom: thin solid #f0f0f0; margin-bottom: 20px
+}
+
+
+footer {
+    color: #fff;
+    text-align: center;
+
+    a { color:#f9f9f9;}
+    a:visted {color: #f6f6f6;}
+}

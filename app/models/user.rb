@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
-  has_many :subscriptions
-  has_many :stories, through: :subscriptions
+  has_many :subscriptions, dependent: :destroy
+  has_many :stories, through: :subscriptions, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   validates :first_name, :last_name, :email, presence: true
 

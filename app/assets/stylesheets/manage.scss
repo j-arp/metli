@@ -1,0 +1,21 @@
+#editor {
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    right: 0;
+}
+
+.action-panel {font-size: .8em; background-color:#f9f9f9}
+.row.actions {background-color: #f9f9f9; padding:4px}
+.action-panel {display: none}
+
+.story {
+  padding: 10px; border-left: 2px solid;
+  h3 {border-bottom: thin solid; margin-bottom: 0px }
+  .title {margin-bottom: 0px}
+  .actions {background-color: #ececec; padding:4px}
+  ul {margin:0px}
+}

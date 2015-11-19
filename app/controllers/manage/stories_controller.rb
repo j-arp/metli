@@ -91,7 +91,7 @@ module Manage
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def story_params
-        params.require(:story).permit(:name, :active, :taxonomy)
+        params.require(:story).permit(:name, :active, :about, :taxonomy)
       end
   end
 end

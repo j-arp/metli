@@ -31,7 +31,7 @@
   <div class="row">
     <div class="small-12 columns">
       <% if flash[:message] %>
-        <p><%= flash[:message] %></p>
+        <p id="message-box"><%= flash[:message] %></p>
       <% end %>
       <%= yield %>
 
@@ -49,10 +49,8 @@
     <div class="small-12 columns">
     <p>
       <% if session[:user_id] %>
-        <%= link_to 'Logout', logout_path %>
-      <% else %>
-        <%= link_to 'Login', login_path %>
-      <% end %>
+        Logged in as <%= @active_user.email %> (User ID <%= session[:user_id] %>) | <%= link_to 'Logout', logout_path %>
+        <% end -%>
     </p>
 
     </div>

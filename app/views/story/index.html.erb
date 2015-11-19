@@ -1,0 +1,17 @@
+
+<h2><%= @current_story %></h2>
+
+<% @current_story.chapters.each do | chapter | %>
+
+<div class="row bottom-seperator">
+  <div class="small-8 medium-10 columns">
+    <h3>Chapter <%= chapter.number %>: <%= chapter.title %></h3>
+    <p><i><%= chapter.teaser %></i></p>
+    <p>Published on <%= chapter.created_at.strftime('%D') %></p>
+  </div>
+  <div class="small-4 medium-2 columns text-right">
+    <p><%= link_to raw("#{fa_icon('book')} Read"), read_chapter_path(chapter.number), class: 'button success radius' %></p>
+  </div>
+</div>
+
+<% end -%>

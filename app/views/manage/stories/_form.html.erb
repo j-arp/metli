@@ -21,9 +21,17 @@
   </div>
 
   <div class="row">
+    <div class="small-12 medium-2 columns medium-text-right">
+    <%= f.label :about %>
+    </div>
+    <div class="small-12 medium-10 columns">
+      <%= f.cktext_area :about, :ckeditor => {:toolbar => 'mini'} %>
+    </div>
+  </div>
+
+
+  <div class="row">
     <div class="small-12 medium-2 medium-text-right columns">
-
-
     </div>
     <% if @story.persisted? %>
         <div class="small-12 medium-10 columns">

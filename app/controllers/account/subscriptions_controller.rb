@@ -9,7 +9,7 @@ module Account
 
     def add
       active_user.subscribe_to(@story, params[:username])
-
+      session[:subscribed_stories] =+ @story.id
       respond_to do |format|
         if @story.save
           format.html { redirect_to account_path, notice: "You have been subscribed as #{params[:username]}" }

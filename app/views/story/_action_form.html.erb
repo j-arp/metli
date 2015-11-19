@@ -1,0 +1,25 @@
+<h3>What next?</h3>
+<%if @chapter.has_user_voted?(session[:user_id]) %>
+
+  <p>You have voted for this thing</p>
+  <%= raw(@call_to_action.chart) %>
+<% else %>
+
+<%= form_tag :vote_for_action do %>
+  <%= hidden_field_tag :chapter_id, @chapter.id %>
+  <ul class="no-bullet">
+
+    <% @chapter.actions.each do | action | %>
+      <label>
+        <li>
+          <%= radio_button_tag :action_id, action.id %>
+          <%= action.content %>
+        </li>
+      </label>
+    <% end %>
+  </ul>
+
+    <p><%= submit_tag :vote %></p>
+
+<% end %>
+<% end -%>

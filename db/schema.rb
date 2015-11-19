@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113193521) do
+ActiveRecord::Schema.define(version: 20151118211013) do
 
   create_table "actions", force: :cascade do |t|
     t.string   "content"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20151113193521) do
     t.integer  "story_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.text     "teaser"
   end
 
   add_index "chapters", ["author_id"], name: "index_chapters_on_author_id"
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 20151113193521) do
     t.datetime "updated_at", null: false
     t.string   "slug"
     t.string   "permalink"
+    t.text     "about"
   end
 
   add_index "stories", ["permalink"], name: "index_stories_on_permalink"
@@ -102,5 +104,15 @@ ActiveRecord::Schema.define(version: 20151113193521) do
   end
 
   add_index "users", ["story_id"], name: "index_users_on_story_id"
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "votable_type"
+    t.string   "votable_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
 
 end

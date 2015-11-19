@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
 
+  post 'votes' => 'votes#create', as: :vote_for_action
+
+  get 'votes/destroy'
+
+  get 'story' => 'story#index', as: :story
+  post 'story/choose' => 'story#set_current_story_id', as: :set_current_story
+  get 'story/choose' => 'story#choose', as: :choose_story
+  get 'story/chapter/:number'  => 'story#chapter', as: :read_chapter
+
   mount Ckeditor::Engine => '/ckeditor'
   namespace :account do
     get 'subscriptions' => 'subscriptions#index', as: :subscriptions

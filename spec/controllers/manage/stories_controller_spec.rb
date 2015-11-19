@@ -1,10 +1,9 @@
 require 'rails_helper'
+require 'support/user_with_supscriptions_context'
 
 RSpec.describe Manage::StoriesController, type: :controller do
+  include_context "user_with_supscriptions"
 
-  # This should return the minimal set of attributes required to create a valid
-  # Story. As you add validations to Story, be sure to
-  # adjust the attributes here as well.
   let(:valid_attributes) {
     FactoryGirl.attributes_for(:story)
   }
@@ -13,16 +12,10 @@ RSpec.describe Manage::StoriesController, type: :controller do
     {name: ''}
   }
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # StoriesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
-
   describe "GET #index" do
     it "assigns all stories as @stories" do
-      story = Story.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:stories)).to eq([story])
+      get :index, {}, valid_session.merge(user_id: @author.id)
+      expect(assigns(:stories)).to eq(@author.authored_stories)
     end
   end
 

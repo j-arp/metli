@@ -13,14 +13,17 @@ class AccountController < ApplicationController
   end
 
   def process_login
-    puts params
+
      user = User.find_by(email: params[:email])
-     puts user.inspect
 
      if user
       session[:user_id] = user.id
-      session[:managed_story_id] = user.stories.first.id if user.stories.any?
+      session[:managed_story_id] = user.authored_stories.first.id if user.authored_stories.any?
       session[:current_story_id] = user.stories.first.id if user.stories.any?
+      session[:subscribed_stories] = user.stories
+
+      user.stories.any? ? session[:subscribed_stories] = user.stories.map(&:id) : []
+
       flash[:message] = 'You have been logged in'
       redirect_to account_path
 
@@ -33,6 +36,9 @@ class AccountController < ApplicationController
 
   def logout
     session[:user_id] = nil
+    session[:managed_story_id] = nil
+    session[:current_story_id] = nil
+    session[:subscribed_stories] = nil
     flash[:message] = "You have been logged out"
     redirect_to login_path
   end

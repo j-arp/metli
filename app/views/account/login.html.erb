@@ -1,18 +1,15 @@
 <h2>Login</h2>
 
 <%= form_tag process_login_path  do %>
-  <div class="row">
-    <div class="small-4 medium-2 columns text-right inline">
+  <div class="row collapse">
+    <div class="small-11 small-offset-1 medium-2 columns medium-text-right inline">
       <%= label_tag :email, "Email", class: "inline" %>
     </div>
-    <div class="row collapse">
-      <div class="small-6 medium-4 columns inline end">
-        <%= text_field_tag :email %>
-      </div>
-      <div class="small-2 medium-2 columns end">
-        <%= button_tag :login, class: 'button postfix' %>
-      </div>
-      </div>
-
+    <div class="small-7 small-offset-1 medium-4 columns inline">
+      <%= text_field_tag :email %>
+    </div>
+    <div class="small-2 medium-2 columns end">
+      <%= button_tag :login, class: 'button postfix' %>
+    </div>
   </div>
 <% end %>

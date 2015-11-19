@@ -4,8 +4,8 @@
 <div class="row">
   <div class="small-12 columns">
   <h3>
-    <span class="chapter-number"><%= @chapter.number %>: </span>
-    <%= @chapter.title %>
+    <span class="chapter-number"><%= chapter.number %>: </span>
+    <%= chapter.title %>
   </h3>
   </div>
 </div>
@@ -15,15 +15,15 @@
 
   <div class="row actions collapse" >
     <div class="small-12 columns text-right">
-      <%= link_to raw(" #{fa_icon('edit')} Edit"), edit_manage_story_chapter_path(@chapter.story, @chapter), class: 'button no-pad tiny radius' %>
-      <%= link_to raw(" #{fa_icon('mail-reply')} Back"), manage_story_chapters_path(@chapter.story), class: 'button no-pad secondary tiny radius' %>
+      <%= link_to raw(" #{fa_icon('edit')} Edit"), edit_manage_story_chapter_path(chapter.story, chapter), class: 'button no-pad tiny radius' %>
+      <%= link_to raw(" #{fa_icon('mail-reply')} Back"), manage_story_chapters_path(chapter.story), class: 'button no-pad secondary tiny radius' %>
     </div>
   </div>
 
 
   <div class="row">
     <div class="small-12 columns">
-      by <%= @chapter.author.full_name %>
+      by <%= chapter.author.full_name %>
     </div>
   </div>
 
@@ -31,7 +31,7 @@
 
 <div class="row">
   <div class="small-12 columns">
-    <%=raw @chapter.content %>
+    <%=raw chapter.content %>
   </div>
 </div>
 
@@ -42,10 +42,17 @@
 </div>
 
 <p>
-  Published on <%= @chapter.published_on %>
+  Published on <%= chapter.published_on %>
 </p>
 
+
+
+<p>There are <%= chapter.call_to_action.actions.count %> Actions:
+<ol>
+  <% chapter.call_to_action.actions.each do | cal | %>
+    <li><%= cal.content %></li>
+  <% end %>
+</ol>
 <p>
-Story: <%= @chapter.story %>
+Story: <%= chapter.story %>
 </p>
-

@@ -1,17 +1,3 @@
-<style type="text/css" media="screen">
-    body {
-        overflow: hidden;
-    }
-    #editor {
-        margin: 0;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 400px;
-        right: 0;
-    }
-  </style>
 
 <%= form_for([:manage, @story, @chapter]) do |f| %>
   <% if @chapter.errors.any? %>
@@ -26,6 +12,18 @@
     </div>
   <% end %>
 
+<% if @chapter.persisted? %>
+  <div class="row">
+    <div class="small-12 medium-2 columns medium-text-right">
+    <%= f.label :number %>
+    </div>
+    <div class="small-12 medium-10 columns">
+    <%= f.text_field :number %>
+    </div>
+  </div>
+<% end -%>
+
+
   <div class="row">
     <div class="small-12 medium-2 columns medium-text-right">
     <%= f.label :title %>
@@ -38,15 +36,22 @@
 
   <div class="row">
     <div class="small-12 medium-2 columns medium-text-right">
+    <%= f.label :teaser %>
+    </div>
+    <div class="small-12 medium-10 columns">
+    <%= f.text_field :teaser %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="small-12 medium-2 columns medium-text-right">
     <%= f.label :content %>
     </div>
-
-
     <div class="small-12 medium-10 columns">
       <%= f.cktext_area :content, :ckeditor => {:toolbar => 'mini'} %>
     </div>
-
-    </div>
+  </div>
 
 
   <div class="row">
@@ -67,25 +72,9 @@
   </div>
 
 
-<fieldset>
-  <legend>Calls to Action</legend>
-
-  <% 4.times do | cai | %>
-    <div>
-      <div class="small-12 medium-10 medium-offset-2 columns">
-          Action: <%= text_field_tag "calls_to_action[]"  %>
-      </div>
-    </div>
-  <% end -%>
-
-
-</fieldset>
-
-
+  <%= render 'actions_form' %>
 
   <div class="row">
-
-
     <div class="small-12 medium-10 medium-offset-2 columns">
     <%= f.submit class: 'button' %>
     <%= link_to 'Back', manage_story_chapters_path, class: 'button secondary' %>
