@@ -54,7 +54,8 @@ RSpec.describe AccountController, type: :controller do
     end
 
     it 'redirects to story public view if not an author' do
-      user = FactoryGirl.create(:user, {email: 'jesse@arp.com', author: false, story_id: @story.id})
+      user = FactoryGirl.create(:user, {email: 'jesse@arp.com'})
+      user.subscribe_to(@story, 'poop-boy')
       post :process_login, {email: 'jesse@arp.com'}
       #expect(response).to redirect_to story_path(@story)
     end

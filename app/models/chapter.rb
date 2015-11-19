@@ -1,5 +1,5 @@
 class Chapter < ActiveRecord::Base
-  belongs_to :author, class_name: 'User'
+  belongs_to :author, class_name: 'User', foreign_key: 'user_id'
   belongs_to :story, touch: true
   has_one :call_to_action, dependent: :destroy
   has_many :actions, through: :call_to_action, dependent: :destroy
@@ -8,7 +8,7 @@ class Chapter < ActiveRecord::Base
 
   validates :title, :content, :story, :author, presence: true
 
-default_scope { order('created_at DESC') }
+  default_scope { order('created_at DESC') }
 
   def to_s
     title

@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20151118211013) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "actions", force: :cascade do |t|
     t.string   "content"
     t.integer  "call_to_action_id"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20151118211013) do
     t.datetime "updated_at",        null: false
   end
 
-  add_index "actions", ["call_to_action_id"], name: "index_actions_on_call_to_action_id"
+  add_index "actions", ["call_to_action_id"], name: "index_actions_on_call_to_action_id", using: :btree
 
   create_table "call_to_actions", force: :cascade do |t|
     t.string   "call"
@@ -29,22 +32,22 @@ ActiveRecord::Schema.define(version: 20151118211013) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "call_to_actions", ["chapter_id"], name: "index_call_to_actions_on_chapter_id"
+  add_index "call_to_actions", ["chapter_id"], name: "index_call_to_actions_on_chapter_id", using: :btree
 
   create_table "chapters", force: :cascade do |t|
     t.integer  "number"
     t.string   "title"
     t.text     "content"
     t.date     "published_on"
-    t.integer  "author_id"
+    t.integer  "user_id"
     t.integer  "story_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.text     "teaser"
   end
 
-  add_index "chapters", ["author_id"], name: "index_chapters_on_author_id"
-  add_index "chapters", ["story_id"], name: "index_chapters_on_story_id"
+  add_index "chapters", ["story_id"], name: "index_chapters_on_story_id", using: :btree
+  add_index "chapters", ["user_id"], name: "index_chapters_on_user_id", using: :btree
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",               null: false
@@ -59,8 +62,8 @@ ActiveRecord::Schema.define(version: 20151118211013) do
     t.datetime "updated_at"
   end
 
-  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable"
-  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type"
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
   create_table "stories", force: :cascade do |t|
     t.string   "name"
@@ -73,7 +76,7 @@ ActiveRecord::Schema.define(version: 20151118211013) do
     t.text     "about"
   end
 
-  add_index "stories", ["permalink"], name: "index_stories_on_permalink"
+  add_index "stories", ["permalink"], name: "index_stories_on_permalink", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "story_id"
@@ -86,33 +89,33 @@ ActiveRecord::Schema.define(version: 20151118211013) do
     t.datetime "updated_at",                 null: false
   end
 
-  add_index "subscriptions", ["story_id"], name: "index_subscriptions_on_story_id"
-  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id"
+  add_index "subscriptions", ["story_id"], name: "index_subscriptions_on_story_id", using: :btree
+  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "username"
     t.string   "email"
-    t.boolean  "active",     default: true
-    t.boolean  "author",     default: false
-    t.boolean  "privileged", default: false
-    t.integer  "story_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.boolean  "super_user", default: false
   end
 
-  add_index "users", ["story_id"], name: "index_users_on_story_id"
-
   create_table "votes", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "votable_type"
-    t.string   "votable_id"
+    t.integer  "votable_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
 
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
+  add_foreign_key "actions", "call_to_actions"
+  add_foreign_key "call_to_actions", "chapters"
+  add_foreign_key "chapters", "stories"
+  add_foreign_key "chapters", "users"
+  add_foreign_key "subscriptions", "stories"
+  add_foreign_key "subscriptions", "users"
+  add_foreign_key "votes", "users"
 end
