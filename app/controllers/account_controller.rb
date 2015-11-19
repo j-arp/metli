@@ -24,7 +24,7 @@ class AccountController < ApplicationController
   end
 
   def callback
-    puts "callback!!! with #{request.env["omniauth.auth"]["info"].inspect}"
+    puts ">>>>>>> callback!!! with #{request.env["omniauth.auth"]["info"].inspect}"
     info = info_from_the_google
     @user = User.where(email: info[:email]).first_or_initialize
     @user.first_name = info[:first_name]

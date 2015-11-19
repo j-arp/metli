@@ -35,6 +35,7 @@ RSpec.describe AccountController, type: :controller do
       get :callback, {provider: 'google'}, {}
       expect(assigns(:user).first_name).to eq "Pooper"
       expect(assigns(:user).last_name).to eq "Scooper"
+      expect(assigns(:user).image).to eq "http://images.com/jesse.png"
     end
 
     it "finds user based on email address and does not add them to system" do
