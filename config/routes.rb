@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get '/auth/google'
+  get '/auth/:provider/callback', to: 'account#callback'
+
   post 'votes' => 'votes#create', as: :vote_for_action
 
   get 'votes/destroy'
