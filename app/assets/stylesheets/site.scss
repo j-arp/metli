@@ -1,3 +1,5 @@
+.expanded {width:100%}
+
 .frame {border:thin solid #ccc; background-color: #fff; padding: 20px; border-radius: 8px; margin-top:20px}
 body {background-color: #000}
 
@@ -13,8 +15,10 @@ table.full {  width:100% }
 
 .green {color:#43AC6A}
 
+table {border-spacing: 0px; width:100%}
 
 .profile-image, img.profile {width:45px}
+img.profile.tiny {width:24px}
 img.profile.medium {width:296px}
 img.profile.large {width:148px}
 

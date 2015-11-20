@@ -15,17 +15,23 @@
       <li><%= link_to 'Read Stories', story_path %></li>
       <li><%= link_to 'Switch Story', choose_story_path %></li>
 
+      <% if @active_user && @active_user.super_user? %>
       <li class="has-dropdown">
-        <a href="#">My Account</a>
+        <a href="#">Admin</a>
+          <ul class="dropdown">
+            <li><a href="/manage/stories/all">Manage Stories</a></li>
+            <li><a href="/manage/users">Manage Users</a></li>
+          </ul>
+      </li>
+      <% end %>
+
+
+      <li class="has-dropdown">
+        <a href="#">Account</a>
           <ul class="dropdown">
             <li><a href="/account">Go To Account</a></li>
-            <li><a href="/manage/stories">Manage Stories</a></li>
-
-            <% if @active_user && @active_user.super_user? %>
-              <li><a href="/manage/stories/all">All Stories</a></li>
-            <% end %>
-
-            <li><a href="/">Go to site</a></li>
+            <li><a href="/manage/stories">Manage My Stories</a></li>
+            <li><a href="/manage/stories">View Profile</a></li>
           </ul>
       </li>
       <li>

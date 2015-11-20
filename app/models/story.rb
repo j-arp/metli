@@ -7,6 +7,7 @@ class Story < ActiveRecord::Base
   validates :name, uniqueness: true
 
   scope :available_for, -> (user) { where.not(id: user.stories.map(&:id)) }
+  scope :by_activity, -> { order('updated_at desc') }
 
   has_permalink :name
 

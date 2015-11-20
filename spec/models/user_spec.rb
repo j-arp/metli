@@ -7,6 +7,29 @@ RSpec.describe User, type: :model do
   }
 
 
+  describe 'scopes' do
+    before(:each) do
+      3.times do
+        FactoryGirl.create(:user)
+      end
+
+      @story = FactoryGirl.create(:story)
+      @user = User.last
+    end
+
+    it 'returns no authors cuz non exist' do
+      @user.subscribe_to(@story, 'asdf')
+      expect(User.authors).to be_empty
+
+    end
+
+    it 'returns one author' do
+      @user.subscribe_to(@story, 'asdf', author: true)
+      expect(User.authors).to_not be_empty
+
+    end
+  end
+
   context 'access rights' do
 
     it 'responds to super user' do

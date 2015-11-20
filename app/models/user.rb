@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   default_scope {order('last_name, first_name')}
   scope :active, -> { where(active:true) }
-  scope :authors, -> { where(author:true) }
+  scope :authors, -> { joins(:subscriptions).where("subscriptions.author = true") }
   scope :privileged, -> { where(privileged:true) }
 
   def to_s
