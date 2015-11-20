@@ -1,9 +1,23 @@
+nav { }
+
+
+.adventure-icon.small {height: 36px; margin:0px 10px 4px 20px }
+
+.top-bar-fixed {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0px;
+    z-index: 100;
+    opacity: 0.8;
+}
+
+
 .expanded {width:100%}
 
 .frame {border:thin solid #ccc; background-color: #fff; padding: 20px; border-radius: 8px; margin-top:20px}
 body {background-color: #000}
 
-nav { border-radius: 8px}
 
 .no-bullets {list-style-type: none}
 
