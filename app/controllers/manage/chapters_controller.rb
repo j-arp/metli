@@ -2,7 +2,15 @@ module Manage
   class ChaptersController < ApplicationController
     before_action :set_chapter, only: [:show, :edit, :update, :destroy]
     before_action :set_story
+    before_action :set_publish_date, only: [:create, :update]
 
+    def set_publish_date
+      if params[:publish] && params[:chapter][:published_on].blank?
+        params[:chapter][:published_on] = Time.now
+      elsif params[:publish].blank?
+        params[:chapter][:published_on] = nil
+      end
+    end
     # GET /chapters
     # GET /chapters.json
     def index
@@ -18,6 +26,7 @@ module Manage
     # GET /chapters/new
     def new
       @chapter = Chapter.new
+      @chapter.published_on = Time.now
       @cal_to_action = CallToAction.new
     end
 
@@ -35,9 +44,9 @@ module Manage
 
       respond_to do |format|
         if @chapter.save
-          puts "new chapter is #{@chapter.inspect} and its valid? #{@chapter.valid?}"
-          puts "story is #{@story.inspect}"
-          puts "last chapter is #{Chapter.last.inspect}"
+          # puts "new chapter is #{@chapter.inspect} and its valid? #{@chapter.valid?}"
+          # puts "story is #{@story.inspect}"
+          # puts "last chapter is #{Chapter.last.inspect}"
 
           @call_to_action = CallToAction.find_or_create_by(chapter_id: @chapter.id)
           add_new_actions
@@ -55,6 +64,20 @@ module Manage
     # PATCH/PUT /chapters/1.json
     def update
       respond_to do |format|
+        puts params.inspect
+        if params[:chapter][:published_on].blank? && @chapter.unpublish?
+          params[:chapter][:published_on] = nil
+          flash[:message] = "Your chapter has been unpublished. It may confuse your readers."
+        elsif params[:chapter][:published_on].blank? && !@chapter.unpublish?
+            flash[:message] = "Your chapter cannot be unpublished!"
+            params[:chapter][:published_on] = @chapter.published_on
+        elsif !params[:chapter][:published_on].blank?
+            #do nothing
+        else
+          params[:chapter][:published_on] = @chapter.published_on
+
+        end
+
         if @chapter.update(chapter_params)
 
           @call_to_action = CallToAction.find_or_create_by(chapter_id: @chapter.id)
@@ -74,9 +97,16 @@ module Manage
     # DELETE /chapters/1
     # DELETE /chapters/1.json
     def destroy
-      @chapter.destroy
+      if @chapter.unpublish?
+        puts "yes. chapter can be dleted"
+        @chapter.destroy
+        flash[:message] = 'Chapter has been deleted!'
+      else
+        puts "chapter can't be dleted!!!"
+        flash[:message] = 'Chapter cannot be deleted! Only the last chapter can be deleted.'
+      end
       respond_to do |format|
-        format.html { redirect_to manage_story_chapters_path(@story), notice: 'Chapter was successfully destroyed.' }
+        format.html { redirect_to manage_story_chapters_path(@story) }
         format.json { head :no_content }
       end
     end

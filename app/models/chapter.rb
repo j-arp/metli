@@ -14,6 +14,15 @@ class Chapter < ActiveRecord::Base
     title
   end
 
+  def published?
+    published_on.present?
+  end
+
+  def unpublish?
+    return true if story.chapters.where.not(published_on: nil).where('number > ?', number).count == 0
+    return false
+  end
+
   def auto_increment_chapter_number
     self.number = 1 if story.chapters.empty?
     self.number = (story.chapters.last.number += 1) unless  story.chapters.empty?

@@ -55,11 +55,22 @@
 
 
   <div class="row">
-    <div class="small-12 medium-2 columns medium-text-right">
-    <%= f.label :published_on, "Publish On" %>
-    </div>
-    <div class="small-12 medium-3 columns end">
-    <%= f.text_field :published_on, with_css_classes: true, type: 'date' %>
+
+      <div class="small-2 medium-4 medium-offset-2 columns">
+        <%= check_box_tag :publish, 1,  @chapter.published_on.present? %>
+        <%= label_tag :publish, "Publish this chapter" %>
+      </div>
+
+
+
+
+      <div id="published_on_container">
+        <div class="small-4 medium-2 columns text-right">
+          <%= f.label :published_on, "Publish On" %>
+        </div>
+        <div class="small-2 medium-4 columns">
+          <%= f.text_field :published_on, with_css_classes: true, type: 'date' %>
+        </div>
     </div>
   </div>
 
@@ -81,3 +92,26 @@
     </div>
   </div>
 <% end %>
+
+
+<script>
+  $(document).ready(function(){
+    //console.log($('input#publish'))
+    $('input#publish').on('change', function(){
+      //alert('change')
+      if ( $('input#publish').is(':checked') ){
+        var d = new Date();
+        date_string =  d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate()
+        console.log(date_string)
+        $('#chapter_published_on').attr('valueAsDate', date_string)
+        $('#published_on_container').show()
+        console.log($('#chapter_published_on'))
+      }
+      else{
+        console.log($('#chapter_published_on').val())
+        $('#published_on_container').hide()
+        $('#chapter_published_on').val('')
+      }
+    })
+  })
+</script>

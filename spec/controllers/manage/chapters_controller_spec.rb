@@ -91,6 +91,14 @@ RSpec.describe Manage::ChaptersController, type: :controller do
         expect(@chapter.title).to eq 'new chapter title'
       end
 
+      it "does not update published attribute if not the last published chapter" do
+        @new_chapter = FactoryGirl.create(:chapter, {story_id: @chapter.story_id, number: 1000})
+        put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param.merge(published_on: nil), :chapter => new_attributes}, valid_author_session
+        @chapter.reload
+        expect(@chapter).to be_published
+      end
+
+
       it "assigns the requested chapter as @chapter" do
         put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => valid_attributes}, valid_author_session
         expect(assigns(:chapter)).to eq(@chapter)
@@ -122,7 +130,15 @@ RSpec.describe Manage::ChaptersController, type: :controller do
       }.to change(Chapter, :count).by(-1)
     end
 
+    it "can't destroys the requested chapter if not the last chapter" do
+      utter_chapter = FactoryGirl.create(:chapter, {story_id: @chapter.story.id, number: 11})
+      expect {
+        delete :destroy, {story_id: @chapter.story.permalink, :id => @chapter.to_param}, valid_author_session
+      }.to change(Chapter, :count).by(0)
+    end
+
     it "redirects to the chapters list" do
+      @new_chapter = FactoryGirl.create(:chapter, {story_id: @chapter.story_id})
       delete :destroy, {story_id: @chapter.story.permalink, :id => @chapter.to_param}, valid_author_session
       expect(response).to redirect_to(manage_story_chapters_path)
     end
