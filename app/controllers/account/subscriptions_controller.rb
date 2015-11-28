@@ -5,6 +5,8 @@ module Account
 
 
     def index
+      user = User.find_by(email: 'jearpster@gmail.com')
+      NotifierMailer.welcome(user).deliver_now
     end
 
     def add

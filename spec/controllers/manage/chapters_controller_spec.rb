@@ -93,7 +93,7 @@ RSpec.describe Manage::ChaptersController, type: :controller do
 
       it "does not update published attribute if not the last published chapter" do
         @new_chapter = FactoryGirl.create(:chapter, {story_id: @chapter.story_id, number: 1000})
-        put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param.merge(published_on: nil), :chapter => new_attributes}, valid_author_session
+        put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => new_attributes.merge(published_on: nil)}, valid_author_session
         @chapter.reload
         expect(@chapter).to be_published
       end
@@ -123,8 +123,49 @@ RSpec.describe Manage::ChaptersController, type: :controller do
     end
   end
 
+  describe "Notify" do
+
+    it "notifies subscribers if chapter is being published on #update" do
+      @chapter.published_on = nil
+      @chapter.save
+
+      expect {
+        put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes}, valid_author_session
+              }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+
+    it "skips notification if chapter already has been published on #update" do
+      @chapter.published_on = Time.now
+      @chapter.save
+
+      expect {
+        put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes}, valid_author_session
+      }.to change { ActionMailer::Base.deliveries.count }.by(0)
+    end
+
+
+    it "notifies subscribers if chapter has been published on #create" do
+      @chapter.published_on = nil
+      @chapter.save
+
+      expect {
+        post :create, {story_id: @story.permalink, :publish => 1,  :chapter => FactoryGirl.attributes_for(:chapter, {story_id: @story.id, published_on: "2015/3/23"})}, valid_author_session
+              }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+
+  end
+
+
+
   describe "DELETE #destroy" do
+
+    before(:each) do
+      @story = FactoryGirl.create(:story)
+      @chapter = FactoryGirl.create(:chapter, {story_id: @story.id})
+    end
+
     it "destroys the requested chapter" do
+      puts @chapter.story.chapters.inspect
       expect {
         delete :destroy, {story_id: @chapter.story.permalink, :id => @chapter.to_param}, valid_author_session
       }.to change(Chapter, :count).by(-1)
@@ -135,6 +176,7 @@ RSpec.describe Manage::ChaptersController, type: :controller do
       expect {
         delete :destroy, {story_id: @chapter.story.permalink, :id => @chapter.to_param}, valid_author_session
       }.to change(Chapter, :count).by(0)
+      utter_chapter.destroy
     end
 
     it "redirects to the chapters list" do

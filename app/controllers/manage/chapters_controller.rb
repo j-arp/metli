@@ -4,13 +4,6 @@ module Manage
     before_action :set_story
     before_action :set_publish_date, only: [:create, :update]
 
-    def set_publish_date
-      if params[:publish] && params[:chapter][:published_on].blank?
-        params[:chapter][:published_on] = Time.now
-      elsif params[:publish].blank?
-        params[:chapter][:published_on] = nil
-      end
-    end
     # GET /chapters
     # GET /chapters.json
     def index
@@ -20,7 +13,6 @@ module Manage
     # GET /chapters/1
     # GET /chapters/1.json
     def show
-      puts @chapter
     end
 
     # GET /chapters/new
@@ -38,6 +30,7 @@ module Manage
     # POST /chapters
     # POST /chapters.json
     def create
+      puts params.inspect
       @chapter = Chapter.new(chapter_params)
       @chapter.story = @story
       @chapter.author = active_user
@@ -50,6 +43,8 @@ module Manage
 
           @call_to_action = CallToAction.find_or_create_by(chapter_id: @chapter.id)
           add_new_actions
+          puts "is chapter publsihed? #{@chapter.published?}"
+          notify if @chapter.published?
 
           format.html { redirect_to manage_story_chapter_path(@chapter.story, @chapter), notice: 'Chapter was successfully created.' }
           format.json { render :show, status: :created, location: @chapter }
@@ -63,8 +58,8 @@ module Manage
     # PATCH/PUT /chapters/1
     # PATCH/PUT /chapters/1.json
     def update
+
       respond_to do |format|
-        puts params.inspect
         if params[:chapter][:published_on].blank? && @chapter.unpublish?
           params[:chapter][:published_on] = nil
           flash[:message] = "Your chapter has been unpublished. It may confuse your readers."
@@ -75,13 +70,13 @@ module Manage
             #do nothing
         else
           params[:chapter][:published_on] = @chapter.published_on
-
         end
 
         if @chapter.update(chapter_params)
 
           @call_to_action = CallToAction.find_or_create_by(chapter_id: @chapter.id)
 
+          notify if @chapter.published? && !@published_status
           add_new_actions
           update_previous_actions
 
@@ -98,7 +93,6 @@ module Manage
     # DELETE /chapters/1.json
     def destroy
       if @chapter.unpublish?
-        puts "yes. chapter can be dleted"
         @chapter.destroy
         flash[:message] = 'Chapter has been deleted!'
       else
@@ -115,6 +109,7 @@ module Manage
       # Use callbacks to share common setup or constraints between actions.
       def set_chapter
         @chapter = Chapter.find(params[:id])
+        @published_status = @chapter.published_on.blank? ? false : true
       end
 
       def set_story
@@ -124,6 +119,20 @@ module Manage
       # Never trust parameters from the scary internet, only allow the white list through.
       def chapter_params
         params.require(:chapter).permit(:number, :title, :content, :published_on, :teaser,  :author_id, :story_id)
+      end
+
+      def set_publish_date
+        if params[:publish] && params[:chapter][:published_on].blank?
+          params[:chapter][:published_on] = Time.now
+        elsif params[:publish].blank?
+          params[:chapter][:published_on] = nil
+        end
+      end
+
+      def notify
+        @story.users.each do | user |
+          NotifierMailer.new_chapter(@chapter, user).deliver_now
+        end
       end
 
       def add_new_actions
