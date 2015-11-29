@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   namespace :account do
     get 'subscriptions' => 'subscriptions#index', as: :subscriptions
     post 'subscriptions' => 'subscriptions#add', as: :add_subscription
+    post 'subscriptions/:id' => 'subscriptions#update', as: :update_subscription
     delete 'subscriptions' => 'subscriptions#remove', as: :remove_subscription
   end
 

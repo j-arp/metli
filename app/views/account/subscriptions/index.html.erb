@@ -1,1 +1,18 @@
-yo!
+<% @subscriptions.each  do | sub | %>
+  <div class="row">
+    <div class="small-12 columns">
+      <h2><%= sub.story.name %></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <%= form_tag account_update_subscription_path(sub) do %>
+        <h3>Settings</h3>
+        <%= check_box_tag :send_email, 1, sub.send_email %>
+        <%= label_tag :send_email, "Receive Email Notifications for this story" %>
+        <%= submit_tag "Update", class: 'button tiny radius' %>
+
+      <% end %>
+    </div>
+  </div>
+<% end %>

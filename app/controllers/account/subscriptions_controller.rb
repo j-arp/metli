@@ -5,8 +5,8 @@ module Account
 
 
     def index
-      user = User.find_by(email: 'jearpster@gmail.com')
-      NotifierMailer.welcome(user).deliver_now
+      @subscriptions = active_user.subscriptions
+      #NotifierMailer.welcome(user).deliver_now
     end
 
     def add
@@ -21,6 +21,14 @@ module Account
           format.json { render json: params, status: :unprocessable_entity }
         end
       end
+    end
+
+    def update
+      puts params
+      @subscription = active_user.subscriptions.find(params[:id])
+      @subscription.update(send_email: params[:send_email])
+      flash[:message] = "Settings for #{@subscription.story.name} have been updated"
+      redirect_to account_subscriptions_path
     end
 
     def remove

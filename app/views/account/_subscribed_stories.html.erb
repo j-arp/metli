@@ -4,5 +4,9 @@
     <% @subscriptions.each do  | sub | %>
       <%= render partial: 'account/subscriptions/unsubscribe_form', locals: {subscription: sub} %>
     <% end %>
+    <div class="row">
+      <div class="small-12 columns text-right">
+        <p> <%= link_to "Manage all your subscriptions", account_subscriptions_path %></p>
+      </div>
+    </div>
 <% end %>
-
