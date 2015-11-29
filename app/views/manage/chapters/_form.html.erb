@@ -69,7 +69,7 @@
           <%= f.label :vote_end_date, "Voting ends after:" %>
         </div>
         <div class="small-2 medium-4 columns">
-          <%= select_tag :voting_ends_after, options_for_select(@vote_end_options.collect {|p| [p,p] }) %> 
+          <%= select_tag :voting_ends_after, options_for_select(@vote_end_options.collect {|p| [p,p] }) %>
         </div>
     </div>
   </div>
@@ -92,26 +92,3 @@
     </div>
   </div>
 <% end %>
-
-
-<script>
-  $(document).ready(function(){
-    //console.log($('input#publish'))
-    $('input#publish').on('change', function(){
-      //alert('change')
-      if ( $('input#publish').is(':checked') ){
-        var d = new Date();
-        date_string =  d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate()
-        console.log(date_string)
-        $('#chapter_published_on').attr('valueAsDate', date_string)
-        $('#published_on_container').show()
-        console.log($('#chapter_published_on'))
-      }
-      else{
-        console.log($('#chapter_published_on').val())
-        $('#published_on_container').hide()
-        $('#chapter_published_on').val('')
-      }
-    })
-  })
-</script>
