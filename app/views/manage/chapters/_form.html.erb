@@ -66,10 +66,10 @@
 
       <div id="published_on_container">
         <div class="small-4 medium-2 columns text-right">
-          <%= f.label :published_on, "Publish On" %>
+          <%= f.label :vote_end_date, "Voting ends after:" %>
         </div>
         <div class="small-2 medium-4 columns">
-          <%= f.text_field :published_on, with_css_classes: true, type: 'date' %>
+          <%= select_tag :voting_ends_after, options_for_select(@vote_end_options.collect {|p| [p,p] }) %> 
         </div>
     </div>
   </div>

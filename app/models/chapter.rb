@@ -31,6 +31,4 @@ class Chapter < ActiveRecord::Base
   def has_user_voted?(user_id)
     actions.joins(:votes).where('votes.user_id = ?', user_id).present?
   end
-
-
 end
