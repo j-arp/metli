@@ -15,5 +15,3 @@ test:
 
 production:
   <<: *default
-  database: adventur
-  username: adventur_app_user
