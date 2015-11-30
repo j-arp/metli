@@ -1,4 +1,5 @@
 <h3>What next?</h3>
+<p>Voting ends at midnight on <%= @chapter.vote_ends_on.strftime('%D') %></p>
 <%if @chapter.has_user_voted?(session[:user_id]) %>
 
   <p>You have voted for this thing</p>

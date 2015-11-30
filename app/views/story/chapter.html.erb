@@ -1,4 +1,5 @@
-<h2><%= @chapter.title %></h2>
+<%= render partial: 'nav',  locals: {title: "Chapter #{@chapter.number}:#{@chapter.title}", links: %w(back switch)} %>
+
 <%= raw(@chapter.content) %>
 
 

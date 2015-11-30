@@ -1,5 +1,5 @@
 
-<h2><%= @current_story %></h2>
+<%= render partial: 'nav', locals: {title: "Story", links: %w(switch) } %>
 
 <% @current_story.chapters.each do | chapter | %>
 

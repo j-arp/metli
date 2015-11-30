@@ -11,7 +11,9 @@ module Account
 
     def add
       active_user.subscribe_to(@story, params[:username])
-      session[:subscribed_stories] =+ @story.id
+      new_ids = session[:subscribed_stories].split(',')
+      new_ids << @story.id
+      session[:subscribed_stories] = new_ids.join(',')
       respond_to do |format|
         if @story.save
           format.html { redirect_to account_path, notice: "You have been subscribed as #{params[:username]}" }
@@ -32,8 +34,20 @@ module Account
     end
 
     def remove
-      @subscription = Subscription.find(params[:subscription_id])
-      @subscription.destroy
+      begin
+        @subscription = active_user.subscriptions.find(params[:subscription_id])
+      rescue => e
+        puts e
+      end
+
+      ids = session[:subscribed_stories].to_s.split(',')
+      if ids.present?
+        puts ids.inspect
+        ids.reject! { |s| s == @subscription.story_id.to_s }
+        puts ids.inspect
+        session[:subscribed_stories] = ids.join(',')
+      end
+      @subscription.destroy if @subscription
       redirect_to account_path
     end
 

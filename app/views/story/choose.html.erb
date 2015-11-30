@@ -1,18 +1,18 @@
-<h1>Stories</h1>
+<%= render partial: 'nav',  locals: {title: "Stories", links: %w(back)} %>
 
 <p>You have joined the following stories</p>
 
 
 <% @subscribed_stories.each do | story | %>
-<%= form_tag :set_current_story do %>
-<%= hidden_field_tag :id, story.id %>
-<div class="row">
-  <div class="small-12 medium 8 columns">
-    <h3><%= story.name %></h3>
+  <%= form_tag :set_current_story do %>
+  <%= hidden_field_tag :id, story.id %>
+  <div class="row">
+    <div class="small-12 medium 8 columns">
+      <h3><%= story.name %></h3>
+    </div>
+    <div class="small-12 medium-4 text-right columns">
+      <%= submit_tag 'Read', class: 'button' %>
+    </div>
   </div>
-  <div class="small-12 medium-4 text-right columns">
-    <%= submit_tag 'Read', class: 'button' %>
-  </div>
-</div>
 <% end -%>
 <% end -%>
