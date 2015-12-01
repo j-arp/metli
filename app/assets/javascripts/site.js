@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  console.log('hey-oh!')
   nav_loc =  $('nav').offset().top
 
   $(window).scroll(function () {

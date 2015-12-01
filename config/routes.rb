@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   namespace :account do
     get 'subscriptions' => 'subscriptions#index', as: :subscriptions
+    get 'subscriptions/available' => 'subscriptions#available', as: :available_stories
     post 'subscriptions' => 'subscriptions#add', as: :add_subscription
     post 'subscriptions/:id' => 'subscriptions#update', as: :update_subscription
     delete 'subscriptions' => 'subscriptions#remove', as: :remove_subscription

@@ -30,24 +30,18 @@
   </div>
 
   <div class="small-12 medium-4 columns">
+    <p>You are current subscribed to <%= @subscriptions.count %> stories</p>
+    <p><%= link_to 'Manage Subscriptions', account_subscriptions_path, class: 'button tiny secondary' %></p>
 
-    <h3>Subscribed Stories</h3>
-      <%= render 'subscribed_stories' %>
-    <% unless @available_stories.empty? %>
-      <h3>Available Stories</h3>
-          <% @available_stories.each do  | story | %>
-              <%= render partial: 'account/subscriptions/subscribe_form', locals: {story: story} %>
-          <% end %>
-      <% end -%>
-
+    <p>There are currently  <%= @available_stories.count %> other stories available to subscribe to.</p>
+    <p><%= link_to 'Find New Stories', account_available_stories_path, class: 'button tiny secondary' %></p>
   </div>
 
 </div>
-
-
-<h3>Session</h3>
-<ul>
-  <li>user id: <%= session[:user_id] %></li>
-  <li>subscribed ids: <%= session[:subscribed_stories] %></li>
-  <li>current id: <%= session[:current_story_id] %></li>
+<!--
+Session
+  user id: <%= session[:user_id] %>
+  subscribed ids: <%= session[:subscribed_stories] %>
+  current id: <%= session[:current_story_id] %>
 </ul>
+-->

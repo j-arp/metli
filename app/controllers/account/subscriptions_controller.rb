@@ -8,7 +8,10 @@ module Account
       @subscriptions = active_user.subscriptions
       #NotifierMailer.welcome(user).deliver_now
     end
-
+    def available
+      @available_stories = active_user.available_stories
+      #NotifierMailer.welcome(user).deliver_now
+    end
     def add
       active_user.subscribe_to(@story, params[:username])
       new_ids = session[:subscribed_stories].split(',')
@@ -16,7 +19,7 @@ module Account
       session[:subscribed_stories] = new_ids.join(',')
       respond_to do |format|
         if @story.save
-          format.html { redirect_to account_path, notice: "You have been subscribed as #{params[:username]}" }
+          format.html { redirect_to account_subscriptions_path, notice: "You have been subscribed as #{params[:username]}" }
           format.json { render :show, status: :created, location: @story }
         else
           format.html { render :new }
@@ -48,7 +51,7 @@ module Account
         session[:subscribed_stories] = ids.join(',')
       end
       @subscription.destroy if @subscription
-      redirect_to account_path
+      redirect_to account_subscriptions_path
     end
 
     private

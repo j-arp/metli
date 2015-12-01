@@ -3,21 +3,40 @@
     <div class="small-8 columns">
       <h2><%= sub.story.name %></h2>
     </div>
+
     <div class="small-4 columns">
     </div>
   </div>
   <div class="row">
     <div class="small-6 columns">
-      <%= form_tag account_update_subscription_path(sub) do %>
-        <h3>Settings</h3>
-        <%= check_box_tag :send_email, 1, sub.send_email %>
-        <%= label_tag :send_email, "Receive Email Notifications for this story" %>
-        <%= submit_tag "Update", class: 'button tiny radius' %>
-      <% end %>
+
+      <%=raw truncate_html(sub.story.about, {length: 300}) %>
+
+      <ul>
+        <li>Chatpers: <%= sub.story.chapters.count %></li>
+      </ul>
+
+      <%= render partial: 'unsubscribe_buttons_form', locals: {subscription: sub} %>
     </div>
 
     <div class="small-6 columns">
-        <%= render partial: 'unsubscribe_buttons_form', locals: {subscription: sub} %>
+
+      <div class="panel">
+            <%= form_tag account_update_subscription_path(sub) do %>
+              <%= check_box_tag :send_email, 1, sub.send_email %>
+              <%= label_tag :send_email, "Receive Email Notifications for this story" %>
+              <%= submit_tag "Update", class: 'button tiny radius' %>
+            <% end %>
+
+</div>
+
     </div>
   </div>
 <% end %>
+
+
+<div class="row">
+  <div class="small-12 columns text-right">
+    <p><%= link_to 'Find more stories to read', account_available_stories_path, class: 'button secondary' %></p>
+  </div>
+</div>
