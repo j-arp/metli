@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lora" />
     <link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= javascript_include_tag "application" %>
@@ -16,10 +17,20 @@
   </head>
 
   <body>
-  <div class="row frame">
-    <div class="small-12 columns">
+  <div class="row frame collapse">
 
+
+  <div class="row collapse">
+    <div class="logo-container">
+      <a href="/"><%= image_tag 'logo-white.svg', class: 'adventure-icon large' %></a>
+    </div>
+
+    <div class="small-9 medium-9 large-9 small-offset-3 medium-offset-3 large-offset-3 columns end">
+        <h1 class="big-header-text">What Next?</h1>
+    </div>
+  </div>
   <header>
+
   </header>
 
   <%= render 'layouts/nav' %>
@@ -39,7 +50,7 @@
 
 
 
-    </div>
+
   </div>
 
   <footer>

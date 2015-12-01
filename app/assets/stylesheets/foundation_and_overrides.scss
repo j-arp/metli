@@ -1,6 +1,7 @@
 $body-font-family: 'Lora';
 $alt-body-font-family: 'Lato';
 
+//$topbar-height: rem-calc(65);
 // Foundation by ZURB
 // foundation.zurb.com
 // Licensed under MIT Open Source
@@ -1407,10 +1408,10 @@ $button-font-family: $alt-body-font-family;
 
 // Background color for the top bar
 // $topbar-bg-color: $oil;
-// $topbar-bg: $topbar-bg-color;
+ $topbar-bg: #1D1F20;
 
 // Height and margin
-// $topbar-height: rem-calc(45);
+ $topbar-height: rem-calc(45);
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar

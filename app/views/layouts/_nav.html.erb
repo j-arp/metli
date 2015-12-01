@@ -1,8 +1,10 @@
 
+
+
 <nav class="top-bar" data-topbar role="navigation">
   <ul class="title-area">
     <li class="name">
-      <h1><a href="/"><%= image_tag 'logo-white.svg', class: 'adventure-icon medium' %>What Next?</a></h1>
+      <h1 class="site-header-text">What Next?</h1>
     </li>
      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
     <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -12,27 +14,31 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <li><a href="/about">About</a></li>
-      <li><%= link_to 'Read Stories', choose_story_path %></li>
 
-      <% if @active_user && @active_user.super_user? %>
-      <li class="has-dropdown">
-        <a href="#">Admin</a>
-          <ul class="dropdown">
-            <li><a href="/manage/stories/all">Manage Stories</a></li>
-            <li><a href="/manage/users">Manage Users</a></li>
-          </ul>
-      </li>
+      <% if @active_user %>
+        <li><%= link_to 'Read Stories', choose_story_path %></li>
+
+        <% if @active_user.super_user? %>
+        <li class="has-dropdown">
+          <a href="#">Admin</a>
+            <ul class="dropdown">
+              <li><a href="/manage/stories/all">Manage Stories</a></li>
+              <li><a href="/manage/users">Manage Users</a></li>
+            </ul>
+        </li>
+        <% end %>
+
+
+        <li class="has-dropdown">
+            <a href="#">My Profile</a>
+            <ul class="dropdown">
+              <li><a href="/account/subscriptions">My Subscriptions</a></li>
+              <li><a href="/account">Manage Account</a></li>
+              <li><a href="/manage/stories">Manage My Stories</a></li>
+              <!-- <li><a href="/manage/stories">View Profile</a></li> -->
+            </ul>
+        </li>
       <% end %>
-
-
-      <li class="has-dropdown">
-        <a href="#">Account</a>
-          <ul class="dropdown">
-            <li><a href="/account">Go To Account</a></li>
-            <li><a href="/manage/stories">Manage My Stories</a></li>
-            <!-- <li><a href="/manage/stories">View Profile</a></li> -->
-          </ul>
-      </li>
       <li>
         <% if session[:user_id] %>
             <%= link_to 'Logout', logout_path %>

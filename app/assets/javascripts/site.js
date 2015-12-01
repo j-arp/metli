@@ -4,10 +4,12 @@ $(document).ready(function(){
   $(window).scroll(function () {
       if ( nav_loc - $(window).scrollTop() < 0 ){
         $('nav').addClass('top-bar-fixed')
+        $('nav .site-header-text').show()
       }
 
       else {
-        $('nav').removeClass('top-bar-fixed')
+        $('nav').removeClass('top-bar-fixed');
+        $('nav .site-header-text').hide();
       }
   });
 
