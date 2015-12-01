@@ -3,14 +3,21 @@
 
 <% @current_story.chapters.each do | chapter | %>
 
+
 <div class="row bottom-seperator">
-  <div class="small-8 medium-10 columns">
+  <div class="small-12 medium-12 columns">
     <h3>Chapter <%= chapter.number %>: <%= chapter.title %></h3>
-    <p><i><%= chapter.teaser %></i></p>
-    <p>Published on <%= chapter.created_at.strftime('%D') %></p>
   </div>
-  <div class="small-4 medium-2 columns text-right">
-    <p><%= link_to raw("#{fa_icon('book')} Read"), read_chapter_path(chapter.number), class: 'button success radius' %></p>
+
+  <div class="small-8 medium-10 columns">
+    <p><%=raw truncate_html(chapter.teaser, {length: 200}) %></p>
+    <ul class="inline-list">
+
+    </ul>
+  </div>
+
+  <div class="small-3 medium-2 text-right columns">
+    <p><%= link_to raw("#{fa_icon('book')} Read this chapter"), read_chapter_path(chapter.number), class: 'button success radius tiny' %></p>
   </div>
 </div>
 

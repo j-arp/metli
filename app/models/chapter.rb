@@ -9,6 +9,7 @@ class Chapter < ActiveRecord::Base
   validates :title, :content, :story, :author, presence: true
 
   default_scope { order('created_at DESC') }
+  scope :published, -> { where.not( published_on: nil ) }
 
   def to_s
     title
