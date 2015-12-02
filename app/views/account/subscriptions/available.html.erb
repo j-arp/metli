@@ -1,10 +1,10 @@
-<% @available_stories.each do  | story | %>
-
 <h2>Available Stories </h2>
-
 <p>the following stories are available to you to subscribe to. To subscribe, click the green arrow and choose a name for yourself.</p>
 
-<div class="subscription_form">
+
+<% @available_stories.each do  | story | %>
+
+<div class="subscription_form ">
 
 <%= form_tag account_add_subscription_path do %>
   <%= hidden_field_tag :story_id, story.id %>
@@ -15,16 +15,16 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row bottom-seperator collapse">
     <div class="small-10 columns">
-      <p><%=raw truncate_html(story.about, length: 300) %></p>
-      <div class="row">
+      <%=raw truncate_html(story.about, length: 300) %>
+      <div class="row ">
           <div id="<%= story.id %>" class="row hidden toggable collapse">
             <div class="small-7 columns ">
               <%= text_field_tag :username, "", placeholder: 'Join story with username', class: 'postfix' %>
             </div>
             <div class="small-4 columns end">
-              <button class="button postfix"><%= fa_icon('check') %> Join</button>
+              <p><button class="button postfix"><%= fa_icon('check') %> Join</button></p>
             </div>
         </div>
       </div>
