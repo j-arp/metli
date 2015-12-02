@@ -2,6 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Chapter, type: :model do
 
+  describe 'votes' do
+    it 'returns all votes for actions' do
+      chapter = FactoryGirl.build(:chapter, {published_on: Time.now})
+      expect(chapter.votes).to eq []
+    end
+  end
+
   describe '#published?' do
 
     it 'is published' do

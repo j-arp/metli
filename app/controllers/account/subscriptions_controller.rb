@@ -6,8 +6,8 @@ module Account
 
     def index
       @subscriptions = active_user.subscriptions
-      #NotifierMailer.welcome(user).deliver_now
     end
+
     def available
       @available_stories = active_user.available_stories
       #NotifierMailer.welcome(user).deliver_now

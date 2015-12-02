@@ -11,6 +11,15 @@ class Chapter < ActiveRecord::Base
   default_scope { order('created_at DESC') }
   scope :published, -> { where.not( published_on: nil ) }
 
+
+  def votes
+    votes = []
+    actions.each do | action |
+      votes << action.votes
+    end
+    return votes.flatten
+  end
+
   def to_s
     title
   end

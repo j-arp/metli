@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe CallToAction, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe 'percent_of_vote' do
+
+    it 'returns the percent of total a vote got' do
+      
+    end
 end

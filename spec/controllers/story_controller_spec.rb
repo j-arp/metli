@@ -10,6 +10,12 @@ RSpec.describe StoryController, type: :controller do
       get :index, {}, valid_session
       expect(assigns(:current_story)).to eq @story
     end
+
+    it 'redirects to choose story if no current story is in session' do
+        valid_session[:current_story_id] = nil
+        get :index, {}, valid_session
+        expect(response).to redirect_to choose_story_path
+    end
   end
 
   describe "GET #choose" do
@@ -36,6 +42,28 @@ RSpec.describe StoryController, type: :controller do
       get :chapter, {number: 1}, valid_session
       expect(assigns(:chapter)).to eq @chapter
     end
-  end
 
+
+      it 'sets control variable to allow voting' do
+        get :chapter, {number: 1}, valid_session
+        expect(assigns(:allow_voting)).to eq true
+      end
+
+
+
+      it 'sets control variable to not allow voting' do
+        vote = FactoryGirl.create(:vote, {user_id: @user.id, votable_type: 'Action', votable_id: @chapter.actions.first.id})
+        get :chapter, {number: 1}, valid_session
+        expect(assigns(:allow_voting)).to eq false
+      end
+
+
+
+      it 'does not allow voting if user has not voted but voting has ended' do
+        @chapter.vote_ends_on = Time.now - 1.day
+        @chapter.save
+        get :chapter, {number: 1}, valid_session
+        expect(assigns(:allow_voting)).to eq false
+    end
+  end
 end

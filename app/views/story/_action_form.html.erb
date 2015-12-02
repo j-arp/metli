@@ -1,8 +1,13 @@
-<h3>What next?</h3>
-<p>Voting ends at midnight on <%= @chapter.vote_ends_on.strftime('%D') %></p>
-<%if @chapter.has_user_voted?(session[:user_id]) %>
+<div class="row">
+  <div class="small-12 columns panel">
 
-  <p>You have voted for this thing</p>
+<h3>What next?</h3>
+
+<p>Voting ends at midnight on <%= @chapter.vote_ends_on.strftime('%D') %></p>
+
+<% unless @allow_voting %>
+
+  <p>You have either already voted or voting has closed for this chapter</p>
   <%= raw(@call_to_action.chart) %>
 <% else %>
 
@@ -19,8 +24,9 @@
       </label>
     <% end %>
   </ul>
-
     <p><%= submit_tag :vote %></p>
-
-<% end %>
+  <% end %>
 <% end -%>
+
+</div>
+</div>

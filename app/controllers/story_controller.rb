@@ -10,8 +10,7 @@ class StoryController < ActiveUsersController\
       flash[:message] = "you have not subscribed to any stories yet"
       redirect_to account_path
     else
-      @subscribed_stories = Story.where(id: session[:subscribed_stories])
-      render 'choose'
+      redirect_to choose_story_path
     end
   end
 
@@ -30,11 +29,19 @@ class StoryController < ActiveUsersController\
     @active_user = active_user
     @chapter = @current_story.chapters.find_by_number(params[:number])
     @call_to_action = CallToActionDecorator.new(@chapter.call_to_action)
+    @allow_voting = allow_voting?
 
   end
 
 
   private
+
+  def allow_voting?
+    puts "++ is voting closed? #{ (@chapter.vote_ends_on < Time.now ) }"
+    return false if @chapter.votes.select { | v | v.user_id == active_user.id }.present?
+    return false if @chapter.vote_ends_on < Time.now
+    return true
+  end
 
   def set_current_story
     @current_story || @current_story = Story.find(session[:current_story_id])
