@@ -2,20 +2,35 @@
 
 <p>You have joined the following stories</p>
 
-<% @subscribed_stories.each do | story | %>
+<% @subscriptions.each do | subscription | %>
   <%= form_tag :set_current_story do %>
-  <%= hidden_field_tag :id, story.id %>
+  <%= hidden_field_tag :id, subscription.story.id %>
 
   <div class="row bottom-seperator">
     <div class="small-12 medium-12 columns">
-      <h3><%= story.name %></h3>
+      <h3><%= subscription.story.name %></h3>
     </div>
 
     <div class="small-12 medium-9 columns">
-      <p><%=raw truncate_html(story.about, {length: 200}) %></p>
-      <ul class="inline-list">
-        <li>Total Chapters: <%= story.chapters.count %></li>
-        <li>Latest Chapter: <%= story.chapters.published.last.title unless story.chapters.published.empty? %></li>
+      <p><%=raw truncate_html(subscription.story.about, {length: 200}) %></p>
+      <ul>
+        <li>Total Chapters: <%= subscription.story.chapters.count %></li>
+
+
+        <% if subscription.last_voted_chapter_number %>
+          <li>Last Voted: Chapter <%= subscription.last_voted_chapter_number %></li>
+        <% end %>
+
+
+          <li>
+            <%= link_to "Read the Next Chapter: #{subscription.next_chapter.number} #{subscription.next_chapter.title}", read_story_chapter_path(subscription.story, subscription.next_chapter.number) unless subscription.next_chapter.nil? %>
+            <%= link_to "Read the Next Chapter: #{subscription.last_chapter.number} #{subscription.last_chapter.title}", read_story_chapter_path(subscription.story, subscription.last_chapter.number) if subscription.next_chapter.nil? %>
+            <% if subscription.story.chapters.first.number == subscription.next_chapter %> NEW!<% end %>
+
+          </li>
+
+
+
       </ul>
     </div>
 

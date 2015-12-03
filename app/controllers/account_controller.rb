@@ -6,6 +6,9 @@ class AccountController < ApplicationController
     @available_stories = active_user.available_stories
     @subscriptions = active_user.subscriptions
     @authored_stories = active_user.authored_stories
+    @most_recent_story = @authored_stories.sort_by {|s| s.updated_at}.reverse.first
+    @other_authored_stories = active_user.authored_stories.select{ |st| st.id != @most_recent_story.id }
+    puts @other_authored_stories.count
     @story = Story.new
     get_users
   end

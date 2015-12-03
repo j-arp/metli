@@ -37,7 +37,7 @@ class Chapter < ActiveRecord::Base
 
   def auto_increment_chapter_number
     self.number = 1 if story.chapters.empty?
-    self.number = (story.chapters.unscoped.in_order.last.number += 1) unless  story.chapters.empty?
+    self.number = (story.chapters.reverse.last.number += 1) unless  story.chapters.empty?
   end
 
   def has_user_voted?(user_id)

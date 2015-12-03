@@ -20,7 +20,7 @@
 
       <div class="small-12 medium-6 columns ">
         <h4>Current Stats</h4>
-        <ul class="small-block-grid-3 medium-block-grid-3">
+        <ul class="small-block-grid-2 medium-block-grid-3">
           <li class="stat">Active? <%= story.active? ? "Yes" : "No" %></li>
           <li class="stat">Subscribers: <%= link_to story.users.count,  subscribers_manage_story_path(story) %></li>
           <li class="stat">Chapters: <%= link_to story.chapters.count,  manage_story_chapters_path(story) %></li>
