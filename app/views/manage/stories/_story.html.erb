@@ -2,14 +2,14 @@
 
   <div class="row title collapse">
     <div class="small-12 medium-12 columns">
-      <h3><%= story.name %></h3>
+      <h4><%= story.name %></h4>
     </div>
   </div>
 
   <% if local_assigns.fetch(:tools, false) %>
     <div class="row actions collapse">
-      <div class="small-12 columns text-right">
-        <ul class="inline-list right">
+      <div class="small-12 columns medium-text-right small-text-center">
+        <ul class="small-block-grid-2 medium-block-grid-6 ">
           <li><%= link_to raw("#{fa_icon('pencil')} Write"), new_manage_story_chapter_path(story) %></li>
           <li><%= link_to raw("#{fa_icon('clone')} View"), manage_story_path(story) %></li>
           <li><%= link_to raw("#{fa_icon('edit 1x')} Edit"), edit_manage_story_path(story) %></li>
@@ -23,17 +23,24 @@
 
   <div class="row">
     <div class="small-12 columns">
-
       <div class="row">
         <div class="small-12 medium-6 columns">
           <h3>Chapters</h3>
             <ul class="no-bullets">
             <% story.chapters.reverse.each do | chapter | %>
-              <li><%= link_to "#{chapter.number} #{chapter.title}", manage_story_chapter_path(story, chapter) %></li>
+              <li>
+                <h4><%= link_to "#{chapter.number} #{chapter.title}", manage_story_chapter_path(story, chapter) %></h4>
+                <p class="text-right">
+                  <%= link_to fa_icon('pencil')  , edit_manage_story_chapter_path(story, chapter) %>
+                  <%= link_to fa_icon('plus')  , new_manage_story_chapter_path(story) %>
+                </p>
+              </li>
             <% end -%>
-            <li><%= link_to "Write a new chapter...", new_manage_story_chapter_path(story) %></li>
             </ul>
+
+            <p class="text-right"><%= link_to "Write a new chapter...", new_manage_story_chapter_path(story), class: 'button tiny radius expand success' %></p>
         </div>
+
         <div class="small-12 medium-6 columns">
           <h3>Subscribers</h3>
           <ul class="no-bullets">
@@ -50,11 +57,11 @@
 
   <div class="row">
     <div class="small-12 columns">
-      <p>
-        <span class="stat">Active? <%= story.active? ? "Yes" : "No" %></span>
-        <span class="stat">Subscribers: <%= link_to story.users.count,  subscribers_manage_story_path(story) %></span>
-        <span class="stat">Chapters: <%= link_to story.chapters.count,  manage_story_chapters_path(story) %></span>
-      </p>
+      <ul class="no-bullets">
+        <li class="stat">Active? <%= story.active? ? "Yes" : "No" %></li>
+        <li class="stat">Subscribers: <%= link_to story.users.count,  subscribers_manage_story_path(story) %></li>
+        <li class="stat">Chapters: <%= link_to story.chapters.count,  manage_story_chapters_path(story) %></li>
+      </ul>
     </div>
 
     <div class="small-6 columns">
@@ -67,5 +74,3 @@
   </div>
 
 </div>
-
-

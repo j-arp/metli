@@ -23,7 +23,7 @@
 
       <div class="row">
         <div class="small-12 columns text-center expanded">
-          <%= link_to raw("#{fa_icon('pencil 3x')}Create a new story"), new_manage_story_path, class: 'button success large radius' %>
+          <%= link_to raw("#{fa_icon('pencil 2x')}Create a new story"), new_manage_story_path, class: 'button success radius expand' %>
         </div>
       </div>
 
@@ -31,17 +31,10 @@
 
   <div class="small-12 medium-4 columns">
     <p>You are current subscribed to <%= @subscriptions.count %> stories</p>
-    <p><%= link_to 'Manage Subscriptions', account_subscriptions_path, class: 'button tiny secondary' %></p>
+    <p><%= link_to 'Manage Subscriptions', account_subscriptions_path, class: 'button expand tiny secondary' %></p>
 
     <p>There are currently  <%= @available_stories.count %> other stories available to subscribe to.</p>
-    <p><%= link_to 'Find New Stories', account_available_stories_path, class: 'button tiny secondary' %></p>
+    <p><%= link_to raw("#{fa_icon('search')} Find New Stories"), account_available_stories_path, class: 'button expand tiny secondary' %></p>
   </div>
 
 </div>
-<!--
-Session
-  user id: <%= session[:user_id] %>
-  subscribed ids: <%= session[:subscribed_stories] %>
-  current id: <%= session[:current_story_id] %>
-</ul>
--->

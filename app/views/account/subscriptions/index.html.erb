@@ -37,6 +37,6 @@
 
 <div class="row">
   <div class="small-12 columns text-right">
-    <p><%= link_to 'Find more stories to read', account_available_stories_path, class: 'button secondary' %></p>
+    <%= link_to raw("#{fa_icon('search')} Find New Stories"), account_available_stories_path, class: 'button expand tiny secondary' %>
   </div>
 </div>
