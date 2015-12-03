@@ -24,7 +24,7 @@
 
           <li>
             <%= link_to "Read the Next Chapter: #{subscription.next_chapter.number} #{subscription.next_chapter.title}", read_story_chapter_path(subscription.story, subscription.next_chapter.number) unless subscription.next_chapter.nil? %>
-            <%= link_to "Read the Next Chapter: #{subscription.last_chapter.number} #{subscription.last_chapter.title}", read_story_chapter_path(subscription.story, subscription.last_chapter.number) if subscription.next_chapter.nil? %>
+            
           </li>
 
 
