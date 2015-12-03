@@ -4,7 +4,7 @@ Rails.application.configure do
     :email => {
       :email_prefix => "[UNACCEPTABLE!!!!] ",
       :sender_address => %{"Earl of Lemongrab" < whatnext@arpcentral.net > },
-      :exception_recipients => %w{whatnext@arpcentral.net}
+      :exception_recipients => %w{jearpster@gmail.com}
     }
 
   # Settings specified here will take precedence over those in config/application.rb.

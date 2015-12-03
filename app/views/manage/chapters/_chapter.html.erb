@@ -3,8 +3,9 @@
 
 <div class="row">
   <div class="small-12 columns">
+  <h2><%= chapter.story.name %></h2>
   <h3>
-    <span class="chapter-number"><%= chapter.number %>: </span>
+    <span class="chapter-number">Chapter <%= chapter.number %>: </span>
     <%= chapter.title %>
   </h3>
   </div>
@@ -47,12 +48,9 @@
 
 
 
-<p>There are <%= chapter.call_to_action.actions.count %> Actions:
+<p>There are <%= chapter.call_to_action.actions.count %> actions. Voting will close on <%= chapter.vote_ends_on.strftime('%D') %> at midnight.
 <ol>
   <% chapter.call_to_action.actions.each do | cal | %>
     <li><%= cal.content %></li>
   <% end %>
 </ol>
-<p>
-Story: <%= chapter.story %>
-</p>
