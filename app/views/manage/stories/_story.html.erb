@@ -13,7 +13,7 @@
           <li><%= link_to raw("#{fa_icon('pencil')} Write"), new_manage_story_chapter_path(story) %></li>
           <li><%= link_to raw("#{fa_icon('clone')} View"), manage_story_path(story) %></li>
           <li><%= link_to raw("#{fa_icon('edit 1x')} Edit"), edit_manage_story_path(story) %></li>
-          <li><%= link_to raw("#{fa_icon('trash 1x')} Delete"), edit_manage_story_path(story) %></li>
+          <li><%= link_to raw("#{fa_icon('trash 1x')} Delete"), manage_story_path(story), method: :delete, data: { confirm: 'This will permanently delet your story, chapters and all votes. Are you sure?' } %></li>
         </ul>
       </div>
     </div>
