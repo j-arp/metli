@@ -20,7 +20,8 @@ class Subscription < ActiveRecord::Base
   end
 
   def next_chapter
-    story.chapters.published.where("number > ?", last_read_chapter_number).first
+    last_number = last_read_chapter_number.nil? ? 0 : last_read_chapter_number
+    story.chapters.published.where("number > ?", last_number).first
   end
 
 end
