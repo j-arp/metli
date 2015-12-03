@@ -37,11 +37,12 @@
         <div class="small-12 medium-6 columns">
           <h3>Chapters</h3>
             <ul class="no-bullets">
-            <% story.chapters.reverse.each do | chapter | %>
+            <% story.chapters.each do | chapter | %>
               <li>
                 <h4><%= link_to "#{chapter.number} #{chapter.title}", manage_story_chapter_path(story, chapter) %></h4>
                 <p class="text-right">
                   <%= link_to raw("#{fa_icon('pencil')} Edit")  , edit_manage_story_chapter_path(story, chapter) %>
+                  &nbsp;&nbsp;
                   <%= link_to raw("#{fa_icon('trash 1x')} Delete"), manage_story_chapter_path(story, chapter), method: :delete, data: { confirm: 'This will permanently delete this chapter and all votes. Are you sure?' }  %>
                   <%# link_to fa_icon('plus')  , new_manage_story_chapter_path(story) %>
                 </p>
