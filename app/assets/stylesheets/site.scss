@@ -3,7 +3,17 @@ html {
 }
 
 body {
-  background-color: #303030;
+  background-color: #535353;
+}
+
+header {
+  padding-top:20px;
+  h1 {
+      margin-top: 30px;
+      font-family: 'Merienda One', cursive;
+      text-shadow: 2px 2px 2px #CCCCCC;
+      font-size: 4em;
+  }
 }
 
 nav { box-shadow: 5px 5px 15px #000;}
@@ -40,7 +50,10 @@ main {margin-top: 33px}
     height: 110px;
     margin: 0px;
 }
-
+.adventure-icon.massive {
+    height: 130px;
+    margin: 0px;
+}
 .top-bar {
     margin: 0px -10px;
 }
@@ -103,7 +116,7 @@ img.profile.large {width:148px}
     border-radius: 0px 0px 6px 6px;
 }
 
-.row.bottom-seperator, .columns.bottom-seperator {
+.bottom-seperator{
   border-bottom: thin solid #f0f0f0; margin-bottom: 20px
 }
 
@@ -129,4 +142,15 @@ footer {
       width: 100px;
       height: 130px;
   }
+
+  header {
+    padding-top:10px;
+    h1 {
+        margin-top: 65px;
+        font-family: 'Merienda One', cursive;
+        text-shadow: 2px 2px 2px #CCCCCC;
+        font-size: 2em;
+    }
+  }
+
 }

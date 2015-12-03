@@ -2,18 +2,29 @@
 
   <div class="row title collapse">
     <div class="small-12 medium-12 columns">
-      <h4><%= story.name %></h4>
+      <h3><%= story.name %></h3>
     </div>
   </div>
 
   <% if local_assigns.fetch(:tools, false) %>
     <div class="row actions collapse">
-      <div class="small-12 columns medium-text-right small-text-center">
-        <ul class="small-block-grid-2 medium-block-grid-6 ">
+      <div class="small-12 columns medium-text-center small-text-center">
+        <ul class="small-block-grid-2 medium-block-grid-4">
           <li><%= link_to raw("#{fa_icon('pencil')} Write"), new_manage_story_chapter_path(story) %></li>
           <li><%= link_to raw("#{fa_icon('clone')} View"), manage_story_path(story) %></li>
           <li><%= link_to raw("#{fa_icon('edit 1x')} Edit"), edit_manage_story_path(story) %></li>
           <li><%= link_to raw("#{fa_icon('trash 1x')} Delete"), manage_story_path(story), method: :delete, data: { confirm: 'This will permanently delet your story, chapters and all votes. Are you sure?' } %></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row actions collapse">
+      <div class="small-12 columns medium-text-center small-text-center">
+        <h4>Current Stats</h4>
+        <ul class="small-block-grid-3 medium-block-grid-3">
+          <li class="stat">Active? <%= story.active? ? "Yes" : "No" %></li>
+          <li class="stat">Subscribers: <%= link_to story.users.count,  subscribers_manage_story_path(story) %></li>
+          <li class="stat">Chapters: <%= link_to story.chapters.count,  manage_story_chapters_path(story) %></li>
         </ul>
       </div>
     </div>
@@ -51,26 +62,4 @@
         </div>
       </div>
   <% end %>
-
-
-
-
-  <div class="row">
-    <div class="small-12 columns">
-      <ul class="no-bullets">
-        <li class="stat">Active? <%= story.active? ? "Yes" : "No" %></li>
-        <li class="stat">Subscribers: <%= link_to story.users.count,  subscribers_manage_story_path(story) %></li>
-        <li class="stat">Chapters: <%= link_to story.chapters.count,  manage_story_chapters_path(story) %></li>
-      </ul>
-    </div>
-
-    <div class="small-6 columns">
-      <% unless story.taxonomy.blank? %>
-        <strong>Taxonomy:</strong>
-        <%= story.taxonomy %>
-      <% end %>
-    </div>
-
-  </div>
-
 </div>

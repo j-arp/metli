@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
+  layout 'wat'
   protect_from_forgery with: :exception
   before_action :get_all_stories
   before_action :active_user

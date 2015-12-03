@@ -1,13 +1,12 @@
 <div class="unsubscription_form">
-
   <%= form_tag account_remove_subscription_path, method: :delete do %>
     <%= hidden_field_tag :subscription_id, subscription.id %>
-    <div class="row collapse story">
-        <div class="small-12 medium-12 columns large-12 text-right">
-        <ul class="button-group radius">
-          <li><%= link_to raw("#{fa_icon('arrow-circle-right')} Read"), read_latest_chapter_path(subscription.story), class: 'button tiny success radius' %></li>
-          <li><button class="button tiny alert radius"><%= fa_icon('close') %> Remove</button></li>
-        </ul>
+    <div class="row collapse">
+      <div class="small-6 columns">
+        <%= link_to raw("#{fa_icon('arrow-circle-right')} Read Now"), set_current_story_by_id_path(subscription.story), class: 'button tiny success expand' %>
+      </div>
+      <div class="small-6 columns">
+        <button class="button tiny alert expand"><%= fa_icon('close') %> Remove</button>
       </div>
     </div>
   <% end %>

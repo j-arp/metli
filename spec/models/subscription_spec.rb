@@ -6,7 +6,19 @@ RSpec.describe Subscription, type: :model do
     FactoryGirl.build(:subscription)
   }
 
+
+  it 'returns the next undread chapter' do
+    expect(subject.next_chapter).to eq nil
+  end
+
+
+    it 'returns the last chapter voted on' do
+      expect(subject.last_voted_chapter_number).to eq nil
+    end
+
+
   context 'roles' do
+
 
     it 'responds to privileged?' do
       expect(subject).to_not be_privileged

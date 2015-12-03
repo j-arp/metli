@@ -4,8 +4,11 @@ class VotesController < ActiveUsersController
 
   def create
     @vote = @chapter.actions.find(params[:action_id]).votes.where(user: active_user).first_or_initialize
-    # , votable_type: 'Action', votable_id: params[:action_id]
-    @vote.save
+
+    if @vote.save
+      active_user.subscriptions.find_by(story:@story).update(last_voted_chapter_number: @chapter.number)
+    end
+
     flash[:message] = "Thanks for voting!"
     redirect_to read_chapter_path(@chapter.number)
   end

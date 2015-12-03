@@ -1,14 +1,12 @@
 <div class="row">
-  <div class="small-6 medium-3 large-2 columns">
+  <div class="small-5 medium-3 large-2 columns">
     <img class="profile medium" src="<%= @user.image %>">
   </div>
-  <div class="small-6 medium-9 large-10 columns">
+  <div class="small-7 medium-9 large-10 columns">
     <%= @user.full_name %>
     <ul class="no-bullet">
       <li>Email: <%= @user.email %></li>
-      <li><%= link_to 'Edit Your Profile', '#' %></li>
+      <li><%= link_to 'Edit Your Profile', profile_path, class: 'button tiny' %></li>
     </ul>
   </div>
 </div>
-
-

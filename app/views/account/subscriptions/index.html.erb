@@ -1,36 +1,54 @@
 <h2>Your Subscriptions</h2>
-
 <p>You are currently following these stories. Read the chapters and make your opinion known.</p>
 
-
 <% @subscriptions.each  do | sub | %>
-  <div class="row bottom-seperator">
-    <div class="small-8 columns">
-      <h4><%= sub.story.name %></h4>
-    </div>
-
-    <div class="small-4 columns">
+<div class="story-details bottom-seperator">
+  <div class="row">
+    <div class="small-12 columns">
+      <h3 class="story-title"><%= sub.story.name %></h3>
     </div>
   </div>
+
   <div class="row">
-    <div class="small-6 columns">
+    <div class="small-12 columns">
       <%=raw truncate_html(sub.story.about, {length: 300}) %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="small-12 medium-6 columns">
       <ul>
         <li>Chatpers: <%= sub.story.chapters.count %></li>
-      </ul>
-      <%= render partial: 'unsubscribe_buttons_form', locals: {subscription: sub} %>
-    </div>
+        <% if sub.last_read_chapter_number %>
+          <li>Last Read: Chapter <%= sub.last_read_chapter_number %></li>
+        <% end %>
 
-    <div class="small-6 columns">
+        <% if sub.last_voted_chapter_number %>
+          <li>Last Voted: Chapter <%= sub.last_voted_chapter_number %></li>
+        <% end %>
+
+        <% if sub.next_chapter %>
+          <li>Next Up: <%= link_to "Read Chapter #{sub.next_chapter.number} Now!", read_story_chapter_path(sub.story, sub.next_chapter.number) %></li>
+        <% end %>
+      </ul>
+
+    </div>
+    <div class="small-12 medium-6 columns">
       <div class="panel">
         <%= form_tag account_update_subscription_path(sub) do %>
+        <label>
           <%= check_box_tag :send_email, 1, sub.send_email %>
-          <%= label_tag :send_email, "Receive Email Notifications for this story" %>
-          <%= submit_tag "Update", class: 'button tiny radius' %>
+          Receive Email Notifications
+        </label>
+          <%= submit_tag "Update", class: 'button tiny radius expand' %>
         <% end %>
       </div>
+
+      <%= render partial: 'unsubscribe_buttons_form', locals: {subscription: sub} %>
     </div>
   </div>
+</div>
 <% end %>
 
 

@@ -7,12 +7,16 @@ Rails.application.routes.draw do
 
   get 'votes/destroy'
 
-  get 'story' => 'story#index', as: :story
-  post 'story/choose' => 'story#set_current_story_id', as: :set_current_story
+  post 'story/set' => 'story#set_current_story_id', as: :set_current_story
+  get 'story/set/:story' => 'story#set_current_story_id', as: :set_current_story_by_id
+
   get 'story/read/:story'=> 'story#set_current_story_id', as: :read_current_story
   get 'story/choose' => 'story#choose', as: :choose_story
   get 'story/chapter/:number'  => 'story#chapter', as: :read_chapter
+  get 'story/:story/chapter/:number'  => 'story#story_chapter', as: :read_story_chapter
   get 'story/:story/latest'  => 'story#latest', as: :read_latest_chapter
+
+  get 'story' => 'story#index', as: :story
 
   mount Ckeditor::Engine => '/ckeditor'
   namespace :account do
@@ -24,6 +28,8 @@ Rails.application.routes.draw do
   end
 
   get '/account' => 'account#index', as: :account
+  get '/account/profile' => 'account#profile', as: :profile
+  put '/account/profile' => 'account#update_profile', as: :update_profile
   get '/login' => 'account#login', as: :login
   post '/login' => 'account#process_login', as: :process_login
   get '/logout' => 'account#logout', as: :logout

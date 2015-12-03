@@ -1,4 +1,4 @@
-class StoryController < ActiveUsersController\
+class StoryController < ActiveUsersController
 
   def index
     # puts session[:subscribed_stories].inspect
@@ -19,28 +19,32 @@ class StoryController < ActiveUsersController\
   end
 
   def set_current_story_id_in_session
-    puts "++ set storuid in sess"
     session[:current_story_id] = params[:id] if params[:id]
     session[:current_story_id] = Story.find_by_permalink(params[:story]).id if params[:story]
   end
 
   def set_current_story_id
-    puts "++ set storuid"
     set_current_story_id_in_session
     redirect_to story_path
+  end
+
+  def story_chapter
+    set_current_story_id_in_session
+    redirect_to read_chapter_path(params[:number])
   end
 
   def chapter
     set_current_story
     @active_user = active_user
     @chapter = @current_story.chapters.find_by_number(params[:number])
+    active_user.subscriptions.find_by(story: @current_story).update(last_read_chapter_number: params[:number])
     @call_to_action = CallToActionDecorator.new(@chapter.call_to_action)
     @allow_voting = allow_voting?
   end
 
   def latest
+    set_current_story_id_in_session
     set_current_story
-    set_current_story_id
     chp_num = @current_story.chapters.published.last.number
     redirect_to read_chapter_path(chp_num)
   end
