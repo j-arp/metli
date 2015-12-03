@@ -12,17 +12,17 @@ body {
 }
 
 div.message {
-  background-color: #fff;
-  border: thin solid #cc0000;
-  opacity: .8;
-  color: #cc0000;
-  border-radius: 8px;
-  float:left;
-  padding:20px;
-  width: 60%;
-  margin-top: 400px;
-  margin-left: 20%;
-  margin-right: 20%;
+    background-color: #545454;
+    border: 5px solid #2e2f30;
+    opacity: .8;
+    color: #fff;
+    border-radius: 8px;
+    float: left;
+    padding: 10px;
+    width: 80%;
+    margin-top: 400px;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 @media only screen and (max-width: 500px) {

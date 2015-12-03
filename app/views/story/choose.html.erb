@@ -11,29 +11,31 @@
       <h3><%= subscription.story.name %></h3>
     </div>
 
-    <div class="small-12 medium-9 columns">
+    <div class="small-12 medium-12 columns">
       <p><%=raw truncate_html(subscription.story.about, {length: 200}) %></p>
-      <ul>
-        <li>Total Chapters: <%= subscription.story.chapters.count %></li>
+      <p>There are a total of <%= subscription.story.chapters.count %> chapters
+      <% if subscription.last_voted_chapter_number %>
+        and you last voted for  Chapter <%= subscription.last_voted_chapter_number %>
+      <% end %>.
+      </p>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <% if subscription.next_chapter %>
+            <%= link_to "Up Next!  Chapter: #{subscription.next_chapter.number}", read_story_chapter_path(subscription.story, subscription.next_chapter.number), class: 'button radius expand' %>
+          <% elsif subscription.next_chapter.nil? %>
+            <%= link_to "Read the Last Chapter", read_story_chapter_path(subscription.story, subscription.last_chapter.number), class: 'button radius expand' %>
+          <% end %>
+        </div>
+        <div class="small-12 medium-6 columns">
+          <%= submit_tag 'See a list of chapters', class: 'button radius secondary expand' %>
+        </div>
+      </div>
 
 
-        <% if subscription.last_voted_chapter_number %>
-          <li>Last Voted: Chapter <%= subscription.last_voted_chapter_number %></li>
-        <% end %>
-
-
-          <li>
-            <%= link_to "Read the Next Chapter: #{subscription.next_chapter.number} #{subscription.next_chapter.title}", read_story_chapter_path(subscription.story, subscription.next_chapter.number) unless subscription.next_chapter.nil? %>
-            <%= link_to "Read the Next Chapter: #{subscription.last_chapter.number} #{subscription.last_chapter.title}", read_story_chapter_path(subscription.story, subscription.last_chapter.number) if subscription.next_chapter.nil? %>
-          </li>
-
-
-
-      </ul>
     </div>
 
     <div class="small-12 medium-3 text-right columns">
-      <%= submit_tag 'Read This Story', class: 'button tiny radius' %>
+
     </div>
   </div>
 <% end -%>
