@@ -1,14 +1,19 @@
 
 <%= form_for([:manage, @story, @chapter]) do |f| %>
   <% if @chapter.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@chapter.errors.count, "error") %> prohibited this chapter from being saved:</h2>
 
-      <ul>
-      <% @chapter.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+
+    <div class="row error-messages">
+      <div class="small-12 columns medium-10 medium-offset-2">
+        <div class="errors">
+          <h3><%= pluralize(@chapter.errors.count, "problem") %> with submission:</h3>
+          <ul>
+          <% @chapter.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
   <% end %>
 
@@ -17,8 +22,8 @@
     <div class="small-12 medium-2 columns medium-text-right">
     <%= f.label :number %>
     </div>
-    <div class="small-12 medium-10 columns">
-    <%= f.text_field :number %>
+    <div class="small-2 medium-1 columns end">
+    <%= f.text_field :number, disabled: 'true' %>
     </div>
   </div>
 <% end -%>
@@ -69,7 +74,8 @@
           <%= f.label :vote_end_date, "Voting ends after:" %>
         </div>
         <div class="small-2 medium-4 columns">
-          <%= select_tag :voting_ends_after, options_for_select(@vote_end_options.collect {|p| [p,p] }) %>
+          <%= f.select :voting_ends_after, options_for_select(@vote_end_options.collect {|p| [p,p] }, @chapter.voting_ends_after), {}, {disabled: @chapter.published? ? true : false} %>
+          
         </div>
     </div>
   </div>

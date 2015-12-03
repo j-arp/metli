@@ -61,7 +61,6 @@ module Manage
     # PATCH/PUT /chapters/1
     # PATCH/PUT /chapters/1.json
     def update
-      puts params
       respond_to do |format|
         if params[:chapter][:published_on].blank? && @chapter.unpublish?
           params[:chapter][:published_on] = nil
@@ -114,6 +113,7 @@ module Manage
       # Use callbacks to share common setup or constraints between actions.
       def set_chapter
         @chapter = Chapter.find(params[:id])
+        @vote_end_options = ['1 day', '2 days', '3 days', '1 week', '2 weeks']
         @published_status = @chapter.published_on.blank? ? false : true
       end
 
@@ -123,7 +123,7 @@ module Manage
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def chapter_params
-        params.require(:chapter).permit(:number, :title, :content, :published_on, :teaser,  :author_id, :story_id)
+        params.require(:chapter).permit(:number, :title, :content, :published_on, :teaser,  :author_id, :story_id, :voting_ends_after)
       end
 
       def set_publish_date
@@ -158,7 +158,7 @@ module Manage
       end
 
   def vote_cutoff_date
-    case params[:voting_ends_after]
+    case params[:chapter][:voting_ends_after]
       when '1 day'
         cuttoff = DateTime.now + 1.day
       when '2 days'
