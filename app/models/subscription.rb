@@ -24,7 +24,7 @@ class Subscription < ActiveRecord::Base
     story.chapters.published.where("number > ?", last_number).last
   end
 
-  def next_chapter
+  def last_chapter
 
     story.chapters.published.first
   end
