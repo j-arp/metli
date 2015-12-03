@@ -15,8 +15,8 @@ class StoryController < ActiveUsersController
   end
 
   def choose
-    @subscribed_stories = Story.where(id: session[:subscribed_stories].split(','))
-    @subscriptions = active_user.subscriptions
+    #@subscribed_stories = Story.where(id: session[:subscribed_stories].split(','))
+    @subscriptions = active_user.subscriptions.select { | sub | !sub.story.chapters.empty? }
   end
 
   def set_current_story_id_in_session

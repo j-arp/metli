@@ -5,7 +5,7 @@ class Subscription < ActiveRecord::Base
   validates :username, :story, :user, presence: true
   validates :username, uniqueness: {scope: :story}
 
-  scope :avilable, -> (user) {where.not(user.stories)}
+  scope :available, -> (user) {where.not(user.stories)}
 
   def active?
     active
@@ -25,7 +25,6 @@ class Subscription < ActiveRecord::Base
   end
 
   def last_chapter
-
     story.chapters.published.first
   end
 
