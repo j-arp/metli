@@ -1,7 +1,12 @@
+<h2>Your Subscriptions</h2>
+
+<p>You are currently following these stories. Read the chapters and make your opinion known.</p>
+
+
 <% @subscriptions.each  do | sub | %>
   <div class="row bottom-seperator">
     <div class="small-8 columns">
-      <h2><%= sub.story.name %></h2>
+      <h4><%= sub.story.name %></h4>
     </div>
 
     <div class="small-4 columns">
@@ -9,27 +14,21 @@
   </div>
   <div class="row">
     <div class="small-6 columns">
-
       <%=raw truncate_html(sub.story.about, {length: 300}) %>
-
       <ul>
         <li>Chatpers: <%= sub.story.chapters.count %></li>
       </ul>
-
       <%= render partial: 'unsubscribe_buttons_form', locals: {subscription: sub} %>
     </div>
 
     <div class="small-6 columns">
-
       <div class="panel">
-            <%= form_tag account_update_subscription_path(sub) do %>
-              <%= check_box_tag :send_email, 1, sub.send_email %>
-              <%= label_tag :send_email, "Receive Email Notifications for this story" %>
-              <%= submit_tag "Update", class: 'button tiny radius' %>
-            <% end %>
-
-</div>
-
+        <%= form_tag account_update_subscription_path(sub) do %>
+          <%= check_box_tag :send_email, 1, sub.send_email %>
+          <%= label_tag :send_email, "Receive Email Notifications for this story" %>
+          <%= submit_tag "Update", class: 'button tiny radius' %>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>

@@ -5,7 +5,7 @@
     <div class="row collapse story">
         <div class="small-12 medium-12 columns large-12 text-right">
         <ul class="button-group radius">
-          <li><%= link_to raw("#{fa_icon('arrow-circle-right')} Read"), read_current_story_path(subscription.story), class: 'button tiny success radius' %></li>
+          <li><%= link_to raw("#{fa_icon('arrow-circle-right')} Read"), read_latest_chapter_path(subscription.story), class: 'button tiny success radius' %></li>
           <li><button class="button tiny alert radius"><%= fa_icon('close') %> Remove</button></li>
         </ul>
       </div>

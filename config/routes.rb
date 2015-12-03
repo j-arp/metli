@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'story/read/:story'=> 'story#set_current_story_id', as: :read_current_story
   get 'story/choose' => 'story#choose', as: :choose_story
   get 'story/chapter/:number'  => 'story#chapter', as: :read_chapter
+  get 'story/:story/latest'  => 'story#latest', as: :read_latest_chapter
 
   mount Ckeditor::Engine => '/ckeditor'
   namespace :account do
