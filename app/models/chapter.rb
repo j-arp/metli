@@ -8,8 +8,10 @@ class Chapter < ActiveRecord::Base
 
   validates :title, :content, :story, :author, presence: true
 
-  default_scope { order('created_at DESC') }
+  default_scope { order('number DESC') }
+
   scope :published, -> { where.not( published_on: nil ) }
+  scope :in_order, -> { order(:number) }
 
 
   def votes
@@ -35,7 +37,7 @@ class Chapter < ActiveRecord::Base
 
   def auto_increment_chapter_number
     self.number = 1 if story.chapters.empty?
-    self.number = (story.chapters.last.number += 1) unless  story.chapters.empty?
+    self.number = (story.chapters.unscoped.in_order.last.number += 1) unless  story.chapters.empty?
   end
 
   def has_user_voted?(user_id)

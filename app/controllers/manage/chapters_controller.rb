@@ -104,7 +104,7 @@ module Manage
         flash[:message] = 'Chapter cannot be deleted! Only the last chapter can be deleted.'
       end
       respond_to do |format|
-        format.html { redirect_to manage_story_chapters_path(@story) }
+        format.html { redirect_to manage_story_path(@story) }
         format.json { head :no_content }
       end
     end
@@ -135,7 +135,7 @@ module Manage
       end
 
       def notify
-        @story.users.each do | user |
+        @story.users.with_email_notifications.each do | user |
           NotifierMailer.new_chapter(@chapter, user).deliver_now
         end
       end

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   default_scope {order('last_name, first_name')}
   scope :active, -> { where(active:true) }
   scope :authors, -> { joins(:subscriptions).where("subscriptions.author = true") }
-  scope :with_email_notifications, -> { joins(:subscriptions).where("subscriptions.send_email = true") }
+  scope :with_email_notifications, -> { joins(:subscriptions).where("subscriptions.send_email = true").distinct }
   scope :privileged, -> { where(privileged:true) }
 
   def to_s

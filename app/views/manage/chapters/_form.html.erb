@@ -23,7 +23,7 @@
     <%= f.label :number %>
     </div>
     <div class="small-2 medium-1 columns end">
-    <%= f.text_field :number, disabled: 'true' %>
+    <%= f.text_field :number %>
     </div>
   </div>
 <% end -%>
@@ -75,7 +75,7 @@
         </div>
         <div class="small-2 medium-4 columns">
           <%= f.select :voting_ends_after, options_for_select(@vote_end_options.collect {|p| [p,p] }, @chapter.voting_ends_after), {}, {disabled: @chapter.published? ? true : false} %>
-          
+
         </div>
     </div>
   </div>
