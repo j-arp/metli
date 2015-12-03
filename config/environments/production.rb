@@ -1,4 +1,12 @@
 Rails.application.configure do
+
+  config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix => "[UNACCEPTABLE!!!!] ",
+      :sender_address => %{"Earl of Lemongrab" < whatnext@arpcentral.net > },
+      :exception_recipients => %w{whatnext@arpcentral.net}
+    }
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.

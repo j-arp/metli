@@ -88,6 +88,9 @@ GEM
       activesupport (>= 3.0)
       request_store (~> 1.0)
     erubis (2.7.0)
+    exception_notification (4.1.1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -336,6 +339,7 @@ DEPENDENCIES
   ckeditor!
   coffee-rails (~> 4.1.0)
   draper
+  exception_notification
   factory_girl_rails (~> 4.0)
   faker
   font-awesome-rails
