@@ -1,53 +1,42 @@
 <h2>Available Stories </h2>
-<p>the following stories are available to you to subscribe to. To subscribe, click the green arrow and choose a name for yourself.</p>
-
+<p>The following stories are available for you to subscribe to. To subscribe, click the green arrow and choose a name for yourself.</p>
 
 <% @available_stories.each do  | story | %>
+  <div class="subscription_form <%= "no-chapters" if story.chapters.empty? %>">
 
-<div class="subscription_form ">
+    <%= form_tag account_add_subscription_path do %>
+    <%= hidden_field_tag :story_id, story.id %>
 
-<%= form_tag account_add_subscription_path do %>
-  <%= hidden_field_tag :story_id, story.id %>
-
-  <div class="row collapse">
-    <div class="small-12 columns">
-      <h3 class="story-title"><%= story %></h3>
-    </div>
-  </div>
-
-  <div class="row bottom-seperator collapse">
-    <div class="small-10 columns">
-      <%=raw truncate_html(story.about, length: 200, ommission: '...') %>
-
-      <div class="row ">
-        <div class="small-2 columns">
-          <span id="<%= story.id %>" class="show-subscribe button tiny success radius"><%= fa_icon('angle-double-down') %></span>
+      <div class="row collapse">
+        <div class="small-12 columns">
+          <h3 class="story-title"><%= story %></h3>
         </div>
+      </div>
+
+      <div class="row bottom-seperator collapse">
         <div class="small-10 columns">
-          <div id="<%= story.id %>" class="row hidden toggable collapse">
-            <div class="small-7 columns ">
-              <%= text_field_tag :username, "", placeholder: 'Join story with username', class: 'postfix' %>
+          <%=raw truncate_html(story.about, length: 200, ommission: '...') %>
+          <p>Currently <%= story.chapters.count %> chapters available...</p>
+
+          <div class="row ">
+            <div class="small-2 columns">
+              <span id="<%= story.id %>" class="show-subscribe button tiny success radius"><%= fa_icon('angle-double-down') %></span>
             </div>
-            <div class="small-4 columns end">
-              <p><button class="button postfix"><%= fa_icon('check') %> Join</button></p>
+            <div class="small-10 columns">
+              <div id="<%= story.id %>" class="row hidden toggable collapse">
+                <div class="small-7 columns ">
+                  <%= text_field_tag :username, "", placeholder: 'Join story with username', class: 'postfix' %>
+                </div>
+                <div class="small-4 columns end">
+                  <p><button class="button postfix"><%= fa_icon('check') %> Join</button></p>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-        </div>
-
-    </div>
+      </div>
+    <% end %>
   </div>
-
-    <div class="small-2 columns">
-
-    </div>
-
-  </div>
-
-
 <% end %>
 
-</div>
-
-
-
-<% end %>
+<p>Not enough stories? <span id="show-all-stories" class="link-like">Click here</span> to show stories that are yet to have any chapters</p>

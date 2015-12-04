@@ -8,4 +8,9 @@ $(document).ready(function(){
     console.log(selector)
     selector.slideToggle();
   })
+
+  $('span#show-all-stories').bind('click', function(){
+    $('div.no-chapters').fadeIn();
+  })
+
 })

@@ -13,9 +13,14 @@ RSpec.describe Account::SubscriptionsController, type: :controller do
       @user.subscribe_to(@story, 'foobar')
     end
 
-    it "returns http success" do
+    it "returns subscriptions" do
       get :index, {}, {user_id: @user.id }
       expect(assigns(:subscriptions)).to eq @user.subscriptions
+    end
+
+    it "returns subscriptions decorated" do
+      get :index, {}, {user_id: @user.id }
+      expect(assigns(:subscriptions).first).to be_decorated_with SubscriptionDecorator
     end
 
   end

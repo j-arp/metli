@@ -5,7 +5,7 @@ module Account
 
 
     def index
-      @subscriptions = active_user.subscriptions
+      @subscriptions = active_user.subscriptions.decorate
     end
 
     def available
