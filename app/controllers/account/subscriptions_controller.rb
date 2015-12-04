@@ -13,19 +13,25 @@ module Account
       #NotifierMailer.welcome(user).deliver_now
     end
     def add
-      active_user.subscribe_to(@story, params[:username])
-      new_ids = session[:subscribed_stories].split(',')
-      new_ids << @story.id
-      session[:subscribed_stories] = new_ids.join(',')
-      respond_to do |format|
-        if @story.save
+      @subscription = active_user.subscribe_to(@story, params[:username])
+
+      if @subscription.persisted?
+        puts "subscription is a go go go go"
+        new_ids = session[:subscribed_stories].split(',')
+        new_ids << @story.id
+        session[:subscribed_stories] = new_ids.join(',')
+        respond_to do |format|
           format.html { redirect_to account_subscriptions_path, notice: "You have been subscribed as #{params[:username]}" }
           format.json { render :show, status: :created, location: @story }
-        else
-          format.html { render :new }
-          format.json { render json: params, status: :unprocessable_entity }
         end
+
+      else
+        puts "subscription is a no go"
+        flash[:message] = "You cannot subscribe to '#{@story.name}'  with username '#{params[:username]}.'"
+        redirect_to account_available_stories_path
       end
+
+
     end
 
     def update

@@ -32,6 +32,6 @@ class User < ActiveRecord::Base
 
   def subscribe_to(story, username, options={})
     @options = {author: false, privileged: false, send_email: false}.merge(options)
-    Subscription.create!(story:story, user: self, username: username,  author: @options[:author], privileged: @options[:privileged])
+    @subscription = Subscription.create(story:story, user: self, username: username,  author: @options[:author], privileged: @options[:privileged])
   end
 end
