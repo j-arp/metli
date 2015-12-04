@@ -1,5 +1,5 @@
 module Manage
-  class ChaptersController < ApplicationController
+  class ChaptersController < ActiveUsersController
     before_action :set_chapter, only: [:show, :edit, :update, :destroy]
     before_action :set_story
     before_action :set_publish_date, only: [:create, :update]

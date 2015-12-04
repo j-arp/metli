@@ -1,4 +1,4 @@
-class AccountController < ApplicationController
+class AccountController < ActiveUsersController
   before_action :require_login, except: [:login, :process_login, :callback]
 
   def index

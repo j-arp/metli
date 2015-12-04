@@ -1,5 +1,5 @@
 module Manage
-  class UsersController < ActiveUserController
+  class UsersController < SuperUserController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
 
     # GET /users

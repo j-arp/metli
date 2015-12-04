@@ -1,5 +1,5 @@
 module Manage
-  class StoriesController < ApplicationController
+  class StoriesController < ActiveUsersController
     before_action :set_story, only: [:show, :edit, :subscribers, :update, :destroy]
     before_action :get_users, only: [:new, :edit, :create, :update]
 
