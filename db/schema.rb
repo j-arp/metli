@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204023502) do
+ActiveRecord::Schema.define(version: 20151204185016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,9 +87,12 @@ ActiveRecord::Schema.define(version: 20151204023502) do
     t.string   "slug"
     t.string   "permalink"
     t.text     "about"
+    t.integer  "created_by"
+    t.integer  "user_id"
   end
 
   add_index "stories", ["permalink"], name: "index_stories_on_permalink", using: :btree
+  add_index "stories", ["user_id"], name: "index_stories_on_user_id", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "story_id"
@@ -134,6 +137,7 @@ ActiveRecord::Schema.define(version: 20151204023502) do
   add_foreign_key "chapters", "stories"
   add_foreign_key "chapters", "users"
   add_foreign_key "invites", "users"
+  add_foreign_key "stories", "users"
   add_foreign_key "subscriptions", "stories"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "votes", "users"

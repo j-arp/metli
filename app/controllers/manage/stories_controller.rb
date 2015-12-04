@@ -42,6 +42,7 @@ module Manage
 
         @story = Story.new(story_params)
         @story.active = true
+        @story.user = active_user
 
         respond_to do |format|
           if @story.save

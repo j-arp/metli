@@ -3,6 +3,8 @@ class Story < ActiveRecord::Base
   has_many :users, through: :subscriptions, dependent: :destroy
   has_many :chapters, dependent: :destroy
 
+  belongs_to :user
+
   validates :name, presence: true
   validates :name, uniqueness: true
 

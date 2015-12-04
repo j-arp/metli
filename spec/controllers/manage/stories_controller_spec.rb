@@ -62,6 +62,7 @@ RSpec.describe Manage::StoriesController, type: :controller do
     end
 
     context "with valid params" do
+
       it "creates a new Story" do
         expect {
           post :create, {invite_code: @invite.key, :story => valid_attributes}, valid_session
@@ -71,7 +72,11 @@ RSpec.describe Manage::StoriesController, type: :controller do
       it "sets it as active" do
         post :create, {invite_code: @invite.key,:story => valid_attributes}, valid_session
         expect(assigns(:story)).to be_active
+      end
 
+      it 'sets active user as creator' do
+        post :create, {invite_code: @invite.key,:story => valid_attributes}, valid_session
+        expect(assigns(:story).user).to eq @user
       end
 
       it "assigns a newly created story as @story" do

@@ -26,7 +26,6 @@ class AccountController < ActiveUsersController
   end
 
   def callback
-    puts params
     info = info_from_the_google
     @user = User.where(email: info[:email]).first_or_initialize
     @user.first_name = info[:first_name]
@@ -41,6 +40,11 @@ class AccountController < ActiveUsersController
     else
       redirect_to login_path
     end
+  rescue => e
+    puts e
+    flash[:message] = "Login could not be processed. Please try again."
+    redirect_to login_path
+
   end
 
   def set_session(user)

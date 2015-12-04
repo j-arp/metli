@@ -19,6 +19,12 @@ RSpec.describe AccountController, type: :controller do
       }
     end
 
+    it "invalid request comes into the callback" do
+      request.env["omniauth.auth"] = {}
+      get :callback, {provider: 'google'}, {}
+      expect(response).to redirect_to login_path
+    end
+
     it "finds user based on email address" do
       user = FactoryGirl.create(:user, {email: 'jesse@arpcentral.net'})
       request.env["omniauth.auth"][:info][:email] = user.email
