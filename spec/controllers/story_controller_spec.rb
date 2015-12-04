@@ -6,11 +6,6 @@ RSpec.describe StoryController, type: :controller do
 
   describe "GET #index" do
 
-    it "returns http success" do
-      get :index, {}, valid_session
-      expect(assigns(:current_story)).to eq @story
-    end
-
     it 'redirects to choose story if no current story is in session' do
         valid_session[:current_story_id] = nil
         get :index, {}, valid_session
@@ -20,9 +15,14 @@ RSpec.describe StoryController, type: :controller do
 
   describe "GET #choose" do
 
-    it "returns http success" do
+    it "returns @subscriptions" do
       get :choose, {}, valid_session
-      expect(assigns(:subscribed_stories)).to_not be_nil
+      expect(assigns(:subscriptions)).to_not be_nil
+    end
+
+    it "returns a Decorated @subscriptions" do
+      get :choose, {}, valid_session
+      expect(assigns(:subscriptions).first).to be_decorated_with SubscriptionDecorator
     end
 
     it "sets new story as current" do
