@@ -35,12 +35,12 @@ main {margin-top: 33px}
   background-image: url(image-path('logo.svg'));
   display: block;
   text-indent: -9999px;
-  width: 70%;
-  height: 80%;
-  background-size: 100% 100%;
+  width: 100%;
+  height: 100%;
+  background-size: 120% 120%;
   background-repeat: no-repeat;
   position: fixed;
-  background-position: top center;
+  background-position: bottom center;
   opacity: 0.03;
 }
 .adventure-icon.small {height: 36px; margin:0px 10px 4px 20px }
