@@ -10,7 +10,7 @@ RSpec.describe Story, type: :model do
       story2 = FactoryGirl.create(:story)
       user.subscribe_to(story1, 'jesse')
 
-      expect(Story.available(user)).to eq [story2]
+      expect(Story.available_for(user)).to eq [story2]
     end
   end
 
