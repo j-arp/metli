@@ -14,7 +14,6 @@ RSpec.describe StoryController, type: :controller do
   end
 
   describe "GET #choose" do
-
     it "returns @subscriptions" do
       get :choose, {}, valid_session
       expect(assigns(:subscriptions)).to_not be_nil
@@ -39,31 +38,28 @@ RSpec.describe StoryController, type: :controller do
 
   describe "GET #chapter" do
     it "returns http success" do
+      puts @chapter.inspect
       get :chapter, {number: 1}, valid_session
       expect(assigns(:chapter)).to eq @chapter
     end
 
 
-      it 'sets control variable to allow voting' do
-        get :chapter, {number: 1}, valid_session
-        expect(assigns(:allow_voting)).to eq true
-      end
+    it 'sets control variable to allow voting' do
+      get :chapter, {number: 1}, valid_session
+      expect(assigns(:allow_voting)).to eq true
+    end
 
+    it 'sets control variable to not allow voting' do
+      vote = FactoryGirl.create(:vote, {user_id: @user.id, votable_type: 'Action', votable_id: @chapter.actions.first.id})
+      get :chapter, {number: 1}, valid_session
+      expect(assigns(:allow_voting)).to eq false
+    end
 
-
-      it 'sets control variable to not allow voting' do
-        vote = FactoryGirl.create(:vote, {user_id: @user.id, votable_type: 'Action', votable_id: @chapter.actions.first.id})
-        get :chapter, {number: 1}, valid_session
-        expect(assigns(:allow_voting)).to eq false
-      end
-
-
-
-      it 'does not allow voting if user has not voted but voting has ended' do
-        @chapter.vote_ends_on = Time.now - 1.day
-        @chapter.save
-        get :chapter, {number: 1}, valid_session
-        expect(assigns(:allow_voting)).to eq false
+    it 'does not allow voting if user has not voted but voting has ended' do
+      @chapter.vote_ends_on = Time.now - 1.day
+      @chapter.save
+      get :chapter, {number: 1}, valid_session
+      expect(assigns(:allow_voting)).to eq false
     end
   end
 end

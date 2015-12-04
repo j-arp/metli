@@ -8,6 +8,7 @@ RSpec.shared_context "user_with_supscriptions" do
     User.destroy_all
 
     @user = FactoryGirl.create(:user)
+    @super_user = FactoryGirl.create(:user, {super_user: true})
     @author = FactoryGirl.create(:user)
     @other_user = FactoryGirl.create(:user)
 
@@ -34,6 +35,7 @@ RSpec.shared_context "user_with_supscriptions" do
     Subscription.destroy_all
     Action.destroy_all
     CallToAction.destroy_all
+    Vote.destroy_all
     Chapter.destroy_all
     Story.destroy_all
     User.destroy_all

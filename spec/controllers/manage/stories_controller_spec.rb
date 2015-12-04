@@ -43,39 +43,57 @@ RSpec.describe Manage::StoriesController, type: :controller do
   end
 
   describe "POST #create" do
+
+    before(:each) do
+      @invite = Invite.create
+    end
+
+    context 'without invite code' do
+      it "does not create a new Story" do
+        expect {
+          post :create, {invite_code: "blahx3", :story => valid_attributes}, valid_session
+        }.to change(Story, :count).by(0)
+      end
+
+      it "redirects back to account" do
+          post :create, {invite_code: "blahx3", :story => valid_attributes}, valid_session
+          expect(response).to redirect_to account_path
+      end
+    end
+
     context "with valid params" do
       it "creates a new Story" do
         expect {
-          post :create, {:story => valid_attributes}, valid_session
+          post :create, {invite_code: @invite.key, :story => valid_attributes}, valid_session
         }.to change(Story, :count).by(1)
       end
 
       it "sets it as active" do
-        post :create, {:story => valid_attributes}, valid_session
+        post :create, {invite_code: @invite.key,:story => valid_attributes}, valid_session
         expect(assigns(:story)).to be_active
 
       end
 
       it "assigns a newly created story as @story" do
-        post :create, {:story => valid_attributes}, valid_session
+        post :create, {invite_code: @invite.key,:story => valid_attributes}, valid_session
         expect(assigns(:story)).to be_a(Story)
         expect(assigns(:story)).to be_persisted
       end
 
       it "redirects to the created story" do
-        post :create, {:story => valid_attributes}, valid_session
+        post :create, {invite_code: @invite.key,:story => valid_attributes}, valid_session
         expect(response).to redirect_to(manage_story_path(Story.last))
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved story as @story" do
-        post :create, {:story => invalid_attributes}, valid_session
+        post :create, {invite_code: @invite.key,:story => invalid_attributes}, valid_session
         expect(assigns(:story)).to be_a_new(Story)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:story => invalid_attributes}, valid_session
+        post :create, {invite_code: @invite.key, :story => invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end

@@ -12,6 +12,10 @@ RSpec.describe Manage::UsersController, type: :controller do
     {email: ''}
   }
 
+  let(:valid_session){
+    {user_id: @super_user.id}
+  }
+
   before(:all) do
     @user.super_user=true
   end

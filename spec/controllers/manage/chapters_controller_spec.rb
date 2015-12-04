@@ -44,6 +44,8 @@ RSpec.describe Manage::ChaptersController, type: :controller do
     end
   end
 
+
+
   describe "POST #create" do
     context "with valid params" do
       it "creates a new Chapter" do
@@ -76,6 +78,11 @@ RSpec.describe Manage::ChaptersController, type: :controller do
         post :create, {story_id: @story.permalink, :chapter => invalid_attributes}, valid_author_session
         expect(response).to render_template("new")
       end
+
+      it 'requires at least 2 calls to action' do
+        skip  "no test yet"
+      end
+
     end
   end
 
@@ -125,32 +132,48 @@ RSpec.describe Manage::ChaptersController, type: :controller do
 
   describe "Notify" do
 
-    it "notifies subscribers if chapter is being published on #update" do
-      @chapter.published_on = nil
-      @chapter.save
+    context 'ON Update' do
+      it "notifies subscribers if chapter is being published on #update if user asks" do
+        @user.subscriptions.first.update(send_email: true)
+        @chapter.published_on = nil
+        @chapter.save
 
-      expect {
-        put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes}, valid_author_session
-              }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        expect {
+          put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes}, valid_author_session
+                }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+
+      it "DOES NOT notifies subscribers if chapter is being published on #update if user doesnt asks" do
+        @user.subscriptions.first.update(send_email: false)
+        @chapter.published_on = nil
+        @chapter.save
+
+        expect {
+          put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes}, valid_author_session
+        }.to change { ActionMailer::Base.deliveries.count }.by(0)
+      end
+
+
+      it "skips notification if chapter already has been published on #update" do
+        @chapter.published_on = Time.now
+        @chapter.save
+
+        expect {
+          put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes.merge({voting_ends_after: nil})}, valid_author_session
+        }.to change { ActionMailer::Base.deliveries.count }.by(0)
+      end
     end
 
-    it "skips notification if chapter already has been published on #update" do
-      @chapter.published_on = Time.now
-      @chapter.save
+    context 'On Create' do
 
-      expect {
-        put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes}, valid_author_session
-      }.to change { ActionMailer::Base.deliveries.count }.by(0)
-    end
+          it "notifies subscribers if chapter has been published on #create" do
+            @story.subscriptions.first.update(send_email: true)
 
+            expect {
+              post :create, {story_id: @story.permalink, :publish => 1,  :chapter => FactoryGirl.attributes_for(:chapter, {story_id: @story.id, published_on: "2015/3/23"})}, valid_author_session
+                    }.to change { ActionMailer::Base.deliveries.count }.by(1)
+          end
 
-    it "notifies subscribers if chapter has been published on #create" do
-      @chapter.published_on = nil
-      @chapter.save
-
-      expect {
-        post :create, {story_id: @story.permalink, :publish => 1,  :chapter => FactoryGirl.attributes_for(:chapter, {story_id: @story.id, published_on: "2015/3/23"})}, valid_author_session
-              }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
 
   end
@@ -182,7 +205,7 @@ RSpec.describe Manage::ChaptersController, type: :controller do
     it "redirects to the chapters list" do
       @new_chapter = FactoryGirl.create(:chapter, {story_id: @chapter.story_id})
       delete :destroy, {story_id: @chapter.story.permalink, :id => @chapter.to_param}, valid_author_session
-      expect(response).to redirect_to(manage_story_chapters_path)
+      expect(response).to redirect_to(manage_story_path(@chapter.story))
     end
   end
 

@@ -16,7 +16,6 @@ class StoryController < ActiveUsersController
 
 
   def choose
-    #@subscribed_stories = Story.where(id: session[:subscribed_stories].split(','))
     @subscriptions = active_user.subscriptions.decorate.select { | sub | !sub.story.chapters.empty? }
   end
 
@@ -39,9 +38,10 @@ class StoryController < ActiveUsersController
     set_current_story
     @active_user = active_user
     @chapter = @current_story.chapters.find_by_number(params[:number])
-    active_user.subscriptions.find_by(story: @current_story).update(last_read_chapter_number: params[:number])
+    @subscription = active_user.subscriptions.find_by(story: @current_story)
+    @subscription.update(last_read_chapter_number: params[:number])
     @call_to_action = CallToActionDecorator.new(@chapter.call_to_action)
-    @allow_voting = allow_voting?
+    @allow_voting = @subscription.allow_voting_for? @chapter
   end
 
   def latest
@@ -52,13 +52,6 @@ class StoryController < ActiveUsersController
   end
 
   private
-
-  def allow_voting?
-    puts "++ is voting closed? #{ (@chapter.vote_ends_on < Time.now ) }"
-    return false if @chapter.votes.select { | v | v.user_id == active_user.id }.present?
-    return false if @chapter.vote_ends_on < Time.now
-    return true
-  end
 
   def set_current_story
     @current_story || @current_story = Story.find(session[:current_story_id])

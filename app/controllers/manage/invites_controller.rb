@@ -6,6 +6,7 @@ module Manage
     # GET /invites.json
     def index
       @invites = Invite.all
+      puts @invites.inspect
     end
 
     # GET /invites/1
@@ -25,18 +26,9 @@ module Manage
     # POST /invites
     # POST /invites.json
     def create
-      @invite = Invite.new
-      @invite.key = SecureRandom.hex(6)
-
-      respond_to do |format|
-        if @invite.save
-          format.html { redirect_to manage_invite_path(@invite), notice: 'Invite was successfully created.' }
-          format.json { render :show, status: :created, location: @invite }
-        else
-          format.html { render :new }
-          format.json { render json: @invite.errors, status: :unprocessable_entity }
-        end
-      end
+      @invite = Invite.create
+       redirect_to manage_invite_path(@invite)
+       flash[:message] =  'Invite was successfully created.'
     end
 
     # DELETE /invites/1

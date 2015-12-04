@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Invite, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  it 'generates a key on create' do
+    invite = Invite.create
+    expect(invite.key).to_not be_nil
+  end
 end

@@ -32,6 +32,7 @@ module Manage
     # POST /chapters
     # POST /chapters.json
     def create
+      puts params.inspect
       @chapter = Chapter.new(chapter_params)
       @chapter.story   = @story
       @chapter.author = active_user
@@ -40,6 +41,7 @@ module Manage
         if @chapter.save
           @call_to_action = CallToAction.find_or_create_by(chapter_id: @chapter.id)
           add_new_actions
+          puts "notify if pubhlished >> #{@chapter.published?}"
           notify if @chapter.published?
 
           format.html { redirect_to manage_story_chapter_path(@chapter.story, @chapter), notice: 'Chapter was successfully created.' }
@@ -54,6 +56,7 @@ module Manage
     # PATCH/PUT /chapters/1
     # PATCH/PUT /chapters/1.json
     def update
+
       respond_to do |format|
         if params[:chapter][:published_on].blank? && @chapter.unpublish?
           params[:chapter][:published_on] = nil

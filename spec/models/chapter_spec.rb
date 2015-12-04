@@ -11,9 +11,15 @@ RSpec.describe Chapter, type: :model do
 
   describe '#published?' do
 
-    it 'is published' do
+    it 'is published if pulished and saved' do
       chapter = FactoryGirl.build(:chapter, {published_on: Time.now})
+      chapter.save
       expect(chapter).to be_published
+    end
+
+    it 'is not published if not saved' do
+      chapter = FactoryGirl.build(:chapter, {published_on: Time.now})
+      expect(chapter).to_not be_published
     end
 
     it 'is not published' do

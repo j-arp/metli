@@ -53,6 +53,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/about' => 'home#index'
+  get '/about' => 'home#about'
   root 'home#index'
 end
