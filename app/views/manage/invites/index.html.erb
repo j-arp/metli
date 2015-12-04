@@ -1,0 +1,30 @@
+<h1>Invites</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Used</th>
+      <th>User</th>
+      <th>Used on</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invites.each do |invite| %>
+      <tr>
+        <td><%= invite.key %></td>
+        <td><%= invite.used %></td>
+        <td><%= invite.user %></td>
+        <td><%= invite.used_on %></td>
+        <td><%= link_to 'Show', manage_invite_path(invite) %></td>
+        <td><%= link_to 'Remove', manage_invite_path(invite), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Invite', new_manage_invite_path, class: 'button large success' %>

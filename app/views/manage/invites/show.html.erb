@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @invite.key %>
+</p>
+
+<p>
+  <strong>Used:</strong>
+  <%= @invite.used %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @invite.user %>
+</p>
+
+<p>
+  <strong>Used on:</strong>
+  <%= @invite.used_on %>
+</p>
+
+<%= link_to 'Back', manage_invites_path, class: 'button large' %>

@@ -72,6 +72,16 @@
   <% end %>
 
   <div class="row">
+    <div class="small-4 medium-2 columns medium-text-right">
+    <%= label_tag "Invite Code" %>
+    </div>
+    <div class="small-8 medium-4 columns end">
+      <%= text_field_tag :invite_code %>
+    </div>
+  </div>
+
+
+  <div class="row">
     <div class="small-12 medium-10 medium-offset-2 columns">
     <%= f.submit class: "button" %>
     <%= link_to 'Back', manage_stories_path, class: "button secondary" %>

@@ -27,7 +27,7 @@ class Chapter < ActiveRecord::Base
   end
 
   def published?
-    published_on.present?
+    persisted? && published_on.present?
   end
 
   def unpublish?
