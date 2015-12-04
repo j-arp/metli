@@ -35,9 +35,7 @@ module Manage
     # POST /stories
     # POST /stories.json
     def create
-      puts params
       unless validate_invite
-        puts "validation of invite fialed"
         flash[:message] = "You need to have a valid Invite Code to create a new story"
         redirect_to account_path
       else
@@ -106,7 +104,6 @@ module Manage
       end
 
       def validate_invite
-        puts "validating code"
         return false unless params[:invite_code]
         invite = Invite.find_by(key: params[:invite_code], used: false)
         return false unless invite

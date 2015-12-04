@@ -6,7 +6,6 @@ module Manage
     # GET /invites.json
     def index
       @invites = Invite.all
-      puts @invites.inspect
     end
 
     # GET /invites/1

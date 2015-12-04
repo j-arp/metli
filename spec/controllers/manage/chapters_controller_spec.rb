@@ -188,7 +188,6 @@ RSpec.describe Manage::ChaptersController, type: :controller do
     end
 
     it "destroys the requested chapter" do
-      puts @chapter.story.chapters.inspect
       expect {
         delete :destroy, {story_id: @chapter.story.permalink, :id => @chapter.to_param}, valid_author_session
       }.to change(Chapter, :count).by(-1)

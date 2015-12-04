@@ -32,7 +32,6 @@ module Manage
     # POST /chapters
     # POST /chapters.json
     def create
-      puts params.inspect
       @chapter = Chapter.new(chapter_params)
       @chapter.story   = @story
       @chapter.author = active_user
@@ -41,7 +40,6 @@ module Manage
         if @chapter.save
           @call_to_action = CallToAction.find_or_create_by(chapter_id: @chapter.id)
           add_new_actions
-          puts "notify if pubhlished >> #{@chapter.published?}"
           notify if @chapter.published?
 
           format.html { redirect_to manage_story_chapter_path(@chapter.story, @chapter), notice: 'Chapter was successfully created.' }
@@ -96,7 +94,6 @@ module Manage
         @chapter.destroy
         flash[:message] = 'Chapter has been deleted!'
       else
-        puts "chapter can't be dleted!!!"
         flash[:message] = 'Chapter cannot be deleted! Only the last chapter can be deleted.'
       end
       respond_to do |format|

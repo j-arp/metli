@@ -38,7 +38,6 @@ RSpec.describe StoryController, type: :controller do
 
   describe "GET #chapter" do
     it "returns http success" do
-      puts @chapter.inspect
       get :chapter, {number: 1}, valid_session
       expect(assigns(:chapter)).to eq @chapter
     end

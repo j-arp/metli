@@ -16,7 +16,6 @@ module Account
       @subscription = active_user.subscribe_to(@story, params[:username])
 
       if @subscription.persisted?
-        puts "subscription is a go go go go"
         new_ids = session[:subscribed_stories].split(',')
         new_ids << @story.id
         session[:subscribed_stories] = new_ids.join(',')
@@ -26,7 +25,6 @@ module Account
         end
 
       else
-        puts "subscription is a no go"
         flash[:message] = "You cannot subscribe to '#{@story.name}'  with username '#{params[:username]}.'"
         redirect_to account_available_stories_path
       end
@@ -35,7 +33,6 @@ module Account
     end
 
     def update
-      puts params
       @subscription = active_user.subscriptions.find(params[:id])
       @subscription.update(send_email: params[:send_email])
       flash[:message] = "Settings for #{@subscription.story.name} have been updated"
@@ -51,9 +48,7 @@ module Account
 
       ids = session[:subscribed_stories].to_s.split(',')
       if ids.present?
-        puts ids.inspect
         ids.reject! { |s| s == @subscription.story_id.to_s }
-        puts ids.inspect
         session[:subscribed_stories] = ids.join(',')
       end
       @subscription.destroy if @subscription

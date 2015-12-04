@@ -1,9 +1,6 @@
 class StoryController < ActiveUsersController
 
   def index
-    # puts session[:subscribed_stories].inspect
-    # puts session[:current_story_id].inspect
-
     if session[:current_story_id]
       set_current_story
     elsif session[:subscribed_stories].nil?
