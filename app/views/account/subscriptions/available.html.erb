@@ -10,6 +10,7 @@
       <div class="row collapse">
         <div class="small-12 columns">
           <h3 class="story-title"><%= story %></h3>
+          <p>Created by <%= story.user.present? ? story.user.full_name : "Unknown"  %></p>
         </div>
       </div>
 
