@@ -1,6 +1,6 @@
 class CreateInvites < ActiveRecord::Migration
   def change
-    create_table :invites do |t|
+    create_table :invites, :force => true do |t|
       t.string :key
       t.boolean :used, default: false
       t.references :user, index: true, foreign_key: true
