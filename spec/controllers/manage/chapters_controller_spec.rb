@@ -16,6 +16,13 @@ RSpec.describe Manage::ChaptersController, type: :controller do
 
   let(:story) { @story }
 
+  let(:actions){
+    {
+      contents: @chapter.actions.map {|a| a.content },
+      ids: @chapter.actions.map {|a| a.id }
+    }
+  }
+
   describe "GET #index" do
     it "assigns all chapters as @chapters" do
       get :index, {story_id: @story.permalink}, valid_author_session
@@ -27,6 +34,8 @@ RSpec.describe Manage::ChaptersController, type: :controller do
     it "assigns the requested chapter as @chapter" do
       get :show, {story_id: @story.permalink, :id => @story.chapters.first.to_param}, valid_author_session
       expect(assigns(:chapter)).to eq(@story.chapters.first)
+      expect(assigns(:call_to_action)).to_not be_nil
+      expect(assigns(:call_to_action)).to be_decorated_with CallToActionDecorator
     end
   end
 
@@ -50,18 +59,18 @@ RSpec.describe Manage::ChaptersController, type: :controller do
     context "with valid params" do
       it "creates a new Chapter" do
         expect {
-          post :create, {story_id: @story.permalink, :chapter => FactoryGirl.attributes_for(:chapter, {story_id: @story.permalink})}, valid_author_session
+          post :create, {new_calls_to_action: ["Stop", "Go"], story_id: @story.permalink, :chapter => FactoryGirl.attributes_for(:chapter, {story_id: @story.permalink})}, valid_author_session
         }.to change(Chapter, :count).by(1)
       end
 
       it "assigns a newly created chapter as @chapter" do
-        post :create, {story_id: @story.permalink, :chapter => valid_attributes}, valid_author_session
+        post :create, {new_calls_to_action: ["Stop", "Go"], story_id: @story.permalink, :chapter => valid_attributes}, valid_author_session
         expect(assigns(:chapter)).to be_a(Chapter)
         expect(assigns(:chapter)).to be_persisted
       end
 
       it "redirects to the created chapter" do
-        post :create, {story_id: @story.permalink, :chapter => valid_attributes}, valid_author_session
+        post :create, {new_calls_to_action: ["Stop", "Go"], story_id: @story.permalink, :chapter => valid_attributes}, valid_author_session
         @story.reload
         #broken :why?
         # expect(response).to redirect_to(manage_story_chapter_path(@story.permalink, @story.chapters.last.id))
@@ -70,17 +79,24 @@ RSpec.describe Manage::ChaptersController, type: :controller do
 
     context "with invalid params" do
       it "assigns a newly created but unsaved chapter as @chapter" do
-        post :create, {story_id: @story.permalink, :chapter => invalid_attributes}, valid_author_session
+        post :create, {new_calls_to_action: ["Stop", "Go"], story_id: @story.permalink, :chapter => invalid_attributes}, valid_author_session
         expect(assigns(:chapter)).to be_a_new(Chapter)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {story_id: @story.permalink, :chapter => invalid_attributes}, valid_author_session
+        post :create, {new_calls_to_action: ["Stop", "Go"], story_id: @story.permalink, :chapter => invalid_attributes}, valid_author_session
         expect(response).to render_template("new")
       end
 
-      it 'requires at least 2 calls to action' do
-        skip  "no test yet"
+      it 'does not create a new chapter if not enough actions' do
+        expect {
+          post :create, {new_calls_to_action: [], story_id: @story.permalink, :chapter => invalid_attributes}, valid_author_session
+        }.to change(Chapter, :count).by(0)
+      end
+
+      it 're-renders form' do
+          post :create, {new_calls_to_action: [], story_id: @story.permalink, :chapter => invalid_attributes}, valid_author_session
+          expect(response).to render_template("new")
       end
 
     end
@@ -92,39 +108,44 @@ RSpec.describe Manage::ChaptersController, type: :controller do
         {title: 'new chapter title'}
       }
 
+      it 'does not update a chapter if not enough actions are submitted' do
+          put :update, {new_calls_to_action: [], calls_to_action_ids: [], calls_to_action: [], story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => new_attributes}, valid_author_session
+          expect(response).to render_template("edit")
+      end
+
       it "updates the requested chapter" do
-        put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => new_attributes}, valid_author_session
+        put :update, {new_calls_to_action: [], calls_to_action_ids: actions[:ids], calls_to_action: actions[:contents], story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => new_attributes}, valid_author_session
         @chapter.reload
         expect(@chapter.title).to eq 'new chapter title'
       end
 
       it "does not update published attribute if not the last published chapter" do
         @new_chapter = FactoryGirl.create(:chapter, {story_id: @chapter.story_id, number: 1000})
-        put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => new_attributes.merge(published_on: nil)}, valid_author_session
+        put :update, {new_calls_to_action: [], calls_to_action_ids: actions[:ids], calls_to_action: actions[:contents], story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => new_attributes.merge(published_on: nil)}, valid_author_session
         @chapter.reload
         expect(@chapter).to be_published
       end
 
 
       it "assigns the requested chapter as @chapter" do
-        put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => valid_attributes}, valid_author_session
+        put :update, {new_calls_to_action: [], calls_to_action_ids: actions[:ids], calls_to_action: actions[:contents], story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => valid_attributes}, valid_author_session
         expect(assigns(:chapter)).to eq(@chapter)
       end
 
       it "redirects to the chapter" do
-        put :update, {story_id: @chapter.story.permalink, :id => @chapter.id, :chapter => valid_attributes}, valid_author_session
+        put :update, {new_calls_to_action: [], calls_to_action_ids: actions[:ids], calls_to_action: actions[:contents], story_id: @chapter.story.permalink, :id => @chapter.id, :chapter => valid_attributes}, valid_author_session
         expect(response).to redirect_to(manage_story_chapter_path(@story.permalink, @chapter))
       end
     end
 
     context "with invalid params" do
       it "assigns the chapter as @chapter" do
-        put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => invalid_attributes}, valid_author_session
+        put :update, {new_calls_to_action: [], calls_to_action_ids: actions[:ids], calls_to_action: actions[:contents], story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => invalid_attributes}, valid_author_session
         expect(assigns(:chapter)).to eq(@chapter)
       end
 
       it "re-renders the 'edit' template" do
-        put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => invalid_attributes}, valid_author_session
+        put :update, {new_calls_to_action: [], calls_to_action_ids: actions[:ids], calls_to_action: actions[:contents], story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => invalid_attributes}, valid_author_session
         expect(response).to render_template("edit")
       end
     end
@@ -139,7 +160,7 @@ RSpec.describe Manage::ChaptersController, type: :controller do
         @chapter.save
 
         expect {
-          put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes}, valid_author_session
+          put :update, {new_calls_to_action: [], calls_to_action_ids: actions[:ids], calls_to_action: actions[:contents], story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes}, valid_author_session
                 }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
 
@@ -149,7 +170,7 @@ RSpec.describe Manage::ChaptersController, type: :controller do
         @chapter.save
 
         expect {
-          put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes}, valid_author_session
+          put :update, {new_calls_to_action: [], calls_to_action_ids: actions[:ids], calls_to_action: actions[:contents], story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes}, valid_author_session
         }.to change { ActionMailer::Base.deliveries.count }.by(0)
       end
 
@@ -159,7 +180,7 @@ RSpec.describe Manage::ChaptersController, type: :controller do
         @chapter.save
 
         expect {
-          put :update, {story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes.merge({voting_ends_after: nil})}, valid_author_session
+          put :update, {new_calls_to_action: [], calls_to_action_ids: actions[:ids], calls_to_action: actions[:contents], story_id: @chapter.story.permalink, :id => @chapter.to_param, :publish => 1,  :chapter => valid_attributes.merge({voting_ends_after: nil})}, valid_author_session
         }.to change { ActionMailer::Base.deliveries.count }.by(0)
       end
     end
@@ -170,7 +191,7 @@ RSpec.describe Manage::ChaptersController, type: :controller do
             @story.subscriptions.first.update(send_email: true)
 
             expect {
-              post :create, {story_id: @story.permalink, :publish => 1,  :chapter => FactoryGirl.attributes_for(:chapter, {story_id: @story.id, published_on: "2015/3/23"})}, valid_author_session
+              post :create, {new_calls_to_action: ["Stop", "Start"],story_id: @story.permalink, :publish => 1,  :chapter => FactoryGirl.attributes_for(:chapter, {story_id: @story.id, published_on: "2015/3/23"})}, valid_author_session
                     }.to change { ActionMailer::Base.deliveries.count }.by(1)
           end
 

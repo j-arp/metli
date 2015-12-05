@@ -13,6 +13,7 @@ module Manage
     # GET /chapters/1
     # GET /chapters/1.json
     def show
+      @call_to_action = CallToActionDecorator.new(@chapter.call_to_action)
     end
 
     # GET /chapters/new
@@ -32,10 +33,16 @@ module Manage
     # POST /chapters
     # POST /chapters.json
     def create
+
       @chapter = Chapter.new(chapter_params)
       @chapter.story   = @story
       @chapter.author = active_user
       @chapter.vote_ends_on = vote_cutoff_date
+
+      unless params[:new_calls_to_action].count > 1
+        @chapter.errors[:base] << "You need at least 2 actions"
+      end
+
       respond_to do |format|
         if @chapter.save
           @call_to_action = CallToAction.find_or_create_by(chapter_id: @chapter.id)
@@ -54,7 +61,6 @@ module Manage
     # PATCH/PUT /chapters/1
     # PATCH/PUT /chapters/1.json
     def update
-
       respond_to do |format|
         if params[:chapter][:published_on].blank? && @chapter.unpublish?
           params[:chapter][:published_on] = nil
@@ -68,9 +74,15 @@ module Manage
           params[:chapter][:published_on] = @chapter.published_on
         end
 
+        unless params[:new_calls_to_action].select { | a | a.present? }.count + params[:calls_to_action].select { | a | a.present? }.count  > 1
+          do_not_save = true
+          @chapter.errors[:base] << "You need at least 2 actions"
+        end
+
+
         @chapter.vote_ends_on = vote_cutoff_date if params[:chapter][:voting_ends_after]
 
-        if @chapter.update(chapter_params)
+        if do_not_save != true && @chapter.update(chapter_params)
           @call_to_action = CallToAction.find_or_create_by(chapter_id: @chapter.id)
 
 

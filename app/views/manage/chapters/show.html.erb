@@ -7,4 +7,15 @@
 </div>
 </div>
 <% end %>
-<%= render @chapter %>
+<div class="row">
+  <div class="small-12 columns">
+    <%= render @chapter %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 medium-6 columns end">
+    <h3>Current Voting Results</h3>
+    <%= raw(@call_to_action.chart) %>
+  </div>
+</div>
