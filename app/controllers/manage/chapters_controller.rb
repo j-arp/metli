@@ -165,19 +165,19 @@ module Manage
   def vote_cutoff_date
     case params[:chapter][:voting_ends_after]
       when '1 day'
-        cuttoff = DateTime.now + 1.day
+        cuttoff = DateTime.now.end_of_day + 1.day
       when '2 days'
-        cuttoff = DateTime.now + 2.days
+        cuttoff = DateTime.now.end_of_day + 2.days
       when '3 days'
-        cuttoff = DateTime.now + 3.days
+        cuttoff = DateTime.now.end_of_day + 3.days
       when '1 week'
-        cuttoff = DateTime.now + 1.week
+        cuttoff = DateTime.now.end_of_day + 1.week
       when '2 weeks'
-        cuttoff = DateTime.now + 2.weeks
+        cuttoff = DateTime.now.end_of_day + 2.weeks
       else
-        cuttoff = DateTime.now + 1.week
+        cuttoff = DateTime.now.end_of_day + 1.week
       end
-      return cuttoff.midnight
+      return cuttoff
     end
 
   end
