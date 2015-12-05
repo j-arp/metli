@@ -13,7 +13,7 @@ class StoryController < ActiveUsersController
 
 
   def choose
-    @subscriptions = active_user.subscriptions.decorate.select { | sub | !sub.story.chapters.empty? }
+    @subscriptions = active_user.subscriptions.decorate.select { | sub | !sub.story.chapters.published.empty? }
   end
 
   def set_current_story_id_in_session

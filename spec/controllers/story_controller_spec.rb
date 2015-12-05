@@ -19,6 +19,13 @@ RSpec.describe StoryController, type: :controller do
       expect(assigns(:subscriptions)).to_not be_nil
     end
 
+    it "leaves out chapters that are not published in  @subscriptions" do
+      @other_story.chapters.update_all(published_on: nil)
+      get :choose, {}, valid_session
+      puts assigns(:subscriptions).count
+      expect(assigns(:subscriptions).count).to eq 1
+    end
+
     it "returns a Decorated @subscriptions" do
       get :choose, {}, valid_session
       expect(assigns(:subscriptions).first).to be_decorated_with SubscriptionDecorator

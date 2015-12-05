@@ -81,9 +81,6 @@ module Manage
 
 
         @chapter.vote_ends_on = vote_cutoff_date if params[:chapter][:voting_ends_after]
-        puts "Voting will end on #{@chapter.vote_ends_on}"
-        puts "this is based on time being currently #{DateTime.now.in_time_zone}"
-        puts "so it will be #{DateTime.now.in_time_zone.end_of_day} plus however many days"
 
         if do_not_save != true && @chapter.update(chapter_params)
           @call_to_action = CallToAction.find_or_create_by(chapter_id: @chapter.id)
