@@ -7,6 +7,7 @@ class VotesController < ActiveUsersController
 
     if @vote.save
       active_user.subscriptions.find_by(story:@story).update(last_voted_chapter_number: @chapter.number)
+      send_email if @chapter.votes.count == @story.subscriptions.count
     end
 
     flash[:message] = "Thanks for voting!"
@@ -23,5 +24,9 @@ class VotesController < ActiveUsersController
 
   def set_story
     @story || @story = Story.find(session[:current_story_id])
+  end
+
+  def send_email
+    NotifierMailer.voting_completed(@chapter, @story.user).deliver_now
   end
 end

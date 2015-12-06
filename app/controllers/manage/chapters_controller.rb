@@ -140,7 +140,9 @@ module Manage
       end
 
       def notify
+        puts "notifying #{@story.users.with_email_notifications.count} users"
         @story.users.with_email_notifications.each do | user |
+          puts "sending email to #{user.inspect}"
           NotifierMailer.new_chapter(@chapter, user).deliver_now
         end
       end
