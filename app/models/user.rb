@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
   end
 
   def subscribe_to(story, username, options={})
-    @options = {author: false, privileged: false, send_email: false}.merge(options)
-    @subscription = Subscription.create(story:story, user: self, username: username,  author: @options[:author], privileged: @options[:privileged])
+    @options = {author: false, privileged: false, send_email: true}.merge(options)
+    @subscription = Subscription.create(story:story, user: self, username: username,  author: @options[:author], privileged: @options[:privileged], send_email: @options[:send_email])
   end
 
   def delete_owned_stories

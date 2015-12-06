@@ -67,6 +67,11 @@ RSpec.describe User, type: :model do
       expect(Subscription.last).to be_active
     end
 
+    it 'subscribes a user to a story and defaults to sending emails' do
+      @user.subscribe_to(@story, 'jesse')
+      expect(@user.stories.count).to eq 1
+      expect(Subscription.last.send_email).to eq true
+    end
 
     it 'subscribes a user to a story as an author' do
       @user.subscribe_to(@story, 'jesse', {author: true})
