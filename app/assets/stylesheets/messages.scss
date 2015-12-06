@@ -1,0 +1,25 @@
+
+/* Messages */
+#message-box {
+    display: block;
+    background-color: #CBD1E3;
+    margin-bottom: 20px;
+    padding: 10px;
+    color: #000;
+    display:none
+}
+
+
+.messages {display:none;
+  .messages-close {
+    float:right;
+    padding:2px 8px;
+    color:#001345;
+    background-color:#fff;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+    box-shadow:1px 1px 3px #000;
+  }
+  .message-text {font-style:italic; color: #001345}
+}

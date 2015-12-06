@@ -39,9 +39,7 @@
     <main>
       <div class="row">
         <div class="small-12 columns">
-          <% if flash[:message] %>
-            <p id="message-box"><%= flash[:message] %></p>
-          <% end %>
+          <%= render 'layouts/messages' %>
           <%= yield %>
         </div>
       </div>

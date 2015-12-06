@@ -12,7 +12,7 @@ RSpec.shared_context "user_with_supscriptions" do
     @author = FactoryGirl.create(:user)
     @other_user = FactoryGirl.create(:user)
 
-    @story = FactoryGirl.create(:story)
+    @story = FactoryGirl.create(:story, {user: @user})
       @chapter = FactoryGirl.create(:chapter, {story_id: @story.id, number: 1, title:'I am the first chapter'})
       @other_chapter = FactoryGirl.create(:chapter, {story_id: @story.id, number: 2, title: 'I am the second chapter'})
       @call_to_action = CallToAction.create(chapter_id: @chapter.id)
@@ -23,7 +23,7 @@ RSpec.shared_context "user_with_supscriptions" do
       @call_to_action2.actions << FactoryGirl.create(:action, {content: "action three"})
       @call_to_action2.actions << FactoryGirl.create(:action, {content: "action four"})
 
-    @other_story = FactoryGirl.create(:story, {name: 'Other Story'})
+    @other_story = FactoryGirl.create(:story, {name: 'Other Story', user: @user })
       FactoryGirl.create(:chapter, {story_id: @other_story.id, number: 1})
     @orphan_story = FactoryGirl.create(:story, {name: 'Orphaned Story'})
       @user.subscribe_to(@story, 'jarp')

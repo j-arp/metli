@@ -36,6 +36,10 @@ Rails.application.routes.draw do
   get '/logout' => 'account#logout', as: :logout
 
   namespace :manage do
+
+    post 'subscribers/promote' => 'subscribers#promote', as: :promote
+    post 'subscribers/relegate' => 'subscribers#relegate', as: :relegate
+
     resources :invites
     resources :users
     resources :stories do

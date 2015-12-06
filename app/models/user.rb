@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   has_many :stories, through: :subscriptions, dependent: :destroy
   has_many :votes, dependent: :destroy
 
+  # before_destroy :delete_owned_stories
+
   validates :first_name, :last_name, :email, presence: true
 
   default_scope {order('last_name, first_name')}
@@ -33,5 +35,9 @@ class User < ActiveRecord::Base
   def subscribe_to(story, username, options={})
     @options = {author: false, privileged: false, send_email: false}.merge(options)
     @subscription = Subscription.create(story:story, user: self, username: username,  author: @options[:author], privileged: @options[:privileged])
+  end
+
+  def delete_owned_stories
+    Story.where(user: self).destroy_all
   end
 end
