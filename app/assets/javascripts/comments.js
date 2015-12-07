@@ -83,7 +83,7 @@ $(document).ready(function(){
         container = $('div.current-comments')
         html = '<p class="comment-text">' + comment.content + '</p><p class="comment-by">by ' + comment.user + ' on ' + comment.ts_date + ' at ' + comment.ts_time + '</p>'
         if ( status == "new") {
-          full_html = '<span class="new-comment">" + html + "</span>'
+          full_html = '<span class="new-comment">' + html + '</span>'
         }
 
         else {
