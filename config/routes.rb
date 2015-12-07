@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'comments/' => 'comments#list',  as: :list_comments
+  post 'comments/' => 'comments#add', as: :add_comment
+  delete 'comments/' => 'comments#remove', as: :remove_comment
+  put 'comments/flag' => 'comments#flag', as: :flag_comment
 
   get '/auth/google'
   get '/auth/:provider/callback', to: 'account#callback'
@@ -40,6 +44,7 @@ Rails.application.routes.draw do
     post 'subscribers/promote' => 'subscribers#promote', as: :promote
     post 'subscribers/relegate' => 'subscribers#relegate', as: :relegate
 
+    resources :comments
     resources :invites
     resources :users
     resources :stories do

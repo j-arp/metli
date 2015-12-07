@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204185016) do
+ActiveRecord::Schema.define(version: 20151206231648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,18 @@ ActiveRecord::Schema.define(version: 20151204185016) do
 
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.integer  "chapter_id"
+    t.boolean  "is_flagged"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["chapter_id"], name: "index_comments_on_chapter_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "invites", force: :cascade do |t|
     t.string   "key"
@@ -136,6 +148,8 @@ ActiveRecord::Schema.define(version: 20151204185016) do
   add_foreign_key "call_to_actions", "chapters"
   add_foreign_key "chapters", "stories"
   add_foreign_key "chapters", "users"
+  add_foreign_key "comments", "chapters"
+  add_foreign_key "comments", "users"
   add_foreign_key "invites", "users"
   add_foreign_key "stories", "users"
   add_foreign_key "subscriptions", "stories"

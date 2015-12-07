@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_many :subscriptions, dependent: :destroy
   has_many :stories, through: :subscriptions, dependent: :destroy
   has_many :votes, dependent: :destroy
-
+  has_many :comments
   # before_destroy :delete_owned_stories
 
   validates :first_name, :last_name, :email, presence: true

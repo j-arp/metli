@@ -3,7 +3,7 @@ class Chapter < ActiveRecord::Base
   belongs_to :story, touch: true
   has_one :call_to_action, dependent: :destroy
   has_many :actions, through: :call_to_action, dependent: :destroy
-
+  has_many :comments, dependent: :destroy
   before_create :auto_increment_chapter_number
 
   validates :title, :content, :story, :author, presence: true
