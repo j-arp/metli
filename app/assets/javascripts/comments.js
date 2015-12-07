@@ -35,7 +35,7 @@ $(document).ready(function(){
         .success(function(response){
           messageBox.set("comment has been submitted.")
           //refresh()
-          to_html(response)
+          to_html(response, "new")
           reset()
         })
         .error(function(response){
@@ -73,15 +73,23 @@ $(document).ready(function(){
           user: feed[c].user.name
           }
 
-          to_html(comment)
+          to_html(comment, "old")
         }
 
     }
 
-    function to_html(comment){
+    function to_html(comment, status){
       console.log(comment)
         container = $('div.current-comments')
-        html = '<span class="new-comment"><p class="comment-text">' + comment.content + '</p><p class="comment-by">by ' + comment.user + ' on ' + comment.ts_date + ' at ' + comment.ts_time + '</p></span>'
-        container.append(html)
+        html = '<p class="comment-text">' + comment.content + '</p><p class="comment-by">by ' + comment.user + ' on ' + comment.ts_date + ' at ' + comment.ts_time + '</p>'
+        if ( status == "new") {
+          full_html = '<span class="new-comment">" + html + "</span>'
+        }
+
+        else {
+          full_html = html
+        }
+
+        container.append(full_html)
     }
 })

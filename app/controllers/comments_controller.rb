@@ -5,7 +5,6 @@ class CommentsController < ActiveUsersController
   def index
     @user =active_user
     @story = @chapter.story
-
   end
 
   def add
