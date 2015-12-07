@@ -36,7 +36,7 @@ class CommentsController < ActiveUsersController
   end
 
   def set_comments
-    @comments = @chapter.comments
+    @comments = @chapter.comments.older
   end
 
 end
