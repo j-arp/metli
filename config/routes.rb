@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'comments/' => 'comments#list',  as: :list_comments
+  get 'comments/:chapter_id' => 'comments#index',  as: :comments
   post 'comments/' => 'comments#add', as: :add_comment
   delete 'comments/' => 'comments#remove', as: :remove_comment
   put 'comments/flag' => 'comments#flag', as: :flag_comment

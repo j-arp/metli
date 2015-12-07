@@ -1,9 +1,11 @@
 class CommentsController < ActiveUsersController
-  before_action :set_chapter, only: [:list, :add]
-  before_action :set_comments, only: [:list]
+  before_action :set_chapter, only: [:index, :add]
+  before_action :set_comments, only: [:index  ]
 
-  def list
-    render json: @comments
+  def index
+    @user =active_user
+    @story = @chapter.story
+
   end
 
   def add
@@ -12,7 +14,7 @@ class CommentsController < ActiveUsersController
     @comment.content = params[:content]
 
     if @comment.save
-      render json: @comment, status: :created
+      render json: @comment
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
@@ -20,7 +22,7 @@ class CommentsController < ActiveUsersController
   end
 
   def remove
-    @comment = active_user.comments.find(params[:comment_id])
+    @comment = active_user.comments.find(params[:comment_id]).destroy
     head :no_content
   end
 

@@ -1,0 +1,23 @@
+<div id="comment-box" class="comments-container" chapter-id="<%= @chapter.id %>">
+
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="current-comments">Loading comments</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="row">
+        <div class="small-12 columns">
+          <%= text_area_tag :content, "",  rows: 3 %>
+        </div>
+        <div class="small-12 columns text-right">
+          <%= submit_tag :comment, id: 'submit-comment', class: 'button ' %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

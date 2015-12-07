@@ -3,3 +3,19 @@
 .bar-graph {float:left;  background-color:#ccc; height: 30px;}
 .story-title {font-family: 'Noto Serif', serif; font-weight: bolder; font-size:1.6em}
 .no-chapters {display:none}
+
+.comment-text {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    color: #666;
+    font-style: italic;
+    border-bottom: 0px;
+}
+
+.comment-by {
+    text-align: right;
+    margin-top: -20px;
+    color: #ccc;
+    font-style: italic;
+}

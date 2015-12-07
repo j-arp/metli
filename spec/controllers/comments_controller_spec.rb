@@ -8,10 +8,10 @@ RSpec.describe CommentsController, type: :controller do
     {content: "i am a comment", chapter_id: @chapter.id, user_id:@user.id}
   }
 
-  describe "GET #list" do
+  describe "GET #index" do
     it "returns http success" do
       comment = FactoryGirl.create(:comment, valid_attributes)
-      get :list, {chapter_id: @chapter.id}, valid_session
+      get :index, {chapter_id: @chapter.id}, valid_session
       expect(response).to have_http_status(:success)
       expect(assigns(:comments)).to eq @chapter.comments
     end
