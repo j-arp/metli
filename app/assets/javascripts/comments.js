@@ -68,12 +68,12 @@ $(document).ready(function(){
       for (c in feed){
         comment = {
           content: feed[c].content,
-          ts: feed[c].date,
-          tst: feed[c].time,
+          ts_date: feed[c].date,
+          ts_time: feed[c].time,
           user: feed[c].user.name
           }
 
-          html = '<p class="comment-text">' + comment.content + '</p><p class="comment-by">by ' + comment.user + ' on ' + comment.ts + ' at ' + comment.tst + '</p>'
+          html = '<p class="comment-text">' + comment.content + '</p><p class="comment-by">by ' + comment.user + ' on ' + comment.ts_date + ' at ' + comment.ts_time + '</p>'
           container.append(html)
 
       }

@@ -7,6 +7,6 @@ json.array!(@comments) do |comment|
     json.first_name comment.user.first_name
     json.last_name comment.user.last_name
     json.img comment.user.image
-    json.name Subscription.find_by(story_id: @story.id, user_id: @user.id).username
+    json.name Subscription.find_by(story_id: @story.id, user_id: comment.user_id).username
   end
 end
