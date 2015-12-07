@@ -34,7 +34,8 @@ $(document).ready(function(){
         })
         .success(function(response){
           messageBox.set("comment has been submitted.")
-          refresh()
+          //refresh()
+          to_html(response)
           reset()
         })
         .error(function(response){
@@ -52,7 +53,7 @@ $(document).ready(function(){
         dataType: 'JSON'
         })
         .success(function(response){
-          to_html(response)
+          feed_to_html(response)
         })
         .error(function(response){
           console.log(response)
@@ -60,8 +61,7 @@ $(document).ready(function(){
         })
     }
 
-    function to_html(feed){
-      //console.log(feed)
+    function feed_to_html(feed){
       container = $('div.current-comments')
       container.html("")
 
@@ -73,9 +73,15 @@ $(document).ready(function(){
           user: feed[c].user.name
           }
 
-          html = '<p class="comment-text">' + comment.content + '</p><p class="comment-by">by ' + comment.user + ' on ' + comment.ts_date + ' at ' + comment.ts_time + '</p>'
-          container.append(html)
+          to_html(comment)
+        }
 
-      }
+    }
+
+    function to_html(comment){
+      console.log(comment)
+        container = $('div.current-comments')
+        html = '<span class="new-comment"><p class="comment-text">' + comment.content + '</p><p class="comment-by">by ' + comment.user + ' on ' + comment.ts_date + ' at ' + comment.ts_time + '</p></span>'
+        container.append(html)
     }
 })
