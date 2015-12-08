@@ -1,5 +1,9 @@
 module IconLinkHelper
 
+  def view_icon_link(url, label='View')
+   link_to raw("#{fa_icon('book 2x')} #{label}"), url, class: 'icon-link'
+  end
+
  def edit_icon_link(url, label='Edit')
   link_to raw("#{fa_icon('edit 2x')} #{label}"), url, class: 'icon-link'
  end

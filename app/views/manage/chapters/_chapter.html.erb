@@ -16,6 +16,7 @@
 
   <div class="row actions collapse" >
     <div class="small-12 columns text-right">
+      <%= link_to raw("#{fa_icon('book')} View"), manage_story_chapter_path(chapter.story, chapter) %>
       <%= link_to raw(" #{fa_icon('edit')} Edit"), edit_manage_story_chapter_path(chapter.story, chapter), class: 'button no-pad tiny radius' %>
       <%= link_to raw(" #{fa_icon('mail-reply')} Back"), manage_story_chapters_path(chapter.story), class: 'button no-pad secondary tiny radius' %>
     </div>

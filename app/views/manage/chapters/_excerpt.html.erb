@@ -17,6 +17,7 @@
 
   <div class="small-12 medium-6 columns text-right">
     <%# link_to "#{fa_icon('edit 2x')} Edit", edit_manage_story_chapter_path(chapter.story, chapter) %>
+    <%=raw view_icon_link(manage_story_chapter_path(chapter.story, chapter)) %>
     <%=raw edit_icon_link(edit_manage_story_chapter_path(chapter.story, chapter)) %>
     <%=raw back_icon_link(manage_story_chapters_path(chapter.story)) %>
     <%=raw delete_icon_link(manage_story_chapter_path(chapter.story, chapter)) %>
