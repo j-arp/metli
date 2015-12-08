@@ -14,6 +14,7 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*
+/config/cert/*
 !/log/.keep
 /tmp
 =======

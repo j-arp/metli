@@ -34,7 +34,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem "has_permalink"
 
 gem 'draper'
+
+gem 'fog', require: 'fog/aws'
 gem 'carrierwave'
+
 gem 'mini_magick'
 
 gem 'ckeditor', :git => 'https://github.com/galetahub/ckeditor.git'
