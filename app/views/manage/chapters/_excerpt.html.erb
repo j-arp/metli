@@ -2,14 +2,26 @@
 <div class = "chapter">
 
 <div class="row">
-  <div class="small-12 columns">
-  <h3>
+  <div class="small-12 medium-12 columns">
+  <h3 class="border-bottom">
     <span class="chapter-number">Chapter <%= chapter.number || '1' %>: </span>
-    <%= chapter.title %>
+    <%= chapter.title %>!
   </h3>
+</div>
+</div>
 
+<div class="row">
+  <div class="small-12 medium-6 columns">
   by <%= chapter.author %>
   </div>
+
+  <div class="small-12 medium-6 columns text-right">
+    <%# link_to "#{fa_icon('edit 2x')} Edit", edit_manage_story_chapter_path(chapter.story, chapter) %>
+    <%=raw edit_icon_link(edit_manage_story_chapter_path(chapter.story, chapter)) %>
+    <%=raw back_icon_link(manage_story_chapters_path(chapter.story)) %>
+    <%=raw delete_icon_link(manage_story_chapter_path(chapter.story, chapter)) %>
+  </div>
+
 </div>
 
 <div class="row">
@@ -24,14 +36,5 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="small-12 columns text-right">
-    <%# link_to "#{fa_icon('edit 2x')} Edit", edit_manage_story_chapter_path(chapter.story, chapter) %>
-    <%=raw edit_icon_link(edit_manage_story_chapter_path(chapter.story, chapter)) %>
-    <%=raw back_icon_link(manage_story_chapters_path(chapter.story)) %>
-    <%=raw delete_icon_link(manage_story_chapter_path(chapter.story, chapter)) %>
-  </div>
-</div>
 
 </div>
-
