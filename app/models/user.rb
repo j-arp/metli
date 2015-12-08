@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, presence: true
 
-  default_scope {order('last_name, first_name')}
+  default_scope {where(deleted: false).order('last_name, first_name')}
   scope :active, -> { where(active:true) }
   scope :authors, -> { joins(:subscriptions).where("subscriptions.author = true") }
   scope :with_email_notifications, -> { joins(:subscriptions).where("subscriptions.send_email = true").distinct }
@@ -40,4 +40,10 @@ class User < ActiveRecord::Base
   def delete_owned_stories
     Story.where(user: self).destroy_all
   end
+
+  def delete
+    self.deleted=true
+    self.save
+  end
+
 end

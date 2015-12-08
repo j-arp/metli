@@ -11,14 +11,12 @@ class ActiveUsersController < ApplicationController
   end
 
   def active_story
-    puts "active sotry method from app ctr for #{session[:active_story_id]}"
     if session[:active_story_id]
       @active_story || @active_story = Story.find(session[:active_story_id])
     end
   end
 
   def set_active_story
-    puts "setting active story from active users ctr"
     session[:active_story_id] = @story.id if @story
     session[:active_story_id] = @chapter.story.id if @chapter
   end

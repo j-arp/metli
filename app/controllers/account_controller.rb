@@ -36,7 +36,12 @@ class AccountController < ActiveUsersController
     if @user
       set_session(@user)
       flash[:message] = 'You have been logged in'
-      redirect_to account_path
+      if @user.stories.present?
+         redirect_to choose_story_path
+       else
+         redirect_to account_path
+       end
+       
     else
       redirect_to login_path
     end

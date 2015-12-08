@@ -16,6 +16,7 @@
 <div class="row">
   <div class="small-12 medium-6 columns end">
     <h3>Current Voting Results</h3>
+    <p><%= @call_to_action.progress %>% of the vote is in.</p>
     <p>Voting will close End of Day, <%= @chapter.vote_ends_on.strftime('%D') %>.
     <%= raw(@call_to_action.chart) %>
   </div>

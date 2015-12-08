@@ -20,13 +20,17 @@ RSpec.describe User, type: :model do
     it 'returns no authors cuz non exist' do
       @user.subscribe_to(@story, 'asdf')
       expect(User.authors).to be_empty
-
     end
 
     it 'returns one author' do
       @user.subscribe_to(@story, 'asdf', author: true)
       expect(User.authors).to_not be_empty
+    end
 
+    it 'does not return deleted users' do
+      expect(User.count).to eq 3
+      User.first.delete
+      expect(User.count).to eq 2
     end
   end
 
@@ -88,8 +92,6 @@ RSpec.describe User, type: :model do
       expect(Subscription.last).to be_privileged
       expect(Subscription.last).to be_active
     end
-
-
 
   end
 end

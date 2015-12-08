@@ -73,6 +73,21 @@ RSpec.describe AccountController, type: :controller do
       expect(assigns(:user).last_name).to eq "McNasty"
     end
 
+    it "redirects user to choose a story if they have subscriptions" do
+        user = FactoryGirl.create(:user, {email: 'jesse@arpcentral.net'})
+        request.env["omniauth.auth"][:info][:email] = user.email
+        user.subscribe_to(@story, 'moogoo')
+        get :callback, {provider: 'google'}, {}
+        expect(response).to redirect_to choose_story_path
+    end
+
+    it "redirects user to account  if no subscriptions" do
+      user = FactoryGirl.create(:user, {email: 'jesse@arpcentral.net'})
+      request.env["omniauth.auth"][:info][:email] = user.email
+  
+      get :callback, {provider: 'google'}, {}
+      expect(response).to redirect_to account_path
+    end
 
   end
 
