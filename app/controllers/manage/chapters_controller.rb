@@ -1,8 +1,9 @@
 module Manage
   class ChaptersController < ActiveUsersController
+    prepend_before_action :set_story
     before_action :set_chapter, only: [:show, :edit, :update, :destroy]
-    before_action :set_story
     before_action :set_publish_date, only: [:create, :update]
+    #before_action :set_active_chapter, only: [:show, :edit, :create,  :update]
 
     # GET /chapters
     # GET /chapters.json
@@ -33,7 +34,7 @@ module Manage
     # POST /chapters
     # POST /chapters.json
     def create
-
+      @vote_end_options = ['1 day', '2 days', '3 days', '1 week', '2 weeks']
       @chapter = Chapter.new(chapter_params)
       @chapter.story   = @story
       @chapter.author = active_user
@@ -123,6 +124,7 @@ module Manage
       end
 
       def set_story
+        puts "setting story"
         @story = Story.find_by_permalink(params[:story_id])
       end
 
@@ -183,6 +185,5 @@ module Manage
     end
 
   end
-
 
 end

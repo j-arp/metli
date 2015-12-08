@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   layout 'wat'
   protect_from_forgery with: :exception
   before_action :get_all_stories
+
   before_action :active_user
 
   def get_all_stories
@@ -12,6 +13,11 @@ class ApplicationController < ActionController::Base
     if session[:user_id]
       @active_user || @active_user = User.find(session[:user_id])
     end
+  end
+
+  def set_active_story
+    puts "setting active sotry method from app ctr for #{session[:active_story_id]}"
+    session[:active_story_id] = @story.id if @story
   end
 
   def find_story

@@ -39,10 +39,22 @@ RSpec.describe Manage::ChaptersController, type: :controller do
     end
   end
 
+  describe "GET #show" do
+    it "has access to active story helper" do
+      get :show, {story_id: @story.permalink, :id => @story.chapters.first.to_param}, valid_author_session
+      expect(session[:active_story_id]).to_not be_nil
+    end
+  end
+
   describe "GET #new" do
     it "assigns a new chapter as @chapter" do
       get :new, {story_id: @story.permalink}, valid_author_session
       expect(assigns(:chapter)).to be_a_new(Chapter)
+    end
+
+    it "has access to active story helper" do
+      get :new, {story_id: @story.permalink}, valid_author_session
+      expect(session[:active_story_id]).to_not be_nil
     end
   end
 

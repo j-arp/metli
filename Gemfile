@@ -23,7 +23,7 @@ gem 'jquery-rails'
 gem 'foundation-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-ui-rails'
-
+gem 'responders'
 gem 'exception_notification'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
