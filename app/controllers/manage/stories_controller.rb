@@ -35,29 +35,33 @@ module Manage
     # POST /stories
     # POST /stories.json
     def create
-      unless validate_invite
-        flash[:message] = "You need to have a valid Invite Code to create a new story"
-        redirect_to account_path
-      else
 
-        @story = Story.new(story_params)
-        @story.active = true
-        @story.user = active_user
+      @story = Story.new(story_params)
+      @story.active = true
+      @story.user = active_user
 
-        respond_to do |format|
+      respond_to do |format|
+        if validate_invite
           if @story.save
+            use_invite
             assign_author
             format.html { redirect_to manage_story_path(@story), notice: 'Story was successfully created.' }
             format.json { render :show, status: :created, location: @story }
           else
-            format.html { render :new }
+            format.html { render  :new }
             format.json { render json: @story.errors, status: :unprocessable_entity }
           end
-        end
 
+        else
+          @story.errors.add(:base, "must have a valid invite code")
+          format.html { render  :new }
+          format.json { render json: @story.errors, status: :unprocessable_entity }
+        end
       end
 
     end
+
+
 
     # PATCH/PUT /stories/1
     # PATCH/PUT /stories/1.json
@@ -101,15 +105,18 @@ module Manage
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def story_params
-        params.require(:story).permit(:name, :active, :about, :taxonomy)
+        params.require(:story).permit(:name, :active, :about, :taxonomy, :teaser)
       end
 
       def validate_invite
         return false unless params[:invite_code]
-        invite = Invite.find_by(key: params[:invite_code], used: false)
-        return false unless invite
-        invite.update(user_id: session[:user_id], used: true, used_on: DateTime.now)
+        @invite = Invite.find_by(key: params[:invite_code], used: false)
+        return false unless @invite
         return true
+      end
+
+      def use_invite
+        @invite.update(user_id: session[:user_id], used: true, used_on: DateTime.now) if @invite
       end
   end
 end

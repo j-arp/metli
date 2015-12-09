@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208203959) do
+ActiveRecord::Schema.define(version: 20151209145658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 20151208203959) do
     t.text     "about"
     t.integer  "created_by"
     t.integer  "user_id"
+    t.text     "teaser"
   end
 
   add_index "stories", ["permalink"], name: "index_stories_on_permalink", using: :btree

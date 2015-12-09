@@ -6,12 +6,28 @@ RSpec.describe StoryController, type: :controller do
 
   describe "GET #index" do
 
+
+    it 'assigns @current_story to the  story in session' do
+        get :index, {}, valid_session
+        expect(assigns(:current_story)).to eq @story
+    end
+
     it 'redirects to choose story if no current story is in session' do
         valid_session[:current_story_id] = nil
         get :index, {}, valid_session
         expect(response).to redirect_to choose_story_path
     end
+
   end
+
+  describe "GET #about" do
+
+    it 'redirects to choose story if no current story is in session' do
+        get :about, {}, valid_session
+        expect(assigns(:current_story)).to eq @story
+    end
+  end
+
 
   describe "GET #choose" do
     it "returns @subscriptions" do

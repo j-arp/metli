@@ -1,0 +1,4 @@
+
+<%= render partial: 'nav', locals: {title: "About #{@current_story.name}", links: %w(switch back) } %>
+
+<%=raw @current_story.about %>

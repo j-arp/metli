@@ -12,7 +12,7 @@
     </div>
 
     <div class="small-12 medium-12 columns">
-      <p><%=raw truncate_html(subscription.story.about, {length: 200}) %></p>
+      <p><%= simple_format(subscription.story.teaser) %></p>
 
       <p>There are a total of <%= subscription.chapters.count %> chapters
       <% if subscription.last_voted_chapter_number %>

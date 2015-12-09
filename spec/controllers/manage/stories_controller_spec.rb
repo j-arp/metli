@@ -55,10 +55,11 @@ RSpec.describe Manage::StoriesController, type: :controller do
         }.to change(Story, :count).by(0)
       end
 
-      it "redirects back to account" do
+      it "renders create form again" do
           post :create, {invite_code: "blahx3", :story => valid_attributes}, valid_session
-          expect(response).to redirect_to account_path
+          expect(response).to render_template("new")
       end
+
     end
 
     context "with valid params" do
@@ -92,6 +93,13 @@ RSpec.describe Manage::StoriesController, type: :controller do
     end
 
     context "with invalid params" do
+
+      it "does not use inivte code" do
+        post :create, {invite_code: @invite.key,:story => invalid_attributes}, valid_session
+        @invite.reload
+        expect(@invite).to_not be_used
+      end
+
       it "assigns a newly created but unsaved story as @story" do
         post :create, {invite_code: @invite.key,:story => invalid_attributes}, valid_session
         expect(assigns(:story)).to be_a_new(Story)

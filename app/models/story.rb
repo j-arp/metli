@@ -5,7 +5,8 @@ class Story < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :name, presence: true
+  validates :name, :teaser, presence: true
+  validates :teaser, length: { maximum: 750 }
   validates :name, uniqueness: true
 
   scope :available_for, -> (user) { where.not(id: user.stories.map(&:id)) }

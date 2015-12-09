@@ -1,14 +1,17 @@
 <%= form_for([:manage, @story]) do |f| %>
   <% if @story.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@story.errors.count, "error") %> prohibited this story from being saved:</h2>
-
-      <ul>
-      <% @story.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="row error-messages">
+    <div class="small-12 columns medium-10 medium-offset-2">
+      <div class="errors">
+        <h3><%= pluralize(@story.errors.count, "problem") %> with submission:</h3>
+        <ul>
+        <% @story.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
+  </div>
   <% end %>
 
   <div class="row">
@@ -22,10 +25,21 @@
 
   <div class="row">
     <div class="small-12 medium-2 columns medium-text-right">
+    <%= f.label :teaser %>
+    </div>
+    <div class="small-12 medium-10 columns">
+      <%= f.text_area :teaser %>
+      <p class="input-hint">A Short description of why your story will be awesome</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-2 columns medium-text-right">
     <%= f.label :about %>
     </div>
     <div class="small-12 medium-10 columns">
       <%= f.cktext_area :about, :ckeditor => {:toolbar => 'mini'} %>
+      <p class="ckedit-hint">Populates a long form page for you to use however you like</p>
     </div>
   </div>
 

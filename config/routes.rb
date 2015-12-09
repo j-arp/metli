@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'story/:story/latest'  => 'story#latest', as: :read_latest_chapter
 
   get 'story' => 'story#index', as: :story
+  get 'story/about' => 'story#about', as: :about_story
 
   mount Ckeditor::Engine => '/ckeditor'
   namespace :account do
