@@ -4,6 +4,11 @@
 .story-title {font-family: 'Noto Serif', serif; font-weight: bolder; font-size:1.6em}
 .no-chapters {display:none}
 
+// .current-comments {
+//   max-height: 400px;
+//   overflow: scroll ;
+// }
+
 .new-comment .comment-text {
     background-color: #FFFADD;
 }
@@ -22,3 +27,5 @@
     color: #ccc;
     font-style: italic;
 }
+
+.comment-img {height: 36px}

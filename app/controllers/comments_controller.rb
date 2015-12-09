@@ -7,13 +7,17 @@ class CommentsController < ActiveUsersController
     @story = @chapter.story
   end
 
+  def show
+    @comment = Comment.find(params[:id])
+  end
+
   def add
     @comment = @chapter.comments.build
     @comment.user = active_user
     @comment.content = params[:content]
 
     if @comment.save
-      render json: @comment
+      
     else
       render json: @comment.errors, status: :unprocessable_entity
     end

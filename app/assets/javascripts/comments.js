@@ -35,7 +35,20 @@ $(document).ready(function(){
         .success(function(response){
           messageBox.set("comment has been submitted.")
           //refresh()
-          to_html(response, "new")
+          //console.log(response)
+
+          comment = {
+            content: response.content,
+            ts_date: response.date,
+            ts_time: response.time,
+            user: response.user.name,
+            img: response.user.img
+            }
+
+          to_html(comment, "new")
+
+          //$('#current-comments').scrollTop = $('#current-comments').scrollHeight;
+
           reset()
         })
         .error(function(response){
@@ -49,7 +62,7 @@ $(document).ready(function(){
 
       var jqxhr = $.ajax({
         type: "GET",
-        url: '/comments/'+ chapter_id,
+        url: '/comments/chapter/'+ chapter_id,
         dataType: 'JSON'
         })
         .success(function(response){
@@ -70,7 +83,8 @@ $(document).ready(function(){
           content: feed[c].content,
           ts_date: feed[c].date,
           ts_time: feed[c].time,
-          user: feed[c].user.name
+          user: feed[c].user.name,
+          img: feed[c].user.img
           }
 
           to_html(comment, "old")
@@ -81,9 +95,9 @@ $(document).ready(function(){
     function to_html(comment, status){
       console.log(comment)
         container = $('div.current-comments')
-        html = '<p class="comment-text">' + comment.content + '</p><p class="comment-by">by ' + comment.user + ' on ' + comment.ts_date + ' at ' + comment.ts_time + '</p>'
+        html = '<div class="row"><div class="small-4 medium-3 large-2 columns text-right"><img class="comment-img" src="' + comment.img + '"></div><div class="small-8 medium-9 large-10 columns"><p class="comment-text">' + comment.content + '</p><p class="comment-by">by ' + comment.user + ' on ' + comment.ts_date + ' at ' + comment.ts_time + '</p></div>'
         if ( status == "new") {
-          full_html = '<span class="new-comment">' + html + '</span>'
+          full_html = '<div class="new-comment">' + html + '</div>'
         }
 
         else {
