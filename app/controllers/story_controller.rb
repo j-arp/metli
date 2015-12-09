@@ -10,6 +10,7 @@ class StoryController < ActiveUsersController
 
   def choose
     @subscriptions = active_user.subscriptions.decorate.select { | sub | !sub.story.chapters.published.empty? }
+    @subscriptions.sort_by! { | s | s.story.updated_at }.reverse!
   end
 
   def set_current_story_id

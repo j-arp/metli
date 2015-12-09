@@ -17,18 +17,18 @@
       <p>There are a total of <%= subscription.chapters.count %> chapters
       <% if subscription.last_voted_chapter_number %>
         and you last voted for  Chapter <%= subscription.last_voted_chapter_number %>
-      <% end %>.
+      <% end %>. This story was updated on <%= "#{subscription.story.updated_at.strftime('%D')} at #{subscription.story.updated_at.strftime('%r')}"  %>.
       </p>
       <div class="row">
-        <div class="small-12 medium-6 columns">
+        <div class="small-12 medium-3 medium-offset-6 columns">
           <% if subscription.next_chapter %>
             <%= link_to "Up Next!  Chapter: #{subscription.next_chapter.number}", read_story_chapter_path(subscription.story, subscription.next_chapter.number), class: 'button radius expand' %>
           <% elsif subscription.next_chapter.nil? %>
             <%= link_to "Read the Last Chapter", read_story_chapter_path(subscription.story, subscription.last_chapter.number), class: 'button radius expand' %>
           <% end %>
         </div>
-        <div class="small-12 medium-6 columns">
-          <%= submit_tag 'See a list of chapters', class: 'button radius secondary expand' %>
+        <div class="small-12 medium-3 columns">
+          <%= submit_tag 'See a List of Chapters', class: 'button radius secondary expand' %>
         </div>
       </div>
 
