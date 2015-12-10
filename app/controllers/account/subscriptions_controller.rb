@@ -1,5 +1,5 @@
 module Account
-  class SubscriptionsController < ApplicationController
+  class SubscriptionsController < ActiveUsersController
 
     before_filter :find_story
 

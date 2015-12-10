@@ -13,6 +13,11 @@ RSpec.describe Account::SubscriptionsController, type: :controller do
       @user.subscribe_to(@story, 'foobar')
     end
 
+    it "requires an active session" do
+      get :index, {}, {}
+      expect(response).to redirect_to login_path
+    end
+
     it "returns subscriptions" do
       get :index, {}, {user_id: @user.id }
       expect(assigns(:subscriptions)).to eq @user.subscriptions
