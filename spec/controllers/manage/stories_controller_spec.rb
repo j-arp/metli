@@ -22,7 +22,6 @@ RSpec.describe Manage::StoriesController, type: :controller do
   describe "GET #show" do
     it "assigns the requested story as @story" do
       story = FactoryGirl.create(:story)
-      puts story.inspect
 
       get :show, {:id => story.to_param}, valid_session
       expect(assigns(:story)).to eq(story)

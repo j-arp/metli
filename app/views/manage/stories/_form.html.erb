@@ -85,15 +85,17 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <div class="small-4 medium-2 columns medium-text-right">
-    <%= label_tag "Invite Code" %>
+  <% unless @story.persisted? %>
+    <div class="row">
+      <div class="small-4 medium-2 columns medium-text-right">
+      <%= label_tag "Invite Code" %>
+      </div>
+      <div class="small-8 medium-4 columns end">
+        <%= text_field_tag :invite_code %>
+        <p class="input-hint">For now, to create a new story, you need an invite code. Contact someone in the know if interested</p>
+      </div>
     </div>
-    <div class="small-8 medium-4 columns end">
-      <%= text_field_tag :invite_code %>
-    </div>
-  </div>
-
+  <% end %>
 
   <div class="row">
     <div class="small-12 medium-10 medium-offset-2 columns">

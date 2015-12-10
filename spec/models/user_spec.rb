@@ -28,9 +28,10 @@ RSpec.describe User, type: :model do
     end
 
     it 'does not return deleted users' do
-      expect(User.count).to eq 3
+      puts User.all
+      expect(User.count).to eq 4
       User.first.delete
-      expect(User.count).to eq 2
+      expect(User.count).to eq 3
     end
   end
 

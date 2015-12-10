@@ -33,7 +33,6 @@ class StoryController < ActiveUsersController
     @call_to_action = CallToActionDecorator.new(@chapter.call_to_action)
     @allow_voting = @subscription.allow_voting_for? @chapter
     @steps = {}
-    puts "#{@current_story.chapters.last} == #{@chapter}"
     @steps[:prev] = @chapter.number - 1 unless (@chapter.number - 1) < 1
     @steps[:next] = @chapter.number + 1 unless @current_story.chapters.first == @chapter
   end
