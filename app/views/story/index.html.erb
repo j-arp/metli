@@ -6,15 +6,13 @@
 
 <div class="row bottom-seperator">
   <div class="small-12 medium-12 columns">
-    <h3>Chapter <%= chapter.number %>: <%= chapter.title %></h3>
+    <h3>
+      <%= link_to raw("Chapter #{chapter.number}: #{chapter.title}"), read_chapter_path(chapter.number) %>
+      </h3>
   </div>
 
-  <div class="small-12 medium-9 columns">
+  <div class="small-12 columns">
     <p><%=raw truncate_html(chapter.teaser, {length: 200}) %></p>
-  </div>
-
-  <div class="small-12 medium-3 text-right columns">
-    <p><%= link_to raw("#{fa_icon('book')} Read this chapter"), read_chapter_path(chapter.number), class: 'button success radius tiny expand' %></p>
   </div>
 </div>
 

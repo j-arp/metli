@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :get_all_stories
 
+  rescue_from ActiveRecord::RecordNotFound, with: :show_404
+  rescue_from ActionController::RoutingError, with: :show_404
+
   before_action :active_user
 
   def get_all_stories
@@ -31,4 +34,9 @@ class ApplicationController < ActionController::Base
   def require_super_user_login
     redirect_to login_path unless active_user.super_user?
   end
+
+  def show_404
+    render text: File.read(Rails.root.join('public/404.html')), status: 404
+  end
+
 end

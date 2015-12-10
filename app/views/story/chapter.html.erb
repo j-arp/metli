@@ -6,7 +6,9 @@
   <div class="small-12 medium-12 columns">
     <%= raw(@chapter.content) %>
   </div>
+</div>
 
+<%= render partial: 'links',  locals: {links: %w( next previous)} %>
 
 <div class="row">
   <div class="small-12 medium-6 columns">

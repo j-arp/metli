@@ -25,11 +25,17 @@ class StoryController < ActiveUsersController
 
   def chapter
     @active_user = active_user
-    @chapter = @current_story.chapters.find_by_number(params[:number])
-    @subscription = active_user.subscriptions.find_by(story: @current_story)
+
+    @subscription = active_user.subscriptions.find_by!(story: @current_story)
     @subscription.update(last_read_chapter_number: params[:number])
+
+    @chapter = @current_story.chapters.find_by_number!(params[:number])
     @call_to_action = CallToActionDecorator.new(@chapter.call_to_action)
     @allow_voting = @subscription.allow_voting_for? @chapter
+    @steps = {}
+    puts "#{@current_story.chapters.last} == #{@chapter}"
+    @steps[:prev] = @chapter.number - 1 unless (@chapter.number - 1) < 1
+    @steps[:next] = @chapter.number + 1 unless @current_story.chapters.first == @chapter
   end
 
   def latest
