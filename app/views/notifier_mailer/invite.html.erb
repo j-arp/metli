@@ -1,0 +1,13 @@
+<h1>Welcome. You've been invited to What Next?</h1>
+
+<p>What Next? is an online social "Choose OUR own Adventure Website". Authors create stories. Those following along
+  get to vote on what to do at the end of each chapter. Majority rules.</p>
+
+  <p>You have been invited to join in with the following story, created by <%= @story.user.full_name %>:</p>
+
+<h2><%= @story.name %></h2>
+<%= simple_format(@story.teaser) %>
+
+<hr/>
+
+<p>Login or Sign up at http://whatnext.arpcentral.net to read the latest installment in this story and begin participating...</p>

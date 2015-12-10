@@ -1,0 +1,59 @@
+<%= form_tag send_invitations_manage_story_path do %>
+<div class="row">
+  <div class="small-12 medium-10 columns">
+    <h1><%= @story.name %></h1>
+  </div>
+
+  <div class="small-12  medium-2 columns text-right">
+    <%= link_to "Back to Story", manage_story_path(@story), class: 'button secondary' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <h2>Previous Invitations</h2>
+    <% if @story.invitations.empty? %>
+    <p>You have not invited anyone yet. Go ahead and do that now </p>
+    <% else %>
+      <ul>
+        <% @story.invitations.each do | invitation | %>
+        <li><%= invitation.email %> sent on <%= invitation.created_at.strftime('%D') %>
+        <% end %>
+      </ul>
+    <% end %>
+
+<h2>Previous Invitations</h2>
+
+<% if @story.chapters.empty? %>
+    <p>you need to have at least 1 chapter published to invite people </p>
+<% else %>
+
+<div class="row">
+  <div class="small-10  small-offset-2 colunns">
+    <p>Enter 1 email address per line. Maximum of 10 emails will be sent.</p>
+  </div>
+</div>
+
+
+  <div class="row">
+    <div class="small-2 columns text-right">
+      <%= label_tag :email_list %>
+    </div>
+    <div class="small-3 columns end">
+
+      <%= text_area_tag :email_list, "", rows: 10 %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-10  small-offset-2 colunns">
+      <%=submit_tag :send, class: 'button success radius' %>
+    </div>
+  </div>
+
+  <!-- div.row>div.small-2.columns.text-right+div.small-12.colunns -->
+  <% end %>
+<% end %>
+
+  </div>
+</div>
