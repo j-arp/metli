@@ -1,4 +1,4 @@
-class Manage::SubscribersController < ActiveUsersController
+class Manage::SubscribersController < SuperUserController
   before_action :set_subscription
 
   def promote

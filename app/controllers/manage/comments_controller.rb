@@ -1,5 +1,5 @@
 module Manage
-  class CommentsController < ApplicationController
+  class CommentsController < SuperUserController
     before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
     # GET /comments

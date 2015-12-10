@@ -12,7 +12,9 @@ RSpec.describe Manage::CommentsController, type: :controller do
     {content: "" }
   }
 
-  let(:valid_session) { {} }
+  let(:valid_session) {
+    {user_id: @super_user.id} 
+  }
 
   describe "GET #index" do
     it "assigns all comments as @comments" do
