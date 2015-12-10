@@ -27,7 +27,7 @@ RSpec.shared_context "user_with_supscriptions" do
       FactoryGirl.create(:chapter, {story_id: @other_story.id, number: 1})
     @orphan_story = FactoryGirl.create(:story, {name: 'Orphaned Story'})
       @user.subscribe_to(@story, 'jarp')
-      @author.subscribe_to(@story, 'arthor', {author: true, send_email: false})
+      @author.subscribe_to(@story, 'aurthor', {author: true, send_email: false})
       @user.subscribe_to(@other_story, 'jarp')
   end
 

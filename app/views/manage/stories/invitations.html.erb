@@ -34,16 +34,26 @@
   </div>
 </div>
 
+  <div class="row">
+    <div class="small-12 medium-2 columns medium-text-right">
+      <%= label_tag :message %>
+    </div>
+    <div class="small-12 medium-6 columns end">
+
+      <%= text_area_tag :message  %>
+    </div>
+  </div>
+
 
   <div class="row">
-    <div class="small-2 columns text-right">
+    <div class="small-12 medium-2 columns medium-text-right">
       <%= label_tag :email_list %>
     </div>
-    <div class="small-3 columns end">
-
+    <div class="small-12 medium-3 columns end">
       <%= text_area_tag :email_list, "", rows: 10 %>
     </div>
   </div>
+
 
   <div class="row">
     <div class="small-10  small-offset-2 colunns">

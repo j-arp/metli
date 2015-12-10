@@ -5,7 +5,7 @@ RSpec.describe Manage::StoriesController, type: :controller do
   include_context "user_with_supscriptions"
 
   let(:valid_attributes) {
-    FactoryGirl.attributes_for(:story)
+    FactoryGirl.attributes_for(:story, {user: @user})
   }
 
   let(:invalid_attributes) {
@@ -21,7 +21,9 @@ RSpec.describe Manage::StoriesController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested story as @story" do
-      story = Story.create! valid_attributes
+      story = FactoryGirl.create(:story)
+      puts story.inspect
+
       get :show, {:id => story.to_param}, valid_session
       expect(assigns(:story)).to eq(story)
     end
@@ -36,7 +38,7 @@ RSpec.describe Manage::StoriesController, type: :controller do
 
   describe "GET #edit" do
     it "assigns the requested story as @story" do
-      story = Story.create! valid_attributes
+      story = FactoryGirl.create(:story)
       get :edit, {:id => story.to_param}, valid_session
       expect(assigns(:story)).to eq(story)
     end
@@ -119,20 +121,20 @@ RSpec.describe Manage::StoriesController, type: :controller do
       }
 
       it "updates the requested story" do
-        story = Story.create! valid_attributes
+        story = FactoryGirl.create(:story)
         put :update, {:id => story.to_param, :story => new_attributes}, valid_session
         story.reload
         expect(story.name).to eq 'new name'
       end
 
       it "assigns the requested story as @story" do
-        story = Story.create! valid_attributes
+        story = FactoryGirl.create(:story)
         put :update, {:id => story.to_param, :story => valid_attributes}, valid_session
         expect(assigns(:story)).to eq(story)
       end
 
       it "redirects to the story" do
-        story = Story.create! valid_attributes
+        story = FactoryGirl.create(:story)
         put :update, {:id => story.to_param, :story => valid_attributes}, valid_session
         expect(response).to redirect_to(redirect_to(manage_story_path(story)))
       end
@@ -140,13 +142,13 @@ RSpec.describe Manage::StoriesController, type: :controller do
 
     context "with invalid params" do
       it "assigns the story as @story" do
-        story = Story.create! valid_attributes
+        story = FactoryGirl.create(:story)
         put :update, {:id => story.to_param, :story => invalid_attributes}, valid_session
         expect(assigns(:story)).to eq(story)
       end
 
       it "re-renders the 'edit' template" do
-        story = Story.create! valid_attributes
+        story = FactoryGirl.create(:story)
         put :update, {:id => story.to_param, :story => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
@@ -155,17 +157,54 @@ RSpec.describe Manage::StoriesController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested story" do
-      story = Story.create! valid_attributes
+      story = FactoryGirl.create(:story)
       expect {
         delete :destroy, {:id => story.to_param}, valid_session
       }.to change(Story, :count).by(-1)
     end
 
     it "redirects to the stories list" do
-      story = Story.create! valid_attributes
+      story = FactoryGirl.create(:story)
       delete :destroy, {:id => story.to_param}, valid_session
       expect(response).to redirect_to(manage_stories_url)
     end
   end
 
+  describe "#invitations" do
+
+    describe "#GET" do
+      it "assigns @story" do
+        get :invitations, {:id => @story.to_param}, valid_session
+        expect(assigns(:story)).to_not be_nil
+      end
+    end
+
+    describe '#post' do
+
+      let(:valid_invitations){
+        {email_list: "jonathan@test.edu\r\njesse@test.net" }
+      }
+
+      it "creates invitaions for each email" do
+        expect {
+          post :send_invitations, {:id => @story.to_param, :email_list => valid_invitations[:email_list]}, valid_session
+        }.to change(Invitation, :count).by(2)
+      end
+
+      it "sends email invitaion for each email" do
+        expect {
+          post :send_invitations, {:id => @story.to_param, :email_list => valid_invitations[:email_list]}, valid_session
+        }.to change { ActionMailer::Base.deliveries.count }.by(2)
+      end
+
+      it "skips sending  email invitaion for users already send an email" do
+        Invitation.create!(email: 'jonathan@test.edu', story: @story, user: @user)
+        expect {
+          post :send_invitations, {:id => @story.to_param, :email_list => valid_invitations[:email_list]}, valid_session
+        }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+
+
+    end
+  end
 end

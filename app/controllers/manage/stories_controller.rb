@@ -36,10 +36,9 @@ module Manage
     end
 
     def send_invitations
-      puts @story.inspect
       params[:email_list].each_line do | email |
-        invitation = Invitation.create!(email: email, story: @story, user: active_user) unless @story.invitations.find_by(email: email)
-        NotifierMailer.invite(@story, email).deliver_now if invitation
+        invitation = Invitation.create!(email: email.strip, message: params[:message], story: @story, user: active_user) unless @story.invitations.find_by(email: email.strip)
+        NotifierMailer.invite(@story, email.strip, params[:message]).deliver_now if invitation
       end
       flash[:message] = "Your invitations have been sent"
       redirect_to invitations_manage_story_path(@story)
