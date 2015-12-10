@@ -2,6 +2,7 @@ class Story < ActiveRecord::Base
   has_many :subscriptions, dependent: :destroy
   has_many :users, through: :subscriptions, dependent: :destroy
   has_many :chapters, dependent: :destroy
+  has_many :invitations
 
   belongs_to :user
 

@@ -50,13 +50,13 @@ Rails.application.routes.draw do
     resources :invites
     resources :users
     resources :stories do
-
       collection do
         get :all
       end
-
       member do
         get :subscribers
+        get :invitations
+        post 'invitations' => 'stories#send_invitations', as: :send_invitations
       end
 
       resources :chapters

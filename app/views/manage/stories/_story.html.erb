@@ -59,6 +59,12 @@
         <div class="small-12 medium-5 columns">
           <h3>Subscribers</h3>
 
+            <div class="row">
+              <div class="small-12 columns text-center">
+                <%= link_to "Invite others to join in this story", invitations_manage_story_path(story), class: 'button tiny expand radius' %>
+              </div>
+            </div>
+
             <% story.subscriptions.each do | sub | %>
 
               <div class="row subscriber" id="<%= sub.id %>">

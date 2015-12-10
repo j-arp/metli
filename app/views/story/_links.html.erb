@@ -3,7 +3,7 @@
 
 <div class="row collapse">
 
-  <div class="small-12 columns text-right">
+  <div class="small-12 columns text-center">
 
       <%= link_to( raw(" #{fa_icon('angle-double-left')} Previous"), read_chapter_path(@steps[:prev]), class: 'button tiny secondary success ') if local_assigns.fetch(:links, []).include?('previous') && @steps[:prev] %>
       <%= link_to( raw("#{fa_icon('mail-reply')} About this Story"), about_story_path, class: 'button tiny secondary ') if local_assigns.fetch(:links, []).include?('about') %>

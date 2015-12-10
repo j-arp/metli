@@ -1,6 +1,6 @@
 module Manage
   class StoriesController < ActiveUsersController
-    before_action :set_story, only: [:show, :edit, :subscribers, :update, :destroy]
+    before_action :set_story, only: [:show, :edit, :subscribers, :update, :destroy, :invitations, :send_invitations]
     before_action :get_users, only: [:new, :edit, :create, :update]
 
     # GET /stories
@@ -10,7 +10,6 @@ module Manage
     end
 
     def subscribers
-
     end
 
     def all
@@ -32,6 +31,19 @@ module Manage
     def edit
     end
 
+    def invitations
+      @invitations = @story.invitations
+    end
+
+    def send_invitations
+      puts @story.inspect
+      params[:email_list].each_line do | email |
+        invitation = Invitation.create!(email: email, story: @story, user: active_user) unless @story.invitations.find_by(email: email)
+        NotifierMailer.invite(@story, email).deliver_now if invitation
+      end
+      flash[:message] = "Your invitations have been sent"
+      redirect_to invitations_manage_story_path(@story)
+    end
     # POST /stories
     # POST /stories.json
     def create
