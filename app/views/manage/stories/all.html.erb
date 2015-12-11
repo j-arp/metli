@@ -7,8 +7,9 @@
       <th>Active</th>
       <th>Chapter</th>
       <th>Subscribers</th>
-      <th>Created On</th>
       <th>Created By</th>
+      <th>Created On</th>
+      <th>Last Updated</th>
       <th></th>
     </tr>
   </thead>
@@ -22,9 +23,9 @@
 
         <td><%= story.chapters.count %></td>
         <td><%= story.subscriptions.count %></td>
-
-        <td><%= story.created_at.strftime('%D') %></td>
         <td><%= story.user %></td>
+        <td><%= story.created_at.strftime('%D') %></td>
+        <td><%= story.updated_at.strftime('%D') %></td>
         <td>
           <%= link_to raw("#{fa_icon('edit')} Edit"), edit_manage_story_path(story) %>
           <%= link_to raw("#{fa_icon('trash')} Delete"), manage_story_path(story), method: :delete, data: { confirm: 'Are you sure?' } %>
