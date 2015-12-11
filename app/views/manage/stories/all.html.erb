@@ -21,7 +21,7 @@
         <td><%= fa_icon('check', class: 'green') if story.active? %></td>
 
         <td><%= story.chapters.count %></td>
-        <td><%= story.subscribers.count %></td>
+        <td><%= story.subscriptions.count %></td>
 
         <td><%= story.created_at.strftime('%D') %></td>
         <td><%= story.user %></td>
