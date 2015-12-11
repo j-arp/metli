@@ -5,8 +5,10 @@
     <tr>
       <th>Name</th>
       <th>Active</th>
+      <th>Chapter</th>
+      <th>Subscribers</th>
       <th>Created On</th>
-      <th>Authors</th>
+      <th>Created By</th>
       <th></th>
     </tr>
   </thead>
@@ -17,14 +19,12 @@
         <td>
         <%= link_to story.name, manage_story_path(story) %></td>
         <td><%= fa_icon('check', class: 'green') if story.active? %></td>
+
+        <td><%= story.chapters.count %></td>
+        <td><%= story.subscribers.count %></td>
+
         <td><%= story.created_at.strftime('%D') %></td>
-        <td>
-          <% if story.users.authors.count == 1 %>
-            <%= story.users.authors.first %>
-          <% else %>
-            <%= story.users.authors.count %> authors
-          <% end %>
-        </td>
+        <td><%= story.user %></td>
         <td>
           <%= link_to raw("#{fa_icon('edit')} Edit"), edit_manage_story_path(story) %>
           <%= link_to raw("#{fa_icon('trash')} Delete"), manage_story_path(story), method: :delete, data: { confirm: 'Are you sure?' } %>
@@ -33,4 +33,3 @@
     <% end %>
   </tbody>
 </table>
-
