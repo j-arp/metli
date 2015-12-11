@@ -8,6 +8,7 @@ body {
 
 header {
   padding-top:20px;
+  box-shadow: 0px 5px 10px #000;
   h1 {
       margin-top: 30px;
       font-family: 'Merienda One', cursive;
@@ -18,7 +19,7 @@ header {
 
 .link-like {cursor: hand; text-decoration: underline}
 
-nav { box-shadow: 0px 5px 10px #000;}
+nav { box-shadow: 0px 5px 10px #000; }
 main {margin-top: 33px}
 
 img.folks {max-width:200px; box-shadow: 5px 5px 15px #000; border: thin solid #ccc; margin-bottom:10px}
@@ -60,7 +61,9 @@ img.folks {max-width:200px; box-shadow: 5px 5px 15px #000; border: thin solid #c
 .top-bar {
     margin: 0px -1px;
 }
-
+.top-bar-fixed .top-bar-section ul.right{
+  margin-right: 13%;
+}
 .top-bar-fixed {
     position: fixed;
     width: 100%;
@@ -91,7 +94,7 @@ h1.big-header-text {
 ul.inline {display: inline}
 ul.right {float:right}
 ul.pad-top {margin-top: 10px}
-
+ul.title-area {height: 100% }
 .icon-link {margin-right: 10px}
 
 table.display { border-spacing: 0px }
@@ -139,13 +142,18 @@ footer {
 //       height: 130px;
 //   }
 // }
-
+@media only screen and (max-width: 1300) {
+  .top-bar-fixed .top-bar-section ul.right{
+    margin-right: 0%;
+  }
+}
 
 @media only screen and (max-width: 680px) {
   .logo-container {
       width: 100px;
       height: 130px;
   }
+
 
   header {
     padding-top:10px;

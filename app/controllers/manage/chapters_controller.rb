@@ -21,7 +21,6 @@ module Manage
     def new
       @vote_end_options = ['1 day', '2 days', '3 days', '1 week', '2 weeks']
       @chapter = Chapter.new
-      @chapter.published_on = Time.now
       @cal_to_action = CallToAction.new
     end
 

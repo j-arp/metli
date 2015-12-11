@@ -18,6 +18,12 @@ class NotifierMailer < ApplicationMailer
       mail(to: @author.email, bcc: 'whatnext@arpcentral.net',  subject: "Voting has been completed for  '#{@chapter.story.name}'.")
   end
 
+  def vote_happened(chapter, author)
+    @chapter = chapter
+    @author = author
+      mail(to: @author.email, bcc: 'whatnext@arpcentral.net',  subject: "A vote was cast for  '#{@chapter.story.name}'.")
+  end
+
   def invite(story, email, message)
     @story = story
     @message = message

@@ -50,11 +50,22 @@
     <% if @story.persisted? %>
         <div class="small-12 medium-10 columns">
         <%= f.check_box :active %>
-        <%= f.label :active, "this story is currently active" %>
+        <%= f.label :active, "This story is currently active" %>
         </div>
 
     <% end %>
   </div>
+
+  <div class="row">
+    <div class="small-12 medium-2 medium-text-right columns">
+    </div>
+        <div class="small-12 medium-10 columns">
+        <%= f.check_box :alert_on_vote %>
+        <%= f.label :alert_on_vote, "Send me emails everytime someone votes" %>
+        </div>
+  </div>
+
+
   <div class="row">
     <div class="small-12 medium-2 medium-text-right columns">
       <%= f.label :taxonomy %>

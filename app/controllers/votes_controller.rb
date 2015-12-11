@@ -7,6 +7,7 @@ class VotesController < ActiveUsersController
 
     if @vote.save
       active_user.subscriptions.find_by(story:@story).update(last_voted_chapter_number: @chapter.number)
+      send_alert if @story.alert_on_vote
       send_email if @chapter.votes.count == @story.subscriptions.count
     end
 
@@ -28,5 +29,9 @@ class VotesController < ActiveUsersController
 
   def send_email
     NotifierMailer.voting_completed(@chapter, @story.user).deliver_now
+  end
+
+  def send_alert
+    NotifierMailer.vote_happened(@chapter, @story.user).deliver_now
   end
 end

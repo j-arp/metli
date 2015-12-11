@@ -44,7 +44,11 @@
 </div>
 
 <p>
-  Published on <%= chapter.published_on %>
+  <% if chapter.published? %>
+     Published on <%= chapter.published_on %>
+  <% else %>
+   <i>Unpublished</i>
+   <% end %>
 </p>
 
 

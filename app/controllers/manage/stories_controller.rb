@@ -116,7 +116,7 @@ module Manage
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def story_params
-        params.require(:story).permit(:name, :active, :about, :taxonomy, :teaser)
+        params.require(:story).permit(:name, :active, :about, :taxonomy, :teaser, :alert_on_vote)
       end
 
       def validate_invite
