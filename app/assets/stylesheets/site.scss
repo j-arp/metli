@@ -23,6 +23,7 @@ nav { box-shadow: 0px 5px 10px #000; }
 main {margin-top: 33px}
 
 img.folks {max-width:200px; box-shadow: 5px 5px 15px #000; border: thin solid #ccc; margin-bottom:10px}
+
 .logo-container {
     background-color: #515355;
     padding: 10px;
@@ -58,7 +59,7 @@ img.folks {max-width:200px; box-shadow: 5px 5px 15px #000; border: thin solid #c
     height: 130px;
     margin: 0px;
 }
-.top-bar {
+.top-bar, .tab-bar {
     margin: 0px -1px;
 }
 .top-bar-fixed .top-bar-section ul.right{
@@ -76,6 +77,7 @@ img.folks {max-width:200px; box-shadow: 5px 5px 15px #000; border: thin solid #c
 
 .top-bar .name h1 {font-size: 1.6em; display:none}
 .top-bar-fixed .name h1 {font-size: 1.6em; color:#fff; margin-left: 20px}
+.tab-bar h1 {font-size: 1.6em; color:#fff; margin-left: 20px; text-align: left; display:none;}
 
 h1.big-header-text {
     margin-top: 25px;

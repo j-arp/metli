@@ -13,4 +13,8 @@ $(document).ready(function(){
       }
   });
 
+
+  $('.scroller-up').click(function(){
+    $("html, body").animate({ scrollTop: 0 }, 600);
+  })
 })

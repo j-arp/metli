@@ -1,0 +1,14 @@
+<footer>
+  <div class="row">
+    <div class="small-12 columns">
+
+    <p>Copyright <%= Time.now.year %> | Arpcentral.net
+      <% if session[:user_id] %>
+        <br/>
+        Logged in as <%= @active_user.email %> | <%= link_to 'Logout', logout_path %>
+        <% end -%>
+    </p>
+    </div>
+  </div>
+</footer>
+
