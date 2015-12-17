@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
+    cookies[:return_to] = request.fullpath
     redirect_to login_path unless session[:user_id]
   end
 

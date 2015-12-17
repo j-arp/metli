@@ -3,10 +3,6 @@ require 'support/user_with_supscriptions_context'
 
 RSpec.describe AccountController, type: :controller do
   include_context "user_with_supscriptions"
-
-
-
-
   describe 'GET #callback' do
 
     before(:each) do
@@ -30,6 +26,16 @@ RSpec.describe AccountController, type: :controller do
       request.env["omniauth.auth"][:info][:email] = user.email
       get :callback, {provider: 'google'}, {}
       expect(assigns(:user)).to eq user
+    end
+
+    it "redirects user the url they requested" do
+        user = FactoryGirl.create(:user, {email: 'jesse@arpcentral.net'})
+        request.cookies['return_to'] = "/story/chapter/#{@chapter.number}"
+        request.env["omniauth.auth"][:info][:email] = user.email
+        user.subscribe_to(@story, 'moogoo')
+        get :callback, {provider: 'google'}, {}
+        expect(response).to redirect_to "/story/chapter/#{@chapter.number}"
+        expect(response.cookies['return_to']).to be_nil
     end
 
 
@@ -81,10 +87,10 @@ RSpec.describe AccountController, type: :controller do
         expect(response).to redirect_to choose_story_path
     end
 
-    it "redirects user to account  if no subscriptions" do
+    it "redirects user to account if no subscriptions" do
       user = FactoryGirl.create(:user, {email: 'jesse@arpcentral.net'})
       request.env["omniauth.auth"][:info][:email] = user.email
-  
+
       get :callback, {provider: 'google'}, {}
       expect(response).to redirect_to account_path
     end
@@ -108,6 +114,8 @@ RSpec.describe AccountController, type: :controller do
     end
 
   end
+
+
 
   describe "GET #login" do
     it "returns http success" do

@@ -1,3 +1,5 @@
 <h1>Vote Happened!</h1>
 <p>Someone has cast their vote for '<%= @chapter.story.name %>.</p>
 <p><%= @chapter.call_to_action.progress %>% of the vote is in.</p>
+
+<p>View the latest stats at http://whatnext.arpcentral.net/manage/stories/<%= @chapter.story.permalink %>/chapters/<%= @chapter.id %></p>
