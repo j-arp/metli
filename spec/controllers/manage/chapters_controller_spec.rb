@@ -120,6 +120,12 @@ RSpec.describe Manage::ChaptersController, type: :controller do
         {title: 'new chapter title'}
       }
 
+
+      it 'updates a chapter if previously there were no calls to action' do
+          put :update, {new_calls_to_action: ["action 1", "action 2"], story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => new_attributes}, valid_author_session
+          expect(response).to redirect_to(manage_story_chapter_path(@story.permalink, @chapter))
+      end
+
       it 'does not update a chapter if not enough actions are submitted' do
           put :update, {new_calls_to_action: [], calls_to_action_ids: [], calls_to_action: [], story_id: @chapter.story.permalink, :id => @chapter.to_param, :chapter => new_attributes}, valid_author_session
           expect(response).to render_template("edit")

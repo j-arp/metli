@@ -74,7 +74,19 @@ module Manage
           params[:chapter][:published_on] = @chapter.published_on
         end
 
-        unless params[:new_calls_to_action].select { | a | a.present? }.count + params[:calls_to_action].select { | a | a.present? }.count  > 1
+        if params[:calls_to_action]
+          current_call_count = params[:calls_to_action].select { | a | a.present? }.count
+        else
+          current_call_count = 0
+        end
+
+        if params[:new_calls_to_action]
+          new_call_count = params[:new_calls_to_action].select { | a | a.present? }.count
+        else
+          new_call_count = 0
+        end
+
+        unless (new_call_count + current_call_count)  > 1
           do_not_save = true
           @chapter.errors[:base] << "You need at least 2 actions"
         end
