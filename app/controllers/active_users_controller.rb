@@ -4,8 +4,6 @@ class ActiveUsersController < ApplicationController
   before_action :set_active_story
   before_action :active_story
 
-
-
   def set_active_user
     @active_user = active_user
   end
