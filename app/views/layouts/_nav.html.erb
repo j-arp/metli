@@ -12,7 +12,7 @@
     <ul class="right">
 
       <li class=""><a href="/about">About</a></li>
-      
+
       <% if @active_user %>
         <li><%= link_to 'Read Stories', choose_story_path %></li>
 
@@ -25,17 +25,18 @@
               <li><a href="/account/subscriptions/available">Available Stories</a></li>
             </ul>
         </li>
-        
+
         <% if @active_user.super_user? %>
         <li class="has-dropdown">
           <a href="#">Admin</a>
             <ul class="dropdown">
+              <li><a href="/manage">Dashboard</a></li>
               <li><a href="/manage/stories/all">Manage Stories</a></li>
               <li><a href="/manage/users">Manage Users</a></li>
               <li><a href="/manage/invites">Manage Invites</a></li>
             </ul>
         </li>
-        
+
         <% end %>
       <% end %>
 
@@ -56,4 +57,3 @@
   </section>
 </nav>
 </div>
-
