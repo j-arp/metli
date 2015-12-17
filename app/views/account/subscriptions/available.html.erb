@@ -20,16 +20,16 @@
           <p>Currently <%= story.chapters.count %> chapters available...</p>
 
           <div class="row ">
-            <div class="small-2 columns">
-              <span id="<%= story.id %>" class="show-subscribe button tiny success radius"><%= fa_icon('angle-double-down') %></span>
+            <div class="small-12 medium-4 columns">
+              <span id="<%= story.id %>" class="show-subscribe button success radius small expand">Subscribe <%= fa_icon('angle-double-right') %></span>
             </div>
-            <div class="small-10 columns">
+            <div class="small-12 medium-8 columns">
               <div id="<%= story.id %>" class="row hidden toggable collapse">
-                <div class="small-7 columns ">
+                <div class="small-8 columns ">
                   <%= text_field_tag :username, "", placeholder: 'Join story with username', class: 'postfix' %>
                 </div>
                 <div class="small-4 columns end">
-                  <p><button class="button postfix"><%= fa_icon('check') %> Join</button></p>
+                  <button class="button postfix"><%= fa_icon('check') %> Join</button>
                 </div>
               </div>
             </div>

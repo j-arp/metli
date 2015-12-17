@@ -37,17 +37,17 @@ class AccountController < ActiveUsersController
       set_session(@user)
       flash[:message] = 'You have been logged in'
 
-      if cookies["return_to"]
-        redirect_to cookies["return_to"]
-        cookies["return_to"] = nil
-      else
-        if @user.stories.present?
-           redirect_to choose_story_path
-         else
-           redirect_to account_path
-         end
-      end
-      
+        if cookies["return_to"]
+          redirect_to cookies["return_to"]
+          cookies["return_to"] = nil
+        else
+          if @user.stories.present?
+             redirect_to choose_story_path
+           else
+             redirect_to account_path
+           end
+        end
+
     else
       redirect_to login_path
     end
