@@ -1,0 +1,35 @@
+<h1>Dashboard</h1>
+
+
+<div class="row">
+  <div class="small-12 medium-4 columns">
+      <h2>Newest Users</h2>
+
+        <% @newest_users.each do | user | %>
+          <%= render partial: 'user_capsule', locals: {user: user} %>
+        <% end %>
+
+  </div>
+
+  <div class="small-12 medium-4 columns">
+    <h2>Recent Users</h2>
+
+      <% @active_users.each do | user | %>
+        <%= render partial: 'user_capsule', locals: {user: user} %>
+      <% end %>
+
+
+  </div>
+
+  <div class="small-12 medium-4 columns">
+    <h2>Recent Stories</h2>
+
+      <% @recent_stories.each do | story | %>
+            <%= render partial: 'story_capsule', locals: {story: story} %>
+      <% end %>
+
+
+  </div>
+
+
+</div>

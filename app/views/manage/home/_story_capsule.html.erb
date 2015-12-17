@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="small-12 columns">
+    <b><%= story.name %></b>
+    <ul class="no-bullets">
+      <li>Last update on <%= story.updated_at.strftime('%D') %></li>
+      <li>
+      <%= story.subscriptions.count %> <i>peeps</i> | <%= story.chapters.count %> <i>chapters</i> | <%= story.total_votes %> <i>votes</i>
+      </li>
+    </ul>
+  </div>
+
+</div>

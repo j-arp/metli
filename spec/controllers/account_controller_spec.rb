@@ -28,6 +28,14 @@ RSpec.describe AccountController, type: :controller do
       expect(assigns(:user)).to eq user
     end
 
+    it "updates last login date" do
+      user = FactoryGirl.create(:user, {email: 'jesse@arpcentral.net', last_login_at: Time.now - 3.days})
+      last_time = user.last_login_at
+      request.env["omniauth.auth"][:info][:email] = user.email
+      get :callback, {provider: 'google'}, {}
+      expect(assigns(:user).last_login_at).to_not eq last_time
+    end
+
     it "redirects user the url they requested" do
         user = FactoryGirl.create(:user, {email: 'jesse@arpcentral.net'})
         request.cookies['return_to'] = "/story/chapter/#{@chapter.number}"

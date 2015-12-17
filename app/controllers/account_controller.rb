@@ -31,6 +31,7 @@ class AccountController < ActiveUsersController
     @user.first_name = info[:first_name]
     @user.last_name = info[:last_name]
     @user.image = info[:image]
+    @user.last_login_at = Time.now
     @user.save
 
     if @user

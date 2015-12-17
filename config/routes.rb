@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'story/about' => 'story#about', as: :about_story
 
   mount Ckeditor::Engine => '/ckeditor'
+
   namespace :account do
     get 'subscriptions' => 'subscriptions#index', as: :subscriptions
     get 'subscriptions/available' => 'subscriptions#available', as: :available_stories
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
   get '/logout' => 'account#logout', as: :logout
 
   namespace :manage do
+      get '' => 'home#index', as: :bashboard
 
     post 'subscribers/promote' => 'subscribers#promote', as: :promote
     post 'subscribers/relegate' => 'subscribers#relegate', as: :relegate

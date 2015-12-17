@@ -17,6 +17,16 @@ RSpec.describe User, type: :model do
       @user = User.last
     end
 
+    it 'returns users by last login' do
+      u1 = User.first
+      u1.update(last_login_at: Time.now - 3.days)
+      u2 = User.first
+      u2.update(last_login_at: Time.now - 1.days)
+
+      expect(User.by_activity.first).to eq u2
+
+    end
+
     it 'returns no authors cuz non exist' do
       @user.subscribe_to(@story, 'asdf')
       expect(User.authors).to be_empty

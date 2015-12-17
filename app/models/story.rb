@@ -25,4 +25,11 @@ class Story < ActiveRecord::Base
     return false
   end
 
+
+  def total_votes
+    totes = 0
+    chapters.each { | c | totes += c.votes.count }
+    return totes
+  end
+
 end

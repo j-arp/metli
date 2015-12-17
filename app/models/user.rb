@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   scope :authors, -> { joins(:subscriptions).where("subscriptions.author = true") }
   scope :with_email_notifications, -> { joins(:subscriptions).where("subscriptions.send_email = true").distinct }
   scope :privileged, -> { where(privileged:true) }
+  scope :by_activity, -> { where.not(last_login_at: nil).order('last_login_at DESC') }
 
   def to_s
     full_name
