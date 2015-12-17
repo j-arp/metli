@@ -1,4 +1,4 @@
-<div class="story radius">
+<div class="story radius <%= 'story-completed' if story.completed? %>">
 
   <div class="row title collapse">
     <div class="small-12 medium-12 columns">
@@ -13,7 +13,11 @@
         <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-5 text-center">
           <li><%= link_to raw("#{fa_icon('clone')}<br/> Story"), manage_story_path(story) %></li>
           <li><%= link_to raw("#{fa_icon('book')}<br/> Chapters"), manage_story_chapters_path(story) %></li>
-          <li><%= link_to raw("#{fa_icon('pencil')}<br/> Write"), new_manage_story_chapter_path(story) %></li>
+          <% if story.completed? %>
+            <li style="color:#ccc"><%= fa_icon('pencil', style: 'color:#ccc') %> Completed</li>
+          <% else %>
+            <li><%= link_to raw("#{fa_icon('pencil')}<br/> Write"), new_manage_story_chapter_path(story) %></li>
+          <% end %>
           <li><%= link_to raw("#{fa_icon('edit 1x')}<br/> Edit"), edit_manage_story_path(story) %></li>
           <li><%= link_to raw("#{fa_icon('trash 1x')}<br/> Delete"), manage_story_path(story), method: :delete, data: { confirm: 'This will permanently delete your story, chapters and all votes. Are you sure?' } %></li>
         </ul>

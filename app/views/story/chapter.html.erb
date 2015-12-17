@@ -11,9 +11,13 @@
 <%= render partial: 'links',  locals: {links: %w( next previous)} %>
 
 <div class="row">
+
   <div class="small-12 medium-6 columns">
-    <h3>What Next?</h3>
-    <%= render 'action_form' %>
+    <% if @chapter.story.completed? %>
+      <%= render 'final_chapter' %>
+    <% else %>
+      <%= render 'action_form' %>
+    <% end %>
   </div>
 
   <div class="small-12 medium-6 columns">

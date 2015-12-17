@@ -87,6 +87,18 @@ RSpec.describe Manage::ChaptersController, type: :controller do
         #broken :why?
         # expect(response).to redirect_to(manage_story_chapter_path(@story.permalink, @story.chapters.last.id))
       end
+
+      it "marks story complete if checked" do
+        post :create, {new_calls_to_action: [], story_id: @story.permalink, story_is_complete: 1, :chapter => valid_attributes}, valid_author_session
+        expect(assigns(:chapter)).to be_a(Chapter)
+        expect(assigns(:chapter).story).to be_completed
+      end
+
+      it "marks story not complete if not checked" do
+        post :create, {new_calls_to_action: [], story_id: @story.permalink, :chapter => valid_attributes}, valid_author_session
+        expect(assigns(:chapter)).to be_a(Chapter)
+        expect(assigns(:chapter).story).to_not be_completed
+      end
     end
 
     context "with invalid params" do
@@ -153,6 +165,18 @@ RSpec.describe Manage::ChaptersController, type: :controller do
       it "redirects to the chapter" do
         put :update, {new_calls_to_action: [], calls_to_action_ids: actions[:ids], calls_to_action: actions[:contents], story_id: @chapter.story.permalink, :id => @chapter.id, :chapter => valid_attributes}, valid_author_session
         expect(response).to redirect_to(manage_story_chapter_path(@story.permalink, @chapter))
+      end
+
+      it "marks story complete if checked" do
+        put :update, {new_calls_to_action: [], calls_to_action_ids: actions[:ids], story_is_complete: 1, calls_to_action: actions[:contents], story_id: @chapter.story.permalink, :id => @chapter.id, :chapter => valid_attributes}, valid_author_session
+        expect(assigns(:chapter)).to be_a(Chapter)
+        expect(assigns(:chapter).story).to be_completed
+      end
+
+      it "marks story not complete if not checked" do
+        put :update, {new_calls_to_action: [], calls_to_action_ids: actions[:ids], calls_to_action: actions[:contents], story_id: @chapter.story.permalink, :id => @chapter.id, :chapter => valid_attributes}, valid_author_session
+        expect(assigns(:chapter)).to be_a(Chapter)
+        expect(assigns(:chapter).story).to_not be_completed
       end
     end
 

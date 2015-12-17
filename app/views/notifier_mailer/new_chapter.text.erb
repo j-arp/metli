@@ -1,3 +1,11 @@
-NotifierMailer#new_chapter
+New Chapter Published
+------------------------------
+A new chapter titled '<%= @chapter.title %>' has been published to the story '<%= @chapter.story.name %>'.
 
-<%= @greeting %>, find me in app/views/notifier_mailer/new_chapter.text.erb
+<% unless @chapter.story.completed? %>
+You have until midnight on <%= @chapter.vote_ends_on.strftime('%D') %> to vote for what to do next.
+
+Read it now at http://whatnext.arpcentral.net/story/<%= @chapter.story.permalink %>/chapter/<%= @chapter.number %> and let your voice be known!
+<% else %>
+This is final chapter in this fine story. Find out how it all ends now at http://whatnext.arpcentral.net/story/<%= @chapter.story.permalink %>/chapter/<%= @chapter.number %>
+<% end %>

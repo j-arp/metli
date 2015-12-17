@@ -45,6 +45,7 @@ module Manage
 
       respond_to do |format|
         if @chapter.save
+          params[:story_is_complete] ? @story.update(completed: true) : @story.update(completed: false)
           @call_to_action = CallToAction.find_or_create_by(chapter_id: @chapter.id)
           add_new_actions
           notify if @chapter.published?
@@ -62,17 +63,17 @@ module Manage
     # PATCH/PUT /chapters/1.json
     def update
       respond_to do |format|
-        if params[:chapter][:published_on].blank? && @chapter.unpublish?
-          params[:chapter][:published_on] = nil
-          flash[:message] = "Your chapter has been unpublished. It may confuse your readers."
-        elsif params[:chapter][:published_on].blank? && !@chapter.unpublish?
-            flash[:message] = "Your chapter cannot be unpublished!"
+          if params[:chapter][:published_on].blank? && @chapter.unpublish?
+            params[:chapter][:published_on] = nil
+            flash[:message] = "Your chapter has been unpublished. It may confuse your readers."
+          elsif params[:chapter][:published_on].blank? && !@chapter.unpublish?
+              flash[:message] = "Your chapter cannot be unpublished!"
+              params[:chapter][:published_on] = @chapter.published_on
+          elsif !params[:chapter][:published_on].blank?
+              #do nothing
+          else
             params[:chapter][:published_on] = @chapter.published_on
-        elsif !params[:chapter][:published_on].blank?
-            #do nothing
-        else
-          params[:chapter][:published_on] = @chapter.published_on
-        end
+          end
 
         if params[:calls_to_action]
           current_call_count = params[:calls_to_action].select { | a | a.present? }.count
@@ -96,6 +97,7 @@ module Manage
 
         if do_not_save != true && @chapter.update(chapter_params)
           @call_to_action = CallToAction.find_or_create_by(chapter_id: @chapter.id)
+          params[:story_is_complete] ? @chapter.story.update(completed: true) : @chapter.story.update(completed: false)
 
 
           notify if @chapter.published? && !@published_status

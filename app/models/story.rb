@@ -20,4 +20,9 @@ class Story < ActiveRecord::Base
     name
   end
 
+  def completed?
+    return true if completed
+    return false
+  end
+
 end

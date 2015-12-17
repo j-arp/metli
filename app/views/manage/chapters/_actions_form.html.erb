@@ -1,5 +1,14 @@
 <fieldset>
   <legend>Calls to Action</legend>
+
+  <div class="row">
+    <div class="small-12 medium-offset-2 medium-10 columns">
+      <%= check_box_tag :story_is_complete, 1, @story.completed?, id: 'complete-story' %>
+      <%= label_tag :story_is_complete, "This is the Final Chapter", for: 'complete-story' %>
+    </div>
+  </div>
+
+<div id="action-fields">
   <% @chapter.actions.each  do | action | %>
   <div>
     <div class="small-12 medium-10 medium-offset-2 columns">
@@ -18,7 +27,6 @@
       </div>
     </div>
   <% end -%>
-
+</div>
 
 </fieldset>
-
