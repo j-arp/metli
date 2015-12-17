@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  layout 'wat'
+  layout 'wat_wit_canvas'
   protect_from_forgery with: :exception
   before_action :get_all_stories
 

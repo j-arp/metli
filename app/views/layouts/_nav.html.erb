@@ -1,15 +1,9 @@
-
-
-
+<div class="show-for-medium-up">
 <nav class="top-bar" data-topbar role="navigation">
   <ul class="title-area">
     <li class="name">
       <h1 class="site-header-text">What Next?</h1>
     </li>
-    
-     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-
-
     <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
   </ul>
 
@@ -18,7 +12,7 @@
     <ul class="right">
 
       <li class=""><a href="/about">About</a></li>
-      <li class="divider"></li>
+      
       <% if @active_user %>
         <li><%= link_to 'Read Stories', choose_story_path %></li>
 
@@ -31,7 +25,7 @@
               <li><a href="/account/subscriptions/available">Available Stories</a></li>
             </ul>
         </li>
-        <li class="divider"></li>
+        
         <% if @active_user.super_user? %>
         <li class="has-dropdown">
           <a href="#">Admin</a>
@@ -41,7 +35,7 @@
               <li><a href="/manage/invites">Manage Invites</a></li>
             </ul>
         </li>
-        <li class="divider"></li>
+        
         <% end %>
       <% end %>
 
@@ -61,3 +55,5 @@
     </ul>
   </section>
 </nav>
+</div>
+
