@@ -10,4 +10,7 @@ $(document).ready(function(){
       $('#action-fields').fadeIn('fast')
     }
   })
+
+  $('table.sortable').tablesorter();
+  
 });
