@@ -18,27 +18,34 @@
   </head>
 
   <body>
+    <div class="beta-notice">
+        <p>Beta</p>
+
+    </div>
 
   <div class="off-canvas-wrap" data-offcanvas>
     <div class="inner-wrap">
-    
+
     <div class="row frame collapse">
 
-      <%= render 'layouts/header' %> 
+      <%= render 'layouts/header' %>
       <%= render 'layouts/nav' %>
-      
+
     <div class="show-for-small-only">
 
 
-      <nav class="tab-bar"> 
+      <nav class="tab-bar">
         <div class="row collapse">
           <div class="small-10 columns">
           <section class="top-bar-section">
-            <ul class="inline-list">   
+            <ul class="inline-list">
               <li><%= link_to 'Home', "/" %></li>
               <li><%= link_to 'About', about_path %></li>
+
                 <% if @active_user %>
                   <li><%= link_to 'Read', choose_story_path %></li>
+                  <% else %>
+                  <li><%= link_to 'Login', login_path %></li>
                 <% end %>
             </ul>
             </section>
@@ -59,7 +66,7 @@
       </div>
 
     <span class="watermark"></span>
-    
+
     <main>
       <div class="row">
         <div class="small-12 columns">
@@ -68,7 +75,7 @@
         </div>
       </div>
     </main>
-    
+
 
     </div>
   </div>
