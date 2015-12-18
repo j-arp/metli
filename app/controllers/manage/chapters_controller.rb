@@ -39,7 +39,7 @@ module Manage
       @chapter.author = active_user
       @chapter.vote_ends_on = vote_cutoff_date
 
-      unless params[:new_calls_to_action].count > 1
+      unless params[:new_calls_to_action].count > 1 || params[:story_is_complete]
         @chapter.errors[:base] << "You need at least 2 actions"
       end
 
@@ -63,6 +63,7 @@ module Manage
     # PATCH/PUT /chapters/1.json
     def update
       respond_to do |format|
+        # todo: extract into method
           if params[:chapter][:published_on].blank? && @chapter.unpublish?
             params[:chapter][:published_on] = nil
             flash[:message] = "Your chapter has been unpublished. It may confuse your readers."
@@ -74,7 +75,7 @@ module Manage
           else
             params[:chapter][:published_on] = @chapter.published_on
           end
-
+        # todo: extract to method
         if params[:calls_to_action]
           current_call_count = params[:calls_to_action].select { | a | a.present? }.count
         else
@@ -87,7 +88,7 @@ module Manage
           new_call_count = 0
         end
 
-        unless (new_call_count + current_call_count)  > 1
+        unless (new_call_count + current_call_count)  > 1 || params[:story_is_complete]
           do_not_save = true
           @chapter.errors[:base] << "You need at least 2 actions"
         end

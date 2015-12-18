@@ -3,6 +3,7 @@
   <div class="row title collapse">
     <div class="small-12 medium-12 columns">
       <h3><%= story.name %></h3>
+      <%= simple_format(story.teaser) %>
     </div>
   </div>
 
@@ -11,10 +12,10 @@
       <div class="small-12 medium-7 columns ">
         <h4>Actions</h4>
         <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-5 text-center">
-          <li><%= link_to raw("#{fa_icon('clone')}<br/> Story"), manage_story_path(story) %></li>
+          <li><%= link_to raw("#{fa_icon('clone')}<br/> Details"), manage_story_path(story) %></li>
           <li><%= link_to raw("#{fa_icon('book')}<br/> Chapters"), manage_story_chapters_path(story) %></li>
           <% if story.completed? %>
-            <li style="color:#ccc"><%= fa_icon('pencil', style: 'color:#ccc') %> Completed</li>
+            <li style="color:#ccc"><%= fa_icon('pencil', style: 'color:#ccc') %><br/>Completed</li>
           <% else %>
             <li><%= link_to raw("#{fa_icon('pencil')}<br/> Write"), new_manage_story_chapter_path(story) %></li>
           <% end %>
@@ -29,7 +30,9 @@
           <li class="stat">Active? <%= story.active? ? "Yes" : "No" %></li>
           <li class="stat">Readers: <%= link_to story.users.count,  subscribers_manage_story_path(story) %></li>
           <li class="stat">Chapters: <%= link_to story.chapters.count,  manage_story_chapters_path(story) %></li>
+          <li class="stat">Total Views: <%= story.total_views %></li>
         </ul>
+
       </div>
     </div>
   <% end %>

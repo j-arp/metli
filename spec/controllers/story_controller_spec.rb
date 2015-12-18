@@ -65,6 +65,16 @@ RSpec.describe StoryController, type: :controller do
       expect(assigns(:chapter)).to eq @chapter
     end
 
+    it "registers view of chapter" do
+      expect {
+        get :chapter, {number: 1}, valid_session
+      }.to change(View, :count).by(1)
+    end
+
+    it "registers view of chapter for a user" do
+        get :chapter, {number: 1}, valid_session
+        expect(View.last.user).to eq @user
+    end
 
     it 'sets control variable to allow voting' do
       get :chapter, {number: 1}, valid_session

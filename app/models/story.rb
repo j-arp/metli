@@ -3,6 +3,7 @@ class Story < ActiveRecord::Base
   has_many :users, through: :subscriptions, dependent: :destroy
   has_many :chapters, dependent: :destroy
   has_many :invitations
+  has_many :views, as: :viewable, dependent: :destroy
 
   belongs_to :user
 
@@ -25,6 +26,11 @@ class Story < ActiveRecord::Base
     return false
   end
 
+  def total_views
+    totes = 0
+    chapters.each { | c | totes += c.views.count }
+    return totes
+  end
 
   def total_votes
     totes = 0

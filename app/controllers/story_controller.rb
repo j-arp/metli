@@ -28,8 +28,8 @@ class StoryController < ActiveUsersController
 
     @subscription = active_user.subscriptions.find_by!(story: @current_story)
     @subscription.update(last_read_chapter_number: params[:number])
-
     @chapter = @current_story.chapters.find_by_number!(params[:number])
+    @chapter.views.create(user_id: active_user.id)
     @call_to_action = CallToActionDecorator.new(@chapter.call_to_action)
     @allow_voting = @subscription.allow_voting_for? @chapter
     @steps = {}

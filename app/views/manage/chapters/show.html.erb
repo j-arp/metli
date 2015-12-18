@@ -4,9 +4,10 @@
       <div class="callout small text-center" data-closable>
         <p>This chapter has not yet been published!</p>
       </div>
-  </div>
+    </div>
   </div>
 <% end %>
+
 <div class="row">
   <div class="small-12 columns">
     <%= render @chapter %>
@@ -20,4 +21,10 @@
     <p>Voting will close End of Day, <%= @chapter.vote_ends_on.strftime('%D') %>.
     <%= raw(@call_to_action.chart) %>
   </div>
+
+  <div class="small-12 medium-6 columns end">
+    <h3>Chapter Stats</h3>
+    <p>Total Views: <%= @chapter.views.count %></p>
+  </div>
+
 </div>
