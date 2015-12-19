@@ -13,6 +13,9 @@
 
       <li class=""><a href="/">Home</a></li>
       <li class=""><a href="/about">About</a></li>
+      <% if session[:user_id] %>
+        <li class=""><a href="/story">Read</a></li>
+      <% end %>
 
       <%= render 'layouts/menu_items' %>
     </ul>
