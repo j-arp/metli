@@ -13,7 +13,6 @@
 
   <div class="small-12 medium-4 columns">
     <h2>Recent Users</h2>
-
       <% @active_users.each do | user | %>
         <%= render partial: 'user_capsule', locals: {user: user} %>
       <% end %>
