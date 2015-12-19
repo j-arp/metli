@@ -13,30 +13,32 @@ class AccountController < ActiveUsersController
   end
 
   def login
-  end
-
-  def info_from_the_google
-    {
-      email: request.env["omniauth.auth"][:info][:email],
-      first_name: request.env["omniauth.auth"][:info][:first_name],
-      last_name: request.env["omniauth.auth"][:info][:last_name],
-      image: request.env["omniauth.auth"][:info][:image]
-    }
-
+    puts "get login form"
   end
 
   def callback
-    info = info_from_the_google
-    @user = User.where(email: info[:email]).first_or_initialize
-    @user.first_name = info[:first_name]
-    @user.last_name = info[:last_name]
-    @user.image = info[:image]
-    @user.last_login_at = Time.now
-    @user.save
+    puts "+++++++++++++++ call back ++++++++++++++"
+    provider = params[:provider]
+    puts "callback from #{params}"
+
+    if provider == 'google'
+      info = info_from_the_google
+    elsif provider == 'facebook'
+      info = info_from_facebook
+    else
+      throw 'What is going on?'
+    end
+
+      @user = User.where(email: info[:email]).first_or_initialize
+      @user.first_name = info[:first_name]
+      @user.last_name = info[:last_name]
+      @user.image = info[:image]
+      @user.last_login_at = Time.now
+      @user.save!
 
     if @user
       set_session(@user)
-      flash[:message] = 'You have been logged in'
+      flash[:message] = "You have been logged in!"
 
         if cookies["return_to"]
           redirect_to cookies["return_to"]
@@ -54,10 +56,33 @@ class AccountController < ActiveUsersController
     end
   rescue => e
     puts e
-    flash[:message] = "Login could not be processed. Please try again."
+    flash[:message] = "Login could not be processed. Please try again. #{e}"
     redirect_to login_path
 
   end
+
+  def info_from_the_google
+    puts "get info from google #{request.env["omniauth.auth"].inspect}"
+    {
+      email: request.env["omniauth.auth"][:info][:email],
+      first_name: request.env["omniauth.auth"][:info][:first_name],
+      last_name: request.env["omniauth.auth"][:info][:last_name],
+      image: request.env["omniauth.auth"][:info][:image]
+    }
+  end
+
+  def info_from_facebook
+    #puts ">>>>>>>>>>>>>>>>>>>>get info from facebook #{request.env["omniauth.auth"][:info]}"
+    #puts ">>>>>>>>>>>>> getting #{request.env["omniauth.auth"][:info][:name]} with email of #{request.env["omniauth.auth"][:info][:email]}"
+    {
+      email: request.env["omniauth.auth"][:info][:email],
+      first_name: request.env["omniauth.auth"][:info][:name].split(" ").first,
+      last_name: request.env["omniauth.auth"][:info][:name].split(" ").last,
+      image: request.env["omniauth.auth"][:info][:image]
+    }
+  end
+
+
 
   def set_session(user)
     session[:user_id] = user.id

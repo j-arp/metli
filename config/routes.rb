@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   put 'comments/flag' => 'comments#flag', as: :flag_comment
 
   get '/auth/google'
+  get '/auth/facebook'
   get '/auth/:provider/callback', to: 'account#callback'
 
   post 'votes' => 'votes#create', as: :vote_for_action
