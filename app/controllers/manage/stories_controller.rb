@@ -36,11 +36,12 @@ module Manage
     end
 
     def send_invitations
-      params[:email_list].each_line do | email |
-        invitation = Invitation.create!(email: email.strip, message: params[:message], story: @story, user: active_user) unless @story.invitations.find_by(email: email.strip)
-        NotifierMailer.invite(@story, email.strip, params[:message]).deliver_now if invitation
-      end
-      flash[:message] = "Your invitations have been sent"
+      Resque.enqueue(InvitationWorker, params[:email_list], params[:message], @story.id, active_user.id )
+      # params[:email_list].each_line do | email |
+      #   invitation = Invitation.create!(email: email.strip, message: params[:message], story: @story, user: active_user) unless @story.invitations.find_by(email: email.strip)
+      #   NotifierMailer.invite(@story, email.strip, params[:message]).deliver_now if invitation
+      # end
+      flash[:message] = "Your invitations will be sent shortly. Refresh this page if they do not appear."
       redirect_to invitations_manage_story_path(@story)
     end
     # POST /stories
