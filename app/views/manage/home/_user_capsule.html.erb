@@ -7,7 +7,7 @@
     <b><%= user.full_name %></b>
     <ul class="no-bullets">
       <li>Joined on <%= user.created_at.strftime('%D') %></li>
-      <li>Last logged in on <%= user.last_login_at.strftime('%D') if user.last_login_at %></li>
+      <li>Last logged in on <%= user.last_login_at.strftime('%D %r') if user.last_login_at %></li>
       <li>Subscribed to  <%= user.subscriptions.count %> stories</li>
     </ul>
   </div>
