@@ -1,3 +1,5 @@
+require "resque_web"
+
 Rails.application.routes.draw do
 
   get 'comments/chapter/:chapter_id' => 'comments#index',  as: :comments
@@ -68,4 +70,6 @@ Rails.application.routes.draw do
 
   get '/about' => 'home#about'
   root 'home#index'
+
+  mount ResqueWeb::Engine => "/system/resque"
 end

@@ -15,6 +15,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+gem 'foreman'
+gem 'resque', :require => 'resque/server'
+gem 'resque-web', require: 'resque_web'
 
 gem 'chronic'
 gem 'truncate_html'
