@@ -1,6 +1,15 @@
 require "resque_web"
 
+
+
 Rails.application.routes.draw do
+
+  class AuthenticatedSuperUserConstraint
+    def self.matches?(request)
+      #puts request.session.fetch(:super_user, false)
+      request.session.fetch(:super_user, false)
+    end
+  end
 
   get 'comments/chapter/:chapter_id' => 'comments#index',  as: :comments
   get 'comments/:id' => 'comments#show',  as: :comment
@@ -71,5 +80,8 @@ Rails.application.routes.draw do
   get '/about' => 'home#about'
   root 'home#index'
 
-  mount ResqueWeb::Engine => "/system/resque"
+  constraints(AuthenticatedSuperUserConstraint) do
+    mount ResqueWeb::Engine => "/system/resque"
+  end
+
 end

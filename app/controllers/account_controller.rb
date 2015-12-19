@@ -64,7 +64,7 @@ class AccountController < ActiveUsersController
     session[:managed_story_id] = user.authored_stories.first.id if user.authored_stories.any?
     session[:current_story_id] = user.stories.first.id if user.stories.any?
     session[:subscribed_stories] = user.stories
-
+    session[:super_user] = user.super_user?
     user.stories.any? ? session[:subscribed_stories] = user.stories.map(&:id) : []
   end
 

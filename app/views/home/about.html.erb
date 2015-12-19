@@ -7,26 +7,39 @@
 </div>
 
 
-<div class="row collapse">
-  <div class="small-6 medium-4 medium-offset-2 columns">
-    <div class="row">
-      <div class="small-12 columns text-center"><%= image_tag 'jonathan.png', class: 'folks',  width: '100%' %></div>
-      <div class="small-12 columns text-center">Jonathan Arp</div>
+    <div class="row collapse">
+      <div class="small-6 medium-4 medium-offset-2 columns">
+        <div class="row">
+          <div class="small-12 columns text-center"><%= image_tag 'jonathan.png', class: 'folks',  width: '100%' %></div>
+          <div class="small-12 columns text-center">Jonathan Arp</div>
+        </div>
+      </div>
+      <div class="small-6 medium-4 columns end">
+        <div class="row">
+          <div class="small-12 columns text-center"><%= image_tag 'jesse.png', class: 'folks', width: '100%' %></div>
+          <div class="small-12 columns text-center">Jesse Arp</div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="small-6 medium-4 columns end">
+
     <div class="row">
-      <div class="small-12 columns text-center"><%= image_tag 'jesse.png', class: 'folks', width: '100%' %></div>
-      <div class="small-12 columns text-center">Jesse Arp</div>
+      <div class="small-10 small-offset-1 medium-offset-1 medium-10 large-offset-2 large-8 columns text-center panel callout end">
+        <p>Enjoying this site?</p>
+        <p>Help us fund this site. We have  a couple servers, a database, some Amazon s3 buckets to pay for.</p>
+        <%= render 'shared/paypal' %>
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="small-12 columns">
-    <p>The basic idea is "Choose your Own Adventure" but with a social aspect. The readers will collectively
-      guide the author by voting on what to do next.</p>
 
-    <p>That's all for now...</p>
-  </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <p>The basic idea is "Choose your Own Adventure" but with a social aspect. The readers will collectively
+          guide the author by voting on what to do next.</p>
+
+        <p>That's all for now...</p>
+      </div>
+    </div>
+
+
 </div>

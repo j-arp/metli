@@ -28,6 +28,22 @@ RSpec.describe AccountController, type: :controller do
       expect(assigns(:user)).to eq user
     end
 
+    it "sets them as super user if they be one" do
+      user = FactoryGirl.create(:user, {email: 'superuser@internet.com', super_user: true})
+      request.env["omniauth.auth"][:info][:email] = user.email
+      get :callback, {provider: 'google'}, {}
+      expect(assigns(:user)).to eq user
+      expect(assigns(:user)).to be_super_user
+    end
+
+    it "sets them as super user if they be one" do
+      user = FactoryGirl.create(:user, {email: 'minion@internet.com', super_user: false})
+      request.env["omniauth.auth"][:info][:email] = user.email
+      get :callback, {provider: 'google'}, {}
+      expect(assigns(:user)).to eq user
+      expect(assigns(:user)).to_not be_super_user
+    end
+
     it "updates last login date" do
       user = FactoryGirl.create(:user, {email: 'jesse@arpcentral.net', last_login_at: Time.now - 3.days})
       last_time = user.last_login_at

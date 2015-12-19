@@ -1,11 +1,9 @@
-<li><%= link_to 'Home', "/" %></li>
-<li><%= link_to 'About', about_path %></li>
+
 
 <% if @active_user %>
-  <li><%= link_to 'Read Stories', choose_story_path %></li>
 
   <li class="has-dropdown">
-      <li><a href="/account">Your Profile</a></li>
+      <a href="#">Your Profile</a>
       <ul class="dropdown">
         <li><a href="/account">Go to Profile</a></li>
         <li><a href="/manage/stories">My Stories</a></li>
@@ -22,6 +20,7 @@
         <li><a href="/manage/stories/all">Manage Stories</a></li>
         <li><a href="/manage/users">Manage Users</a></li>
         <li><a href="/manage/invites">Manage Invites</a></li>
+        <li><a href="/system/resque" target="_blank">Totes NSA</a></li>
       </ul>
   </li>
 
