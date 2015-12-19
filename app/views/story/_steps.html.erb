@@ -1,14 +1,14 @@
 <div class="row page-steps">
   <div class="small-6 columns text-right">
     <% if @steps[:prev] %>
-      <%= link_to '<< Previous Chapter', read_chapter_path(@steps[:prev]), class: 'button'  %>
+      <%= link_to '<< Previous Chapter', read_chapter_path(@steps[:prev]), class: 'button primary'  %>
     <% else %>
       &nbsp;
     <% end %>
   </div>
   <div class="small-6 columns text-left">
     <% if @steps[:next] %>
-      <%= link_to 'Next Chapter >>', read_chapter_path(@steps[:next]), class: 'button'  %>
+      <%= link_to 'Next Chapter >>', read_chapter_path(@steps[:next]), class: 'button secondary'  %>
     <% else %>
       &nbsp;
     <% end %>

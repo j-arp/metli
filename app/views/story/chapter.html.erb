@@ -1,6 +1,16 @@
-<h2><%= @chapter.story %></h2>
+<div class="row collapse">
+  <div class="small-12 medium-7 columns">
+    <h1><%= @chapter.story.name %></h1>
+  </div>
+  <div class="small-12 medium-5 columns text-right">
+      <p><%= render partial: 'nav_links',  locals: { links: %w(back switch)} %></p>
+</div>
 
-<%= render partial: 'nav',  locals: {title: "Chapter #{@chapter.number}: #{@chapter.title}", links: %w(back switch)} %>
+<div class="row">
+  <div class="small-12 columns">
+    <h2><%= @chapter.title %></h2>
+  </div>
+</div>
 
 <div class="row">
   <div class="small-12 medium-12 columns">
