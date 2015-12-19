@@ -17,9 +17,7 @@ class AccountController < ActiveUsersController
   end
 
   def callback
-    puts "+++++++++++++++ call back ++++++++++++++"
     provider = params[:provider]
-    puts "callback from #{params}"
 
     if provider == 'google'
       info = info_from_the_google
@@ -55,14 +53,12 @@ class AccountController < ActiveUsersController
       redirect_to login_path
     end
   rescue => e
-    puts e
-    flash[:message] = "Login could not be processed. Please try again. #{e}"
+    flash[:message] = "Login could not be processed. Please try again."
     redirect_to login_path
 
   end
 
   def info_from_the_google
-    puts "get info from google #{request.env["omniauth.auth"].inspect}"
     {
       email: request.env["omniauth.auth"][:info][:email],
       first_name: request.env["omniauth.auth"][:info][:first_name],

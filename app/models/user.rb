@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :email, presence: true
 
   default_scope {where(deleted: false).order('last_name, first_name')}
-  scope :active, -> { where(active:true) }
+  scope :active, -> { where(deleted: false) }
   scope :authors, -> { joins(:subscriptions).where("subscriptions.author = true") }
   scope :with_email_notifications, -> { joins(:subscriptions).where("subscriptions.send_email = true").distinct }
   scope :privileged, -> { where(privileged:true) }
