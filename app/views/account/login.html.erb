@@ -11,11 +11,11 @@
 
 <div class="row">
   <div class="small-12 medium-4 medium-offset-2 columns text-center">
-    <%= link_to image_tag('login-google.png', class: "login"), "/auth/google" %>
+    <%= link_to raw("#{fa_icon('google')} Login with Google"), "/auth/google", class: 'button radius large' %>
   </div>
 
   <div class="small-12 medium-4 columns text-center end">
-    <%= link_to image_tag('login-facebook.png', class: "login"), "/auth/facebook" %>
+    <%= link_to raw("#{fa_icon('facebook-official')} Login with Facebook"), "/auth/facebook", class: 'button radius large' %>
   </div>
 
 </div>

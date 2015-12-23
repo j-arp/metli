@@ -70,12 +70,14 @@ class AccountController < ActiveUsersController
   def info_from_facebook
     #puts ">>>>>>>>>>>>>>>>>>>>get info from facebook #{request.env["omniauth.auth"][:info]}"
     #puts ">>>>>>>>>>>>> getting #{request.env["omniauth.auth"][:info][:name]} with email of #{request.env["omniauth.auth"][:info][:email]}"
+    puts "request info: #{request.env["omniauth.auth"][:info].inspect }"
     {
       email: request.env["omniauth.auth"][:info][:email],
       first_name: request.env["omniauth.auth"][:info][:name].split(" ").first,
       last_name: request.env["omniauth.auth"][:info][:name].split(" ").last,
-      image: request.env["omniauth.auth"][:info][:image]
+      image: "/img/facebook-profile-small.jpg"
     }
+      #image: request.env["omniauth.auth"][:info][:image]
   end
 
 
