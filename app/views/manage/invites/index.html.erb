@@ -1,9 +1,15 @@
 <h1>Invites</h1>
+<div class="row">
+  <div class="small-12 columns text-right">
+    <%= render 'form' %>
+  </div>
+</div>
 
 <table>
   <thead>
     <tr>
       <th>Key</th>
+      <th>Created By</th>
       <th>Used</th>
       <th>User</th>
       <th>Used on</th>
@@ -15,16 +21,15 @@
     <% @invites.each do |invite| %>
       <tr>
         <td><%= invite.key %></td>
+        <td><%= invite.creator %></td>
         <td><%= invite.used %></td>
         <td><%= invite.user %></td>
         <td><%= invite.used_on %></td>
-        <td><%= link_to 'Show', manage_invite_path(invite) %></td>
-        <td><%= link_to 'Remove', manage_invite_path(invite), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', manage_invite_path(invite), class: 'button small ' %></td>
+        <td><%= link_to 'Remove', manage_invite_path(invite), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button small alert' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Invite', new_manage_invite_path, class: 'button large success' %>

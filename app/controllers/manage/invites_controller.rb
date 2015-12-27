@@ -1,10 +1,11 @@
 module Manage
-  class InvitesController < SuperUserController
+  class InvitesController < ActiveUsersController
     before_action :set_invite, only: [:show, :edit, :update, :destroy]
 
     # GET /invites
     # GET /invites.json
     def index
+      @invite = Invite.new
       @invites = Invite.all
     end
 
@@ -25,8 +26,8 @@ module Manage
     # POST /invites
     # POST /invites.json
     def create
-      @invite = Invite.create
-       redirect_to manage_invite_path(@invite)
+      @invite = Invite.create(created_by: active_user.id)
+       redirect_to manage_invites_path
        flash[:message] =  'Invite was successfully created.'
     end
 

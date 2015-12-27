@@ -66,14 +66,10 @@ RSpec.describe StoryController, type: :controller do
     end
 
     it "registers view of chapter" do
-      expect {
+        # Resque.enqueue(ViewableWorker, @chapter.id, active_user.id)
+        expect(Resque).to receive(:enqueue).with(ViewableWorker, @chapter.id, @user.id).once
         get :chapter, {number: 1}, valid_session
-      }.to change(View, :count).by(1)
-    end
 
-    it "registers view of chapter for a user" do
-        get :chapter, {number: 1}, valid_session
-        expect(View.last.user).to eq @user
     end
 
     it 'sets control variable to allow voting' do

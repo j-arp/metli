@@ -185,9 +185,8 @@ RSpec.describe Manage::StoriesController, type: :controller do
       }
 
       it "creates invitaions for each email" do
-        expect {
-          post :send_invitations, {:id => @story.to_param, :email_list => valid_invitations[:email_list]}, valid_session
-        }.to change(Invitation, :count).by(2)
+        expect(Resque).to receive(:enqueue).exactly(2).times
+        post :send_invitations, {:id => @story.to_param, :email_list => valid_invitations[:email_list]}, valid_session
       end
 
       it "sends email invitaion for each email" do
@@ -197,9 +196,10 @@ RSpec.describe Manage::StoriesController, type: :controller do
       end
 
       it "skips sending  email invitaion for users already send an email" do
-        # Invitation.create!(email: 'jonathan@test.edu', story: @story, user: @user)
+        expect(Resque).to receive(:enqueue).exactly(2).times
+        post :send_invitations, {:id => @story.to_param, :email_list => valid_invitations[:email_list]}, valid_session
         # expect {
-        #   post :send_invitations, {:id => @story.to_param, :email_list => valid_invitations[:email_list]}, valid_session
+        #
         # }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
 

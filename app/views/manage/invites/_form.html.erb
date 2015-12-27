@@ -1,18 +1,3 @@
 <%= form_for([:manage, @invite]) do |f| %>
-  <% if @invite.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@invite.errors.count, "error") %> prohibited this invite from being saved:</h2>
-
-      <ul>
-      <% @invite.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
     <%= f.submit "Create a New Invite Key", class: 'button large success' %>
-    <%= link_to 'Back', manage_invites_path, class: 'button large secondary' %>
-  </div>
 <% end %>

@@ -36,7 +36,9 @@ module Manage
     end
 
     def send_invitations
-      Resque.enqueue(InvitationWorker, params[:email_list], params[:message], @story.id, active_user.id )
+      params[:email_list].each_line do | email |
+        Resque.enqueue(InvitationWorker, email, params[:message], @story.id, active_user.id ) unless @story.invitations.find_by(email: email.strip)
+      end
       # params[:email_list].each_line do | email |
       #   invitation = Invitation.create!(email: email.strip, message: params[:message], story: @story, user: active_user) unless @story.invitations.find_by(email: email.strip)
       #   NotifierMailer.invite(@story, email.strip, params[:message]).deliver_now if invitation

@@ -49,9 +49,15 @@ RSpec.describe Manage::InvitesController, type: :controller do
         expect(assigns(:invite)).to be_persisted
       end
 
-      it "redirects to the created invite" do
+      it "ties a newly created invite creating users" do
         post :create, {:invite => valid_attributes}, valid_session
-        expect(response).to redirect_to(manage_invite_path(Invite.last))
+
+        expect(assigns(:invite).creator).to eq user
+      end
+
+      it "redirects to back to list" do
+        post :create, {:invite => valid_attributes}, valid_session
+        expect(response).to redirect_to(manage_invites_path)
       end
     end
 
