@@ -14,10 +14,11 @@
     <div class="small-12 medium-12 columns">
       <p><%= simple_format(subscription.story.teaser) %></p>
 
-      <p>There are a total of <%= subscription.chapters.count %> chapters
+      <p>There are a total of <%= pluralize(subscription.chapters.count, "chapter") %>
       <% if subscription.last_voted_chapter_number %>
         and you last voted for  Chapter <%= subscription.last_voted_chapter_number %>
-      <% end %>. This story was updated on <%= "#{subscription.story.updated_at.strftime('%D')} at #{subscription.story.updated_at.strftime('%r')}"  %>.
+      <% end %>.
+      This story was updated on <%= "#{subscription.story.updated_at.strftime('%D')} at #{subscription.story.updated_at.strftime('%r')}"  %>.
       </p>
       <div class="row">
         <div class="small-12 medium-3 medium-offset-6 columns">
