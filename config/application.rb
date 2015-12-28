@@ -26,7 +26,7 @@ module Adventure
     config.action_mailer.smtp_settings = {
         :address              => "smtp.gmail.com",
         :port                 => 587,
-        :user_name            => "whatnext@arpcentral.net",
+        :user_name            => "whatnextapp@arpcentral.net",
         :password             => ENV['GMAIL_PWD'],
         :authentication       => :plain,
         :enable_starttls_auto => true
