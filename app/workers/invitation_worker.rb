@@ -2,7 +2,7 @@ class InvitationWorker
   @queue = "mail_queue_#{Rails.env}".to_sym
 
   def self.perform(email, message, story_id, user_id)
-    puts "send invites to #{email_list}"
+    puts "send invite to #{email}"
     @story = Story.find(story_id)
     @user = User.find(user_id)
 
