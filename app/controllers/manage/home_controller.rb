@@ -7,9 +7,15 @@ module Manage
     end
 
     def test_mail
-      NotifierMailer.welcome(active_user).deliver_now
-      flash[:message] = "You should receive a test welcome email now"
-      redirect_to manage_dashboard_path
+      begin
+        NotifierMailer.welcome(active_user).deliver_now
+        flash[:message] = "You should receive a test welcome email now"
+        redirect_to manage_dashboard_path
+
+      rescue => e
+        puts e
+        flash[:message] = "Failure!!!! #{e}"
+        redirect_to manage_dashboard_path
     end
 
     def test_worker
