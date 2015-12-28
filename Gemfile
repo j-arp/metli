@@ -18,6 +18,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'foreman'
 gem 'resque', :require => 'resque/server'
 gem 'resque-web', require: 'resque_web'
+gem 'resque_mailer'
 
 gem 'chronic'
 gem 'truncate_html'

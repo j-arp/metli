@@ -28,10 +28,10 @@ class VotesController < ActiveUsersController
   end
 
   def send_email
-    NotifierMailer.voting_completed(@chapter, @story.user).deliver_now
+    NotifierMailer.voting_completed(@chapter.id, @story.user.id).deliver
   end
 
   def send_alert
-    NotifierMailer.vote_happened(@chapter, @story.user).deliver_now
+    NotifierMailer.vote_happened(@chapter.id, @story.user.id).deliver
   end
 end

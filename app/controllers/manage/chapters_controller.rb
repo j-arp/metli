@@ -156,7 +156,7 @@ module Manage
 
       def notify
         @story.users.with_email_notifications.each do | user |
-          NotifierMailer.new_chapter(@chapter, user).deliver_now
+          NotifierMailer.new_chapter(@chapter.id, user.id).deliver
         end
       end
 

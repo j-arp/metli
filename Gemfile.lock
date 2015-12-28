@@ -383,6 +383,8 @@ GEM
       resque
       sass-rails
       twitter-bootstrap-rails
+    resque_mailer (2.2.7)
+      actionmailer (>= 3.0)
     resque_spec (0.17.0)
       resque (>= 1.19.0)
       rspec-core (>= 3.0.0)
@@ -511,6 +513,7 @@ DEPENDENCIES
   responders
   resque
   resque-web
+  resque_mailer
   resque_spec
   rspec-activemodel-mocks
   rspec-rails
