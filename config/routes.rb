@@ -55,7 +55,9 @@ Rails.application.routes.draw do
   get '/logout' => 'account#logout', as: :logout
 
   namespace :manage do
-      get '' => 'home#index', as: :bashboard
+      get '' => 'home#index', as: :dashboard
+      get '' => 'home#test_mail', as: :test_mail
+      get '' => 'home#test_worker', as: :test_worker
 
     post 'subscribers/promote' => 'subscribers#promote', as: :promote
     post 'subscribers/relegate' => 'subscribers#relegate', as: :relegate
