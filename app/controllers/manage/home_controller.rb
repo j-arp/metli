@@ -9,14 +9,14 @@ module Manage
     def test_mail
       NotifierMailer.welcome(active_user).deliver_now
       flash[:message] = "You should receive a test welcome email now"
-      redirect_to dashboard_path
+      redirect_to manage_dashboard_path
     end
 
-    def test_workers
-      notice = NotifierMailer.voting_completed(@chapter, @story.user)
-      EmailWorker.enqueue(notice)
+    def test_worker
+      # notice = NotifierMailer.welcome(active_user)
+      Resque.enqueue(MailableWorker, 'welcome', user_id: active_user.id)
       flash[:message] = "You should receive a scheduled test welcome email now"
-      redirect_to dashboard_path
+      redirect_to manage_dashboard_path
     end
   end
 end

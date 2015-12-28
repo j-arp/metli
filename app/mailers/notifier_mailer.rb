@@ -1,8 +1,8 @@
 class NotifierMailer < ApplicationMailer
   default from: "whatnext@arpcentral.net"
 
-  def welcome(user)
-     @user = user
+  def welcome(user_id)
+     @user = User.find(user_id)
      mail(to: @user.email, bcc: 'whatnext@arpcentral.net',  subject: "Welcome to 'What Next?' The Worlds first and only Choose-Our_Adventur Web App.")
   end
 

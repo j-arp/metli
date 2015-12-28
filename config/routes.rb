@@ -56,8 +56,8 @@ Rails.application.routes.draw do
 
   namespace :manage do
       get '' => 'home#index', as: :dashboard
-      get '' => 'home#test_mail', as: :test_mail
-      get '' => 'home#test_worker', as: :test_worker
+      get '/test/email' => 'home#test_mail', as: :test_mail
+      get '/test/worker' => 'home#test_worker', as: :test_worker
 
     post 'subscribers/promote' => 'subscribers#promote', as: :promote
     post 'subscribers/relegate' => 'subscribers#relegate', as: :relegate
