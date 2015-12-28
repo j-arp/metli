@@ -10,8 +10,8 @@ module Account
 
     def available
       @available_stories = active_user.available_stories
-      #NotifierMailer.welcome(user).deliver_now
     end
+    
     def add
       @subscription = active_user.subscribe_to(@story, params[:username])
 

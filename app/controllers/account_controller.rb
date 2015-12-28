@@ -34,6 +34,8 @@ class AccountController < ActiveUsersController
       @user.last_login_at = Time.now
       @user.save!
 
+      NotifierMailer.welcome(@user).deliver_now if @user.new_record?
+      
     if @user
       set_session(@user)
       flash[:message] = "You have been logged in!"
