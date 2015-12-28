@@ -16,6 +16,7 @@ module Manage
         puts e
         flash[:message] = "Failure!!!! #{e}"
         redirect_to manage_dashboard_path
+      end
     end
 
     def test_worker
