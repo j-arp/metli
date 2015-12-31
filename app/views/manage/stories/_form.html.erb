@@ -15,6 +15,12 @@
   <% end %>
 
   <div class="row">
+    <div class="panel callout small-12 medium-10 medium-offset-2 columns text-center">
+      <p>You need to request a new story code to create one. If you don't have one, request one <%= link_to 'Here', request_code_manage_stories_path %></p>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="small-12 medium-2 medium-text-right columns">
       <%= f.label :name %>
     </div>
@@ -102,7 +108,7 @@
       <%= label_tag "Invite Code" %>
       </div>
       <div class="small-8 medium-4 columns end">
-        <%= text_field_tag :invite_code %>
+        <%= text_field_tag :invite_code, params.fetch(:code, '') %>
         <p class="input-hint">For now, to create a new story, you need an invite code. Contact someone in the know if interested</p>
       </div>
     </div>

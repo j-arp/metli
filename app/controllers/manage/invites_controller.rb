@@ -31,6 +31,19 @@ module Manage
        flash[:message] =  'Invite was successfully created.'
     end
 
+    def approve
+      @invite = Invite.find(params[:id])
+      unless @invite.sent?
+        NotifierMailer.new_story_code_created(@invite.id).deliver
+      end
+
+      @invite.sent=true
+      @invite.save
+
+      flash[:message] =  'Invite was approved and sent to user.'
+      redirect_to manage_invites_path
+
+    end
     # DELETE /invites/1
     # DELETE /invites/1.json
     def destroy

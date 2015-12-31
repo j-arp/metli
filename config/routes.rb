@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   end
 
   get '/account' => 'account#index', as: :account
-  get '/account/profile' => 'account#profile', as: :profile
+  get '/account' => 'account#index', as: :profile
   put '/account/profile' => 'account#update_profile', as: :update_profile
   get '/login' => 'account#login', as: :login
   post '/login' => 'account#process_login', as: :process_login
@@ -63,11 +63,18 @@ Rails.application.routes.draw do
     post 'subscribers/relegate' => 'subscribers#relegate', as: :relegate
 
     resources :comments
-    resources :invites
+    resources :invites do
+      member do
+        post 'approve' => 'invites#approve', as: :approve
+      end
+    end
+
     resources :users
     resources :stories do
       collection do
         get :all
+        get 'request' => 'stories#request_code', as: :request_code
+        post 'request' => 'stories#create_code', as: :create_code
       end
       member do
         get :subscribers

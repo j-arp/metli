@@ -38,7 +38,6 @@ RSpec.describe StoryController, type: :controller do
     it "leaves out chapters that are not published in  @subscriptions" do
       @other_story.chapters.update_all(published_on: nil)
       get :choose, {}, valid_session
-      puts assigns(:subscriptions).count
       expect(assigns(:subscriptions).count).to eq 1
     end
 

@@ -8,6 +8,14 @@ class Invite < ActiveRecord::Base
     used
   end
 
+  def sent?
+    sent
+  end
+
+  def user_requested?
+    user_requested
+  end
+
   private
 
   def generate_key

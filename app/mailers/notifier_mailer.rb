@@ -32,4 +32,13 @@ class NotifierMailer < ApplicationMailer
       mail(to: email, bcc: 'whatnextapp@arpcentral.net',  subject: "You have been invited to join a story on 'What Next?'")
   end
 
+  def new_story_code_request(user_name)
+    @user = user_name
+    mail(to: 'whatnextapp@arpcentral.net',   subject: "Someone has requested a New Story Code for 'What Next?'")
+  end
+
+  def new_story_code_created(invite_id)
+    @invite = Invite.find(invite_id)
+    mail(to: @invite.user.email,  bcc: 'whatnextapp@arpcentral.net',  subject: "Here is your New Story Code for 'What Next?'")
+  end
 end

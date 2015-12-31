@@ -31,6 +31,23 @@ module Manage
     def edit
     end
 
+    def request_code
+
+    end
+
+    def create_code
+      @invite = Invite.new(user_requested: true, creator: active_user, user: active_user)
+
+      if @invite.save
+        NotifierMailer.new_story_code_request(user_name: active_user.full_name).deliver
+        flash[:message] = "An invite code willbe sent to you at #{active_user.email}. Once you receive it, you can start your amazing story."
+        redirect_to profile_path
+      else
+        flash[:message] = "Sorry but an invite code could not be created. Please try again later"
+        redirect_to manage_request_code_path
+      end
+    end
+
     def invitations
       @invitations = @story.invitations
     end
@@ -45,7 +62,6 @@ module Manage
     # POST /stories
     # POST /stories.json
     def create
-
       @story = Story.new(story_params)
       @story.active = true
       @story.user = active_user

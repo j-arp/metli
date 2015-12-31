@@ -12,6 +12,39 @@ RSpec.describe Manage::StoriesController, type: :controller do
     {name: ''}
   }
 
+
+  describe "Request Chapter code" do
+
+    it "Displays a request invite page" do
+      get :request_code, {}, valid_session.merge(user_id: @user.id)
+
+    end
+
+    it "generates and saves a request code" do
+      expect {
+        post :create_code, {}, valid_session.merge(user_id: @user.id)
+      }.to change(Invite, :count).by(1)
+
+    end
+
+    it "sends email out to admins" do
+      expect(NotifierMailer).to receive(:new_story_code_request).once.with(user_name: @user.full_name).and_call_original
+      post :create_code, {}, valid_session.merge(user_id: @user.id)
+    end
+
+    it "sets active user as createor" do
+      post :create_code, {}, valid_session.merge(user_id: @user.id)
+      expect(assigns(:invite).creator).to eq @user
+    end
+
+    it "sets active user as user" do
+      post :create_code, {}, valid_session.merge(user_id: @user.id)
+      expect(assigns(:invite).user).to eq @user
+
+    end
+
+  end
+
   describe "GET #index" do
     it "assigns all stories as @stories" do
       get :index, {}, valid_session.merge(user_id: @author.id)

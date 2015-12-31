@@ -13,7 +13,6 @@ class AccountController < ActiveUsersController
   end
 
   def login
-    puts "get login form"
   end
 
   def callback
@@ -70,9 +69,6 @@ class AccountController < ActiveUsersController
   end
 
   def info_from_facebook
-    #puts ">>>>>>>>>>>>>>>>>>>>get info from facebook #{request.env["omniauth.auth"][:info]}"
-    #puts ">>>>>>>>>>>>> getting #{request.env["omniauth.auth"][:info][:name]} with email of #{request.env["omniauth.auth"][:info][:email]}"
-    puts "request info: #{request.env["omniauth.auth"][:info].inspect }"
     {
       email: request.env["omniauth.auth"][:info][:email],
       first_name: request.env["omniauth.auth"][:info][:name].split(" ").first,

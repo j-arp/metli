@@ -1,6 +1,9 @@
 require 'rails_helper'
+require 'support/user_with_supscriptions_context'
 
 RSpec.describe Manage::InvitesController, type: :controller do
+  include_context "user_with_supscriptions"
+
   let(:valid_attributes) {
     {}
   }
@@ -25,6 +28,29 @@ RSpec.describe Manage::InvitesController, type: :controller do
       get :show, {:id => invite.to_param}, valid_session
       expect(assigns(:invite)).to eq(invite)
     end
+  end
+
+  describe "Post #approve" do
+    it "mark invite as sent" do
+      invite = FactoryGirl.create(:invite, {sent: false, user_requested: true, creator: @author, user: @author})
+      post :approve, {:id => invite.to_param}, valid_session
+      expect(assigns(:invite).sent).to eq true
+    end
+
+    it "send an email to user" do
+      invite = FactoryGirl.create(:invite, {sent: false, user_requested: true, creator: @author, user: @author})
+      expect(NotifierMailer).to receive(:new_story_code_created).once.with(invite.id).and_call_original
+      post :approve, {:id => invite.to_param}, valid_session
+    end
+
+    it "wont send an email to user if already sent" do
+      invite = FactoryGirl.create(:invite, {sent: true, user_requested: true, creator: @author, user: @author})
+      expect(NotifierMailer).to_not receive(:new_story_code_created)
+      post :approve, {:id => invite.to_param}, valid_session
+
+    end
+
+
   end
 
   describe "GET #new" do
