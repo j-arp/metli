@@ -11,6 +11,13 @@ class StoryController < ActiveUsersController
   def choose
     @subscriptions = active_user.subscriptions.decorate.select { | sub | !sub.story.chapters.published.empty? }
     @subscriptions.sort_by! { | s | s.story.updated_at }.reverse!
+    @all_active_stories = Story.recently_completed_and_active.sort_by { |s| s.updated_at }
+    @all_completed_stories = Story.all_completed.sort_by { |s| s.updated_at }
+  end
+
+  def full
+    @story = Story.find_by_permalink(params[:permalink]).decorate
+    @chapters = ChapterDecorator.decorate_collection(@story.chapters)
   end
 
   def set_current_story_id

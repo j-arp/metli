@@ -1,0 +1,21 @@
+<h1><%= @story.name %></h1>
+
+
+<% @chapters.reverse.each do | chapter | %>
+<div class="full-chapter">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Chapter <%= chapter.number %>: <%= chapter.title %></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-8 columns">
+      <%=raw chapter.content %>
+    </div>
+    <div class="small-12 medium-4 columns">
+      <h3>Voting</h3>
+      <%= raw(chapter.call_to_action.chart) %>
+    </div>
+  </div>
+</div>
+<% end %>

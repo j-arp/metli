@@ -1,5 +1,6 @@
 class ChapterDecorator < Draper::Decorator
   delegate_all
+  decorates_association :call_to_action
 
   # Define presentation-specific methods here. Helpers are accessed through
   # `helpers` (aka `h`). You can override attributes, for example:

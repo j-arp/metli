@@ -1,0 +1,23 @@
+<% stories.each_with_index do | story, i | %>
+<div class="story-list-item  story-not-shown">
+  <div class="row">
+    <div class="small-12 columns">
+          <h4><%= link_to story.name, read_full_story_path(story) %></h4>
+    </div>
+
+    <div class="small-12 columns">
+          <ul class="small-script small-block-grid-2">
+            <li>Author:<br><%= story.user %></li>
+            <li>Last Updated:<br><%= story.updated_at.strftime('%D') %></li>
+          </ul>
+    </div>
+
+    <div class="small-12 columns">
+      <%=raw '<span class="label radius">Active</span>' unless story.completed %>
+      <%=raw '<span class="label secondary radius">Completed</span>' if story.completed %>
+      <%=raw '<span class="label success radius">Subscribed</span>' unless @subscriptions.select{ | s | s.story_id == story.id }.empty? %>
+    </div>
+  </div>
+</div>
+
+<% end %>

@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get 'story/chapter/:number'  => 'story#chapter', as: :read_chapter
   get 'story/:story/chapter/:number'  => 'story#story_chapter', as: :read_story_chapter
   get 'story/:story/latest'  => 'story#latest', as: :read_latest_chapter
+  get 'story/:permalink/full'  => 'story#full', as: :read_full_story
 
   get 'story' => 'story#index', as: :story
   get 'story/about' => 'story#about', as: :about_story

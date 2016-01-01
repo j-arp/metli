@@ -12,8 +12,14 @@ class Story < ActiveRecord::Base
   validates :name, uniqueness: true
 
 
-  scope :available_for, -> (user) { where.not(id: user.stories.map(&:id)) }
+  scope :available_for, -> (user) { where(completed: false).where.not(id: user.stories.map(&:id)) }
   scope :by_activity, -> { order('updated_at desc') }
+  scope :all_completed, -> { where(completed: true) }
+  scope :recently_completed, -> { where(completed: true).where("updated_at > ?",  Time.now - 7.days) }
+  scope :active_now, -> { where(active: true, completed: false) }
+  scope :recently_completed_and_active, -> { Story.active_now + Story.recently_completed}
+
+  scope :chronologically, -> {order('updated_at desc')}
 
   has_permalink :name
 

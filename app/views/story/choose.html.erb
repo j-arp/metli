@@ -1,44 +1,70 @@
-<%= render partial: 'nav',  locals: {title: "Subscribed Stories", links: %w()} %>
+<h1>Your Subscribed Stories</h1>
 
-<p>You have joined the following stories</p>
+<div class="row">
+  <div class="small-12 medium-8 columns">
 
-<% @subscriptions.each do | subscription | %>
-  <%= form_tag :set_current_story do %>
-  <%= hidden_field_tag :id, subscription.story.id %>
+    <p>You have joined the following stories</p>
 
-  <div class="row bottom-seperator">
-    <div class="small-12 medium-12 columns">
-      <h3><%= subscription.story.name %></h3>
-    </div>
+    <% @subscriptions.each do | subscription | %>
+      <%= form_tag :set_current_story do %>
+      <%= hidden_field_tag :id, subscription.story.id %>
 
-    <div class="small-12 medium-12 columns">
-      <p><%= simple_format(subscription.story.teaser) %></p>
-
-      <p>There are a total of <%= pluralize(subscription.chapters.count, "chapter") %>
-      <% if subscription.last_voted_chapter_number %>
-        and you last voted for  Chapter <%= subscription.last_voted_chapter_number %>
-      <% end %>.
-      This story was updated on <%= "#{subscription.story.updated_at.strftime('%D')} at #{subscription.story.updated_at.strftime('%r')}"  %>.
-      </p>
-      <div class="row">
-        <div class="small-12 medium-3 medium-offset-6 columns">
-          <% if subscription.next_chapter %>
-            <%= link_to "Up Next!  Chapter: #{subscription.next_chapter.number}", read_story_chapter_path(subscription.story, subscription.next_chapter.number), class: 'button radius expand' %>
-          <% elsif subscription.next_chapter.nil? %>
-            <%= link_to "Read the Last Chapter", read_story_chapter_path(subscription.story, subscription.last_chapter.number), class: 'button radius expand' %>
-          <% end %>
+      <div class="row bottom-seperator">
+        <div class="small-12 medium-12 columns">
+          <h3><%= subscription.story.name %></h3>
         </div>
-        <div class="small-12 medium-3 columns">
-          <%= submit_tag 'See a List of Chapters', class: 'button radius secondary expand' %>
+
+        <div class="small-12 medium-12 columns">
+          <p><%= simple_format(subscription.story.teaser) %></p>
+
+          <p>There are a total of <%= pluralize(subscription.chapters.count, "chapter") %>
+          <% if subscription.last_voted_chapter_number %>
+            and you last voted for  Chapter <%= subscription.last_voted_chapter_number %>
+          <% end %>.
+          This story was updated on <%= "#{subscription.story.updated_at.strftime('%D')} at #{subscription.story.updated_at.strftime('%r')}"  %>.
+          </p>
+          <div class="row">
+            <div class="small-12 medium-4 medium-offset-4 columns">
+              <% if subscription.next_chapter %>
+                <%= link_to "Up Next!  Chapter: #{subscription.next_chapter.number}", read_story_chapter_path(subscription.story, subscription.next_chapter.number), class: 'button radius expand' %>
+              <% elsif subscription.next_chapter.nil? %>
+                <%= link_to "Read the Last Chapter", read_story_chapter_path(subscription.story, subscription.last_chapter.number), class: 'button radius expand' %>
+              <% end %>
+            </div>
+            <div class="small-12 medium-4 columns">
+              <%= submit_tag 'See a List of Chapters', class: 'button radius secondary expand' %>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="small-12 medium-3 text-right columns">
+
         </div>
       </div>
+    <% end -%>
+    <% end -%>
 
-
-    </div>
-
-    <div class="small-12 medium-3 text-right columns">
-
-    </div>
   </div>
-<% end -%>
-<% end -%>
+  <div class="small-12 medium-4 columns">
+
+    <div id="active-story-list" class="row story-list">
+      <div class="small-12 columns">
+        <h2>Active Stories</h2>
+        <%= render partial: 'story_list', locals: {id: 'active-story-list', stories: @all_active_stories} %>
+        <button class="show-more tiny secondary radius right" target="active-story-list">Show More</button>
+      </div>
+    </div>
+
+    <div id="completed-story-list" class="row  story-list">
+      <div class="small-12 columns">
+        <h2>Completed Stories</h2>
+        <%= render partial: 'story_list', locals: {id: 'completed-story-list', stories: @all_completed_stories} %>
+        <button class="show-more tiny  secondary radius right" target="completed-story-list">Show More</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>
