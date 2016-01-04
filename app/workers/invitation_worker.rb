@@ -6,7 +6,7 @@ class InvitationWorker
     @user = User.find(user_id)
 
       invitation = Invitation.create!(email: email.strip, message: message, story: @story, user: @user)
-      NotifierMailer.invite(@story, email.strip, message).deliver_now if invitation
+      NotifierMailer.invite(@story, email.strip, message).deliver if invitation
 
   end
 end
