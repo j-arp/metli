@@ -10,8 +10,14 @@ module Manage
         stories: Story.count,
         views: View.count,
         chapters: Chapter.count,
-        subscriptions: Subscription.count        
+        subscriptions: Subscription.count
       }
+    end
+
+    def stats
+      @views = View.unscoped.all
+      @votes = Vote.unscoped.all
+      @users = User.unscoped.all
     end
 
     def test_mail

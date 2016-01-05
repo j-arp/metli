@@ -29,6 +29,9 @@ gem 'foundation-rails'
 gem 'jquery-ui-rails'
 gem 'responders'
 
+gem 'chartkick'
+gem 'groupdate'
+
 gem 'aws-ses'
 gem 'exception_notification'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

@@ -57,6 +57,7 @@ Rails.application.routes.draw do
 
   namespace :manage do
       get '' => 'home#index', as: :dashboard
+      get '/stats' => 'home#stats', as: :stats
       get '/test/email' => 'home#test_mail', as: :test_mail
       get '/test/worker' => 'home#test_worker', as: :test_worker
 

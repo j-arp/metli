@@ -72,6 +72,7 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    chartkick (1.4.1)
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -230,6 +231,8 @@ GEM
     git-version-bump (0.15.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    groupdate (2.5.0)
+      activesupport (>= 3)
     growl (1.0.3)
     guard (2.13.0)
       formatador (>= 0.2.4)
@@ -483,6 +486,7 @@ DEPENDENCIES
   byebug
   capybara
   carrierwave
+  chartkick
   chronic
   ckeditor!
   coffee-rails (~> 4.1.0)
@@ -494,6 +498,7 @@ DEPENDENCIES
   font-awesome-rails
   foreman
   foundation-rails
+  groupdate
   growl
   guard-rspec
   has_permalink

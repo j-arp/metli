@@ -6,16 +6,17 @@
   <% end %>
 </ul>
 
+<p class="text-center"><%= link_to "View more Stats", manage_stats_path %></p>
+
 
 
 <div class="row">
   <div class="small-12 medium-4 columns">
-      <h2>Newest Users</h2>
+    <h2>Newest Users</h2>
 
-        <% @newest_users.each do | user | %>
-          <%= render partial: 'user_capsule', locals: {user: user} %>
-        <% end %>
-
+      <% @newest_users.each do | user | %>
+        <%= render partial: 'user_capsule', locals: {user: user} %>
+      <% end %>
   </div>
 
   <div class="small-12 medium-4 columns">
