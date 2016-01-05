@@ -1,17 +1,24 @@
-<h2>Your Stories</h2>
+<div class="row">
+  <div class="small-12 columns">
+    <h1>Current Stories</h1>
+    <%= render partial: @stories, locals: {tools: true} unless @stories.empty? %>
+  </div>
+</div>
 
 <div class="row">
   <div class="small-12 columns">
-    <%= render partial: @stories, locals: {tools: true} unless @stories.empty? %>
-
-    <% if @stories.empty? %>
-      <p><%= link_to 'Create your first story', new_manage_story_path %> and invite people to join!</p>
-    <% end %>
-
+    <h2>Completed Stories</h2>
+    <%= render partial: @completed_stories, locals: {tools: false, compact: true} unless @completed_stories.empty? %>
   </div>
-
-  <div class="small-12 columns text-right">
-    <%= link_to 'New Story', new_manage_story_path, class: 'button success' %>
-  </div>
-
 </div>
+
+<div class="row space-on-top">
+    <div class="small-12 columns text-center">
+<% if @stories.empty? %>
+        <p><%= link_to 'Create your first story', new_manage_story_path %> and invite people to join!</p>
+<% else %>
+    <%= link_to 'Begin a Brand New Story', new_manage_story_path, class: 'button large success' %>
+<% end %>
+
+    </div>
+  </div>

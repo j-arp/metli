@@ -29,6 +29,19 @@ class User < ActiveRecord::Base
     return stories
   end
 
+  def active_authored_stories
+    stories = []
+    s = subscriptions.where(author: true)
+    s.each { |sub| stories << sub.story unless sub.story.completed? }
+    return stories
+  end
+
+  def completed_authored_stories
+    stories = []
+    s = subscriptions.where(author: true)
+    s.each { |sub| stories << sub.story if sub.story.completed? }
+    return stories
+  end
   def available_stories
     Story.all.where.not(id: stories)
   end

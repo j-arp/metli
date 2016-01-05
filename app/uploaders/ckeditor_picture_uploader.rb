@@ -15,7 +15,7 @@ class CkeditorPictureUploader < CarrierWave::Uploader::Base
   end
 
   def store_dir
-    "uploads/#{model.assetable_type}/chapters/#{model.assetable_id}/"
+    "uploads/#{model.assetable_type}/#{model.assetable_id}-#{model.assetable.name.parameterize}/"
   end
 
   # Override the directory where uploaded files will be stored.

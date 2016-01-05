@@ -10,20 +10,27 @@
 
 <div id="action-fields">
   <% @chapter.actions.each  do | action | %>
-  <div>
-    <div class="small-12 medium-10 medium-offset-2 columns">
-        Action:
-          <%= text_field_tag "calls_to_action[]", action.content  %>
-          <%= hidden_field_tag "calls_to_action_ids[]", action.id  %>
+
+  <div class="row">
+    <div class="small-12 medium-2 medium-text-right columns">
+      <%= label_tag :action, 'Current Action', class: 'inline' %>
+    </div>
+    <div class="small-12 medium-10 columns">
+      <%= text_field_tag "calls_to_action[]", action.content  %>
+      <%= hidden_field_tag "calls_to_action_ids[]", action.id  %>
     </div>
   </div>
+
   <% end -%>
 
 
   <% (6 - @chapter.actions.count).times do | cai | %>
-    <div>
-      <div class="small-12 medium-10 medium-offset-2 columns">
-          New Action: <%= text_field_tag "new_calls_to_action[]"  %>
+  <div class="row">
+    <div class="small-12 medium-2  medium-text-right columns">
+      <%= label_tag :action, 'New Action', class: 'inline' %>
+    </div>
+    <div class="small-12 medium-10 columns">
+          <%= text_field_tag "new_calls_to_action[]"  %>
       </div>
     </div>
   <% end -%>

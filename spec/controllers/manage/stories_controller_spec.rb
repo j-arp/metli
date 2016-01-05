@@ -50,6 +50,10 @@ RSpec.describe Manage::StoriesController, type: :controller do
       get :index, {}, valid_session.merge(user_id: @author.id)
       expect(assigns(:stories)).to eq(@author.authored_stories)
     end
+    it "assigns completed stories as @completed_stories" do
+      get :index, {}, valid_session.merge(user_id: @author.id)
+      expect(assigns(:completed_stories)).to_not be_nil
+    end
   end
 
   describe "GET #show" do

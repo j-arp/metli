@@ -10,7 +10,13 @@ class ActiveUsersController < ApplicationController
 
   def active_story
     if session[:active_story_id]
-      @active_story || @active_story = Story.find(session[:active_story_id])
+      begin
+        @active_story || @active_story = Story.find(session[:active_story_id])
+      rescue => e
+        puts e
+        session[:active_story_id] = nil
+      end
+
     end
   end
 

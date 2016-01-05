@@ -6,7 +6,8 @@ module Manage
     # GET /stories
     # GET /stories.json
     def index
-        @stories = active_user.authored_stories
+        @stories = active_user.active_authored_stories
+        @completed_stories = active_user.completed_authored_stories
     end
 
     def subscribers

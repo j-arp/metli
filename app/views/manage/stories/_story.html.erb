@@ -2,8 +2,24 @@
 
   <div class="row title collapse">
     <div class="small-12 medium-12 columns">
-      <h3><%= story.name %></h3>
-      <%= simple_format(story.teaser) %>
+
+      <% if local_assigns.fetch(:compact, false) %>
+      <div class="row">
+        <div class="small-12 medium-9 large-10 columns">
+          <h3><%= story.name %></h3>
+        </div>
+        <div class="small-12 medium-3 large-2 columns text-right">
+          <ul class="inline-list">
+          <li><%= link_to raw("#{fa_icon('clone small')}"), manage_story_path(story) %></li>
+          <li><%= link_to raw("#{fa_icon('book')}"), manage_story_chapters_path(story) %></li>
+          <li><%= link_to raw("#{fa_icon('trash 1x')}"), manage_story_path(story), method: :delete, data: { confirm: 'This will permanently delete your story, chapters and all votes. Are you sure?' } %></li>
+        </ul>
+        </div>
+      </div>
+      <% else %>
+        <h3><%= story.name %></h3>
+        <%= simple_format(story.teaser) %>
+      <% end %>
     </div>
   </div>
 
