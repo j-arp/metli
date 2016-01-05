@@ -1,5 +1,12 @@
 <h1>Dashboard</h1>
 
+<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-6 panel" >
+  <% @counts.each_key do | key | %>
+    <li class="text-center">Total <%= key %><br/> <b><%= @counts[key] %></b></li>
+  <% end %>
+</ul>
+
+
 
 <div class="row">
   <div class="small-12 medium-4 columns">

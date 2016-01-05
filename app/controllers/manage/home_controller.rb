@@ -4,6 +4,14 @@ module Manage
       @active_users = User.unscoped.active.by_activity.limit(10)
       @newest_users = User.unscoped.active.order('created_at DESC').limit(10)
       @recent_stories = Story.by_activity.limit(10)
+      @counts = {
+        users: User.count,
+        votes: Vote.count,
+        stories: Story.count,
+        views: View.count,
+        chapters: Chapter.count,
+        subscriptions: Subscription.count        
+      }
     end
 
     def test_mail
