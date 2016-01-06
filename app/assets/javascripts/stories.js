@@ -39,4 +39,9 @@ $(document).ready(function(){
   })
 
 
+$('#show-all-completed-stories').click(function(){
+  $('.story-completed').fadeIn();
+  $(this).fadeOut();
+})
+
 })

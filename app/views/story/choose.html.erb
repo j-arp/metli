@@ -3,26 +3,28 @@
 <div class="row">
   <div class="small-12 medium-8 columns">
 
-    <p>You have joined the following stories</p>
+    <p>You have subscribed to the following active stories. <a class="underline" id="show-all-completed-stories">Show all completed stories</a> </p>
 
     <% @subscriptions.each do | subscription | %>
       <%= form_tag :set_current_story do %>
       <%= hidden_field_tag :id, subscription.story.id %>
 
-      <div class="row bottom-seperator">
+      <div class="row bottom-seperator <%= subscription.story.completed? ? 'story-completed' : 'story-active' %> ">
         <div class="small-12 medium-12 columns">
           <h3><%= subscription.story.name %></h3>
         </div>
-
         <div class="small-12 medium-12 columns">
-          <p><%= simple_format(subscription.story.teaser) %></p>
 
-          <p>There are a total of <%= pluralize(subscription.chapters.count, "chapter") %>
-          <% if subscription.last_voted_chapter_number %>
-            and you last voted for  Chapter <%= subscription.last_voted_chapter_number %>
-          <% end %>.
-          This story was updated on <%= "#{subscription.story.updated_at.strftime('%D')} at #{subscription.story.updated_at.strftime('%r')}"  %>.
-          </p>
+              <p><%= simple_format(subscription.story.teaser) %></p>
+
+              <p>There are a total of <%= pluralize(subscription.chapters.count, "chapter") %>
+              <% if subscription.last_voted_chapter_number %>
+                and you last voted for  Chapter <%= subscription.last_voted_chapter_number %>
+              <% end %>.
+              This story was updated on <%= "#{subscription.story.updated_at.strftime('%D')} at #{subscription.story.updated_at.strftime('%r')}"  %>.
+              </p>
+
+
           <div class="row">
             <div class="small-12 medium-4 medium-offset-4 columns">
               <% if subscription.next_chapter %>

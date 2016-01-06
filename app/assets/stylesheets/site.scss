@@ -16,6 +16,8 @@ header {
   }
 }
 
+a.underline, a:hover.underline, a:visited.underline {text-decoration: underline}
+.story-completed {display: none;}
 .section-like {border-left: thin solid  #f9f9f9}
 ul.collapse {
   margin-bottom:20px;

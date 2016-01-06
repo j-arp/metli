@@ -9,7 +9,7 @@ class StoryController < ActiveUsersController
   end
 
   def choose
-    @subscriptions = active_user.subscriptions.decorate.select { | sub | !sub.story.chapters.published.empty? }
+    @subscriptions = active_user.subscriptions.decorate.select { | sub | !sub.story.chapters.published.empty? }.sort_by {|s| s.story.completed? ? 0 : 1}
     @subscriptions.sort_by! { | s | s.story.updated_at }.reverse!
     @all_active_stories = Story.recently_completed_and_active.sort_by { |s| s.updated_at }
     @all_completed_stories = Story.all_completed.sort_by { |s| s.updated_at }
