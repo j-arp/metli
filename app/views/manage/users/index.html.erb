@@ -11,6 +11,7 @@
       <th>Last name</th>
       <th>Email</th>
       <th>Actvity Level</th>
+      <th>Total Votes</th>
       <th>Subscribed</th>
       <th>Authored </th>
       <th>Super User</th>
@@ -26,7 +27,8 @@
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.email %></td>
-        <td><%= (((user.votes.count.to_f / Vote.all.count.to_f) * 10).to_f).round() %></td>
+        <td><%= user.activity_level %></td>
+        <td><%= user.votes.count %></td>
         <td><%= user.subscriptions.count %></td>
         <td><%= user.authored_stories.count %></td>
         <td><%= user.super_user %></td>

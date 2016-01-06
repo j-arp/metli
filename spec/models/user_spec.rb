@@ -7,6 +7,31 @@ RSpec.describe User, type: :model do
   }
 
 
+  describe "Activity Level" do
+
+    before(:each) do
+      @user = FactoryGirl.build(:user)
+      Vote.stub(:count).and_return(10)
+    end
+
+    it 'returns 0 (a numeric value based on votes, views, etc) for a new user' do
+      expect(@user.activity_level).to eq 0
+    end
+
+    it 'returns  40 if case 4 of 10 possible votes' do
+      @user.stub(:votes).and_return(%w(one two three votes))
+      expect(@user.activity_level).to eq 40
+    end
+
+    it 'returns  50 if case 4 of 10 possible votes and authored a story' do
+      @user.stub(:votes).and_return(%w(one two three votes))
+      @user.stub(:authored_stories).and_return(%w(one))
+      expect(@user.activity_level).to eq 50
+    end
+
+  end
+
+
   describe 'scopes' do
     before(:each) do
       3.times do
