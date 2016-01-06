@@ -11,10 +11,12 @@
     <!-- Right Nav Section -->
     <ul class="right">
 
-      <li class=""><a href="/">Home</a></li>
-      <li class=""><a href="/about">About</a></li>
       <% if session[:user_id] %>
-        <li class=""><a href="/story">Read</a></li>
+        <!-- <li class=""><a href="/">Home</a></li> -->
+        <li class=""><a href="/about">About</a></li>
+        <li class=""><a href="/story/choose">Read</a></li>
+      <% else %>
+        <li class=""><a href="/">About</a></li>
       <% end %>
 
       <%= render 'layouts/menu_items' %>

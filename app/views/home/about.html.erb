@@ -1,6 +1,60 @@
-<h1>About 'What Next?'</h1>
+<div class="row">
+  <div class="small-12 medium-12 columns text-center">
+  <p>A social "Choose your own adventure" website</p>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="small-12 medium-12 columns">
+
+    <h2>Basic Concept</h2>
+
+    <p>Join in a forever changing story. A story where the readers have final say. Author write their story in chapters, but must give the readers final say in what happens next.</p>
+    <p>The readers can choose what happens next. Welcome to What Next!</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 medium-4 columns section-like">
+    <h3>Authors</h3>
+    <%= image_tag 'clipart-writer.jpg', class: 'clipart' %>
+
+    <p>As an author, or a clan of authors, you set out to tell a riveting story. But you won’t be the one that decides where it will go. Yes, you heard that right!</p>
+    <p>At the end of each chapter, you must offer up choices to your readers. What do we do?
+    Your readers, not you,  will choose what to do. You must shape your story based on their decisions.</p>
+  </div>
+
+  <div class="small-12 medium-4 columns section-like">
+    <h3>Readers</h3>
+    <%= image_tag 'reader-clipart.svg', class: 'clipart' %>
+      <p>Readers, it your job to become invested in the story. Not only by reading, but be taking an active role in what happens next.</p>
+      <p>At the end of each chapter, you will have a choice of what to do next.</p>
+      <p>Remember those  “choose-your-own-adventure” novel? But this is a democracy. The readers collectively vote on where the story should go.</p>
+  </div>
+
+  <div class="small-12 medium-4 columns section-like">
+    <h3>Voting</h3>
+    <%= image_tag 'vote-box.png', class: 'clipart' %>
+    <p>Like voting in a democracy, each user has a single vote. Once they vote, they can check which plan of action is winning.
+    </p>
+    <p>The author, while still owning the creative process of telling the story, must honor the voice of the people
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 medium-12 columns text-center">
+    <%= link_to "Join in the Fun and Start Writing & Reading!", story_path, class: 'button huge success' %>
+  </div>
+</div>
+
+
+
+
 <div class="row">
   <div class="small-12 columns">
+    <h2>About this Website</h2>
     <p>This is a project concieved by the brillian mind of one Jesse Arp
       and built by his doting and terrible speller, Jonathan Arp.</p>
   </div>
@@ -14,6 +68,7 @@
           <div class="small-12 columns text-center">Jonathan Arp</div>
         </div>
       </div>
+
       <div class="small-6 medium-4 columns end">
         <div class="row">
           <div class="small-12 columns text-center"><%= image_tag 'jesse.png', class: 'folks', width: '100%' %></div>
@@ -22,22 +77,24 @@
       </div>
     </div>
 
+
+    <div class="row">
+      <div class="small-12 columns">
+        <h2>Help Keep this Site Going</h2>
+        <p>Help us fund this site. We have  a couple servers, a database, some Amazon s3 buckets to pay for.</p>
+      </div>
+    </div>
+
     <div class="row">
       <div class="small-10 small-offset-1 medium-offset-1 medium-10 large-offset-2 large-8 columns text-center panel callout end">
-        <p>Enjoying this site?</p>
-        <p>Help us fund this site. We have  a couple servers, a database, some Amazon s3 buckets to pay for.</p>
         <%= render 'shared/paypal' %>
       </div>
     </div>
 
-
-
     <div class="row">
       <div class="small-12 columns">
-        <p>The basic idea is "Choose your Own Adventure" but with a social aspect. The readers will collectively
-          guide the author by voting on what to do next.</p>
-
-        <p>That's all for now...</p>
+        <h2>Want to Help in Other Ways?</h2>
+        <p>You may have noticed I am not a designer. Are you a designer? Front end developer? Copy writer? Drop us a line at <%= link_to "whatnextapp@arpcentral.net", "mailto:whatnextapp@arpcentral.net" %> if you want to contribute</p>
       </div>
     </div>
 
