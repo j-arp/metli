@@ -10,8 +10,9 @@
       <%= hidden_field_tag :id, subscription.story.id %>
 
       <div class="row bottom-seperator <%= subscription.story.completed? ? 'story-completed' : 'story-active' %> ">
+
         <div class="small-12 medium-12 columns">
-          <h3><%= subscription.story.name %></h3>
+          <h2><%= subscription.story.name %></h2>
         </div>
         <div class="small-12 medium-12 columns">
 
@@ -25,19 +26,18 @@
               </p>
 
 
-          <div class="row">
-            <div class="small-12 medium-6 large-4 large-offset-4 columns">
+          <div class="row ">
+            <div class="small-12 medium-6 large-4 large-offset-2 columns">
               <% if subscription.next_chapter %>
-                <%= link_to "Up Next!  Chapter: #{subscription.next_chapter.number}", read_story_chapter_path(subscription.story, subscription.next_chapter.number), class: 'button radius expand' %>
+                <%= link_to "Next Chapter", read_story_chapter_path(subscription.story, subscription.next_chapter.number), class: 'button radius expand' %>
               <% elsif subscription.next_chapter.nil? %>
-                <%= link_to "Read the Last Chapter", read_story_chapter_path(subscription.story, subscription.last_chapter.number), class: 'button radius expand' %>
+                <%= link_to "Latest Chapter", read_story_chapter_path(subscription.story, subscription.last_chapter.number), class: 'button radius expand' %>
               <% end %>
             </div>
-            <div class="small-12 medium-6 large-4 large-offset-4 columns">
-              <%= submit_tag 'See a List of Chapters', class: 'button radius secondary expand' %>
+            <div class="small-12 medium-6 large-4 columns end">
+              <%= submit_tag 'Chapter List', class: 'button radius secondary expand' %>
             </div>
           </div>
-
 
         </div>
 
