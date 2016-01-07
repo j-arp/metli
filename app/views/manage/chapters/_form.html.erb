@@ -54,7 +54,7 @@
     <%= f.label :content %>
     </div>
     <div class="small-12 medium-10 columns">
-      <%= f.cktext_area :content, :ckeditor => {:toolbar => 'mini', rows: 20}, rows: 20 %>
+      <%= f.cktext_area :content, :ckeditor => {:toolbar => 'mini', :height => '700px'} %>
     </div>
   </div>
 
@@ -86,7 +86,7 @@
       <%= render 'actions_form' %>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="small-12 medium-10 medium-offset-2 columns">
     <%= f.submit class: 'button' %>

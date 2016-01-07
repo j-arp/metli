@@ -1,6 +1,14 @@
 $body-font-family: 'Lora';
 $alt-body-font-family: 'Lato';
 
+$primary-color: #6B6A6A;
+$secondary-color: #979393;
+$alert-color: #7C434B;
+$success-color: #42614D;
+$warning-color: #7C5357;
+$info-color: #A0A9C4;
+
+
 //$topbar-height: rem-calc(65);
 // Foundation by ZURB
 // foundation.zurb.com
@@ -120,8 +128,8 @@ $include-html-global-classes: $include-html-classes;
 // $black       : #000000;
 
 // We use these as default colors throughout
- $primary-color: #001345;
- $secondary-color: #3D5699;
+// $primary-color: #001345;
+// $secondary-color: #3D5699;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
 // $warning-color: #f08a24;
