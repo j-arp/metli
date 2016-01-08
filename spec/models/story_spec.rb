@@ -56,4 +56,33 @@ RSpec.describe Story, type: :model do
     end
   end
 
+  describe 'status' do
+
+    before(:each) do
+      @story = FactoryGirl.build(:story)
+      @chatper = FactoryGirl.create(:chapter, {story: @story, published_on: Time.now - 1.day})
+    end
+
+    it "returns 'active'  if story is active and not yet completed" do
+      @story.active = true
+      expect(@story.status).to eq 'Active'
+    end
+
+    it "returns 'competed'  if story is completed" do
+      @story.completed=true
+      expect(@story.status).to eq 'Completed'
+    end
+
+    it "returns 'started'  if story is active but no chpaters" do
+      allow(@story).to receive(:chapters).and_return([])
+      expect(@story.status).to eq 'Started'
+    end
+
+    it "returns 'inactive'  if story is inactive" do
+      @story.active=false
+      @chatper.update(published_on: nil)
+      expect(@story.status).to eq 'Inactive'
+    end
+
+   end
 end
