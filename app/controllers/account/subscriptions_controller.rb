@@ -6,8 +6,6 @@ module Account
 
     def index
       subscriptions = active_user.subscriptions.decorate.group_by { | s | s.story.status }
-      puts subscriptions.inspect
-      puts subscriptions['Completed']
       @subscriptions = subscriptions['Active']
       @past_subscriptions = subscriptions['Completed']
     end

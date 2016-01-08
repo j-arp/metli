@@ -25,9 +25,9 @@ class Story < ActiveRecord::Base
 
 
   def status
+    return 'Completed' if active && completed? ==  true
     return 'Started' if active && chapters.empty?
     return 'Started' if active && chapters.published.empty?
-    return 'Completed' if active && completed? ==  true
     return 'Active' if completed == false && active == true && !chapters.published.empty?
     return 'Inactive' unless active
   end
