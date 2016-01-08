@@ -18,9 +18,12 @@ class User < ActiveRecord::Base
     full_name
   end
 
-  def percent_of_vote
-    puts ">>>>>> #{votes.count.to_f} of all #{Vote.count.to_f} votes casted"
-    ((votes.count.to_f / Vote.count.to_f) * 100).to_f.round()
+  def percent_of_vote(story = nil)
+    if story
+      ((votes.count.to_f / Vote.count.to_f) * 100).to_f.round()
+    else
+      ((votes.count.to_f / Vote.count.to_f) * 100).to_f.round()
+    end
   end
 
   def activity_level

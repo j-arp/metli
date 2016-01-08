@@ -51,6 +51,19 @@
 </div>
 <% end %>
 
+<h2>Completed Stories</h2>
+<% @past_subscriptions.each  do | sub | %>
+<div class="story-details bottom-seperator">
+  <div class="row">
+    <div class="small-10 columns">
+      <h3 class="story-title"><%= sub.story.name %></h3>
+    </div>
+    <div class="small-2 columns">
+      <%= link_to "Read The Story", read_full_story_path(sub.story), class: 'button success tiny' %>
+    </div>
+  </div>
+</div>
+<% end %>
 
 <div class="row">
   <div class="small-12 columns text-right">

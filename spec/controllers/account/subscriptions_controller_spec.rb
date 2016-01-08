@@ -4,13 +4,16 @@ RSpec.describe Account::SubscriptionsController, type: :controller do
 
   before(:each) do
     @story = FactoryGirl.create(:story)
+    @past_story = FactoryGirl.create(:story, {completed: true})
+    @chapter = FactoryGirl.create(:chapter, story_id: @story.id)
     @user = FactoryGirl.create(:user)
   end
 
   describe "GET #index" do
 
     before(:each) do
-      @user.subscribe_to(@story, 'foobar')
+      @active_sub = @user.subscribe_to(@story, 'foobar')
+      @past_sub = @user.subscribe_to(@past_story, 'foobar2')
     end
 
     it "requires an active session" do
@@ -18,9 +21,14 @@ RSpec.describe Account::SubscriptionsController, type: :controller do
       expect(response).to redirect_to login_path
     end
 
-    it "returns subscriptions" do
+    it "returns active subscriptions" do
       get :index, {}, {user_id: @user.id }
-      expect(assigns(:subscriptions)).to eq @user.subscriptions
+      expect(assigns(:subscriptions)).to eq [@active_sub]
+    end
+
+    it "returns past subscriptions" do
+      get :index, {}, {user_id: @user.id }
+      expect(assigns(:past_subscriptions)).to eq [@past_sub]
     end
 
     it "returns subscriptions decorated" do

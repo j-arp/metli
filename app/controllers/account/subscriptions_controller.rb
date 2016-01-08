@@ -5,13 +5,15 @@ module Account
 
 
     def index
-      @subscriptions = active_user.subscriptions.decorate
+      subscriptions = active_user.subscriptions.decorate.group_by { | s | s.story.status }
+      @subscriptions = subscriptions['Active']
+      @past_subscriptions = subscriptions['Completed']
     end
 
     def available
       @available_stories = active_user.available_stories
     end
-    
+
     def add
       @subscription = active_user.subscribe_to(@story, params[:username])
 
@@ -28,8 +30,6 @@ module Account
         flash[:message] = "You cannot subscribe to '#{@story.name}'  with username '#{params[:username]}.'"
         redirect_to account_available_stories_path
       end
-
-
     end
 
     def update

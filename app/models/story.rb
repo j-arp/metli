@@ -23,6 +23,15 @@ class Story < ActiveRecord::Base
 
   has_permalink :name
 
+
+  def status
+    return 'Completed' if active && completed? ==  true
+    return 'Started' if active && chapters.empty?
+    return 'Started' if active && chapters.published.empty?
+    return 'Active' if completed == false && active == true && !chapters.published.empty?
+    return 'Inactive' unless active
+  end
+
   def to_s
     name
   end
