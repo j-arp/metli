@@ -14,10 +14,10 @@
     <ul class="button-group">
       <li><%= link_to( raw(" #{fa_icon('angle-double-left')} Previous"), read_chapter_path(@steps[:prev]), class: 'button tiny secondary success ') if local_assigns.fetch(:links, []).include?('previous') && @steps[:prev] %></li>
       <li><%= link_to( raw("Next #{fa_icon('angle-double-right')}"), read_chapter_path(@steps[:next]), class: 'button tiny secondary success ') if local_assigns.fetch(:links, []).include?('next')  && @steps[:next] %></li>
-      <li><%= link_to( raw("#{fa_icon('mail-reply')} About this Story"), about_story_path, class: 'button tiny secondary ') if local_assigns.fetch(:links, []).include?('about') %></li>
-      <li><%= link_to( raw("#{fa_icon('mail-reply')} Back to Story"), story_path, class: 'button tiny secondary ') if local_assigns.fetch(:links, []).include?('back') %></li>
-      <li><%= link_to( raw(" #{fa_icon('leanpub')} Switch Story"), choose_story_path, class: 'button tiny secondary ') if local_assigns.fetch(:links, []).include?('switch') %></li>
-
+      <li><%= link_to( raw("#{fa_icon('question-circle')} About"), about_story_path, class: 'button tiny secondary ') if local_assigns.fetch(:links, []).include?('about') %></li>
+      <li><%= link_to( raw(" #{fa_icon('leanpub')} Full"), read_full_story_path(@current_story.permalink), class: 'button tiny secondary ') if local_assigns.fetch(:links, []).include?('link') %></li>
+      <li><%= link_to( raw("#{fa_icon('mail-reply')} Back"), story_path, class: 'button tiny secondary ') if local_assigns.fetch(:links, []).include?('back') %></li>
+      <li><%= link_to( raw(" #{fa_icon('navicon')} All Stories"), choose_story_path, class: 'button tiny secondary ') if local_assigns.fetch(:links, []).include?('switch') %></li>
 
     </ul>
   </div>
