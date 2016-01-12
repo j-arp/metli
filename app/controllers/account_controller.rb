@@ -54,7 +54,8 @@ class AccountController < ActiveUsersController
       redirect_to login_path
     end
   rescue => e
-    flash[:message] = "Login could not be processed. Please try again."
+    puts e
+    flash[:message] = "Login could not be processed. Please try again. // #{e}"
     redirect_to login_path
 
   end
