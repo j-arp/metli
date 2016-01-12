@@ -21,6 +21,7 @@ class AccountController < ActiveUsersController
     if provider == 'google'
       info = info_from_the_google
     elsif provider == 'facebook'
+      puts info_from_facebook.inspect
       info = info_from_facebook
     else
       throw 'What is going on?'
@@ -55,7 +56,7 @@ class AccountController < ActiveUsersController
     end
   rescue => e
     puts e
-    flash[:message] = "Login could not be processed. Please try again. // #{e}"
+    flash[:message] = "Login could not be processed. Please try again. // #{e} // #{info}"
     redirect_to login_path
 
   end
